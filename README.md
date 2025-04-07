@@ -8,7 +8,7 @@ The idea is that the clients will
     - create and delete messages inside each structure
 
 ## How to run the project 
-    ### API REST
+### API REST
 
 **UNIX** Go inside `rest_API` and run the following command
 ```console 
