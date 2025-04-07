@@ -1,0 +1,159 @@
+syntax = "proto3";
+
+package mom;
+
+// ID del líder electo
+message leaderID {
+  string node_id = 1;
+  bool is_new_leader = 2;
+  int64 term = 3; // Un término o periodo de liderazgo, útil para algoritmos como Raft
+}
+
+// Mensaje para identificar un nodo
+message Node_ID {
+  string node_id = 1;
+}
+
+// Respuesta con el estado completo del nodo
+message state_response {
+  bool success = 1;
+  string error_message = 2;
+  repeated Topic topics = 3;
+  repeated Queue queues = 4;
+  ClusterState cluster_state = 5;
+}
+
+// Respuesta con información de tópicos
+message topics_response {
+  bool success = 1;
+  string error_message = 2;
+  repeated Topic topics = 3;
+}
+
+// Respuesta con información de colas
+message queues_response {
+  bool success = 1;
+  string error_message = 2;
+  repeated Queue queues = 3;
+}
+
+// Estructura para un mensaje
+message Message {
+  string id = 1;
+  string topic_or_queue_name = 2;
+  bool is_topic = 3;  // true si es un tópico, false si es una cola
+  string content = 4;
+  string sender = 5;
+  int64 timestamp = 6;
+  map<string, string> headers = 7;
+}
+
+
+// Estado de replicación de un mensaje
+message replication_status {
+  string message_id = 1;
+  bool success = 2;
+  string error_message = 3;
+}
+
+// Configuración de un tópico
+message topic_config {
+  string name = 1;
+  string owner = 2;
+  int64 creation_timestamp = 3;
+  int32 partition_count = 4;
+  int32 replication_factor = 5;
+  map<string, string> properties = 6;
+}
+
+// Configuración de una cola
+message queue_config {
+  string name = 1;
+  string owner = 2;
+  int64 creation_timestamp = 3;
+  int32 partition_count = 4;
+  int32 replication_factor = 5;
+  bool is_persistent = 6;
+  int32 max_size = 7;
+  map<string, string> properties = 8;
+}
+
+// Estado de configuración
+message config_status {
+  bool success = 1;
+  string error_message = 2;
+}
+
+// Información de un nodo para unirse al clúster
+message node_info {
+  string node_id = 1;
+  string host = 2;
+  int32 port = 3;
+  map<string, string> capabilities = 4;
+  float version = 5;
+}
+
+// Información del clúster
+message clusterInfo {
+  bool success = 1;
+  string error_message = 2;
+  string leader_id = 3;
+  repeated node_info nodes = 4;
+  map<string, node_assignment> topic_assignments = 5;
+  map<string, node_assignment> queue_assignments = 6;
+}
+
+// Asignación de nodos a tópicos/colas
+message node_assignment {
+  string primary_node = 1;
+  repeated string replica_nodes = 2;
+}
+
+// Mensaje genérico de estado
+message status {
+  bool success = 1;
+  string error_message = 2;
+}
+
+// Estructura de un tópico
+message Topic {
+  string name = 1;
+  string owner = 2;
+  int64 creation_timestamp = 3;
+  repeated Message messages = 4;
+  topic_config config = 5;
+}
+
+// Estructura de una cola
+message Queue {
+  string name = 1;
+  string owner = 2;
+  int64 creation_timestamp = 3;
+  repeated Message messages = 4;
+  queue_config config = 5;
+}
+
+// Estado del clúster
+message ClusterState {
+  string leader_id = 1;
+  int64 current_term = 2;
+  repeated node_info nodes = 3;
+  map<string, node_assignment> topic_assignments = 4;
+  map<string, node_assignment> queue_assignments = 5;
+}
+
+// Servicio principal ya definido por ti
+service MOM_service {
+  rpc SyncState(Node_ID) returns (state_response) {}
+  rpc SyncTopics(Node_ID) returns (topics_response) {}
+  rpc SyncQueues(Node_ID) returns (queues_response) {}
+
+  rpc ReplicateMessage(Message) returns (replication_status) {}
+  rpc ReplicateTopicConfig(topic_config) returns (config_status) {}
+  rpc ReplicateQueueConfig(queue_config) returns (config_status) {}
+
+  rpc JoinCluster(node_info) returns (clusterInfo) {}
+  rpc LeaveCluster(Node_ID) returns (status) {}
+  rpc Heartbeat(Node_ID) returns (status) {}
+}
+

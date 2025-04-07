@@ -1,0 +1,3 @@
+/home/laptop1/Desktop/codes/MOM/cluster/build/CMakeFiles/mom.dir
+/home/laptop1/Desktop/codes/MOM/cluster/build/CMakeFiles/edit_cache.dir
+/home/laptop1/Desktop/codes/MOM/cluster/build/CMakeFiles/rebuild_cache.dir

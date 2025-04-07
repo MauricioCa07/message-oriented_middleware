@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build -isystem /include  -o CMakeFiles/protolib.dir/mom.pb.cc.o -c /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.cc",
+  "file": "/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.cc",
+  "output": "CMakeFiles/protolib.dir/mom.pb.cc.o"
+},
+{
+  "directory": "/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build -isystem /include  -o CMakeFiles/protolib.dir/mom.grpc.pb.cc.o -c /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.grpc.pb.cc",
+  "file": "/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.grpc.pb.cc",
+  "output": "CMakeFiles/protolib.dir/mom.grpc.pb.cc.o"
+},
+{
+  "directory": "/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build -isystem /include  -o CMakeFiles/server.dir/src/server.cc.o -c /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/src/server.cc",
+  "file": "/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/src/server.cc",
+  "output": "CMakeFiles/server.dir/src/server.cc.o"
+}
+]
