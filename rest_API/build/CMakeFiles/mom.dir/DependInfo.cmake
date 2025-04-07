@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/laptop1/Desktop/codes/MOM/cluster/mom.cpp" "CMakeFiles/mom.dir/mom.cpp.o" "gcc" "CMakeFiles/mom.dir/mom.cpp.o.d"
+  "/home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API/mom.cpp" "CMakeFiles/mom.dir/mom.cpp.o" "gcc" "CMakeFiles/mom.dir/mom.cpp.o.d"
   "" "mom" "gcc" "CMakeFiles/mom.dir/link.d"
   )
 

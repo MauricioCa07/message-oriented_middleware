@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/laptop1/Desktop/codes/MOM/cluster
+CMAKE_SOURCE_DIR = /home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/laptop1/Desktop/codes/MOM/cluster/build
+CMAKE_BINARY_DIR = /home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -85,14 +85,14 @@ clean: CMakeFiles/mom.dir/clean
 CMakeFiles/mom.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mom.dir/build.make CMakeFiles/mom.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mom.dir/build.make CMakeFiles/mom.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/laptop1/Desktop/codes/MOM/cluster/build/CMakeFiles --progress-num=1,2 "Built target mom"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API/build/CMakeFiles --progress-num=1,2 "Built target mom"
 .PHONY : CMakeFiles/mom.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/mom.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/laptop1/Desktop/codes/MOM/cluster/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/mom.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/laptop1/Desktop/codes/MOM/cluster/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API/build/CMakeFiles 0
 .PHONY : CMakeFiles/mom.dir/rule
 
 # Convenience name for target.
@@ -102,7 +102,7 @@ mom: CMakeFiles/mom.dir/rule
 # codegen rule for target.
 CMakeFiles/mom.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mom.dir/build.make CMakeFiles/mom.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/laptop1/Desktop/codes/MOM/cluster/build/CMakeFiles --progress-num=1,2 "Finished codegen for target mom"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API/build/CMakeFiles --progress-num=1,2 "Finished codegen for target mom"
 .PHONY : CMakeFiles/mom.dir/codegen
 
 # clean rule for target.

@@ -1,5 +1,5 @@
 CMakeFiles/mom.dir/mom.cpp.o: \
- /home/laptop1/Desktop/codes/MOM/cluster/mom.cpp \
+ /home/laptop1/Desktop/codes/messages_middleware_oriented/rest_API/mom.cpp \
  /usr/include/stdc-predef.h /usr/local/include/crow.h \
  /usr/local/include/crow/query_string.h /usr/include/stdio.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
