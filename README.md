@@ -22,7 +22,7 @@ The idea is that the clients will
 After this your endpoints should be running
 
 
-    ### MOM
+### MOM
 
 
 **UNIX** Go inside `mom_communication` and run the following command
@@ -34,7 +34,7 @@ After this your endpoints should be running
 ```console 
     Remove-Item -Recurse -Force build; New-Item -ItemType Directory -Path build; Set-Location -Path build; cmake ..; make; ./mom
 ```
-> you should clone, compile and link the grpc library be aware that for this project we use the v1.71.0
+> you should clone, compile and link the grpc library, for this project we used the v1.71.0
 
 ## Related links 
 - **Build gRPC with Cmake** - https://github.com/grpc/grpc/blob/v1.71.0/BUILDING.md
