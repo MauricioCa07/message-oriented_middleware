@@ -3,9 +3,9 @@
 In this poject we're presenting an entire architecture with an API rest, a cluster of MOM's and some clients. 
 
 The idea is that the clients will
-    - create and delete topics 
-    - create and delete queues
-    - create and delete messages inside each structure
+- create and delete topics 
+- create and delete queues
+- create and delete messages inside each structure
 
 ## How to run the project 
 ### API REST
