@@ -1,4 +1,4 @@
-# MESSAGES ORIENTED MESSAGES
+# MESSAGES ORIENTED MIDDLEWARE
 
 In this poject we're presenting an entire architecture with an API rest, a cluster of MOM's and some clients. 
 
