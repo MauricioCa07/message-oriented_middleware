@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/src/server.cc" "CMakeFiles/server.dir/src/server.cc.o" "gcc" "CMakeFiles/server.dir/src/server.cc.o.d"
+  "/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/src/server.cc" "CMakeFiles/server.dir/src/server.cc.o" "gcc" "CMakeFiles/server.dir/src/server.cc.o.d"
   "" "server" "gcc" "CMakeFiles/server.dir/link.d"
   )
 

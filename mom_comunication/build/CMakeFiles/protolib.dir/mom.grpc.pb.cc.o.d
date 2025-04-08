@@ -1,7 +1,7 @@
 CMakeFiles/protolib.dir/mom.grpc.pb.cc.o: \
- /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.grpc.pb.cc \
+ /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.grpc.pb.cc \
  /usr/include/stdc-predef.h \
- /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.h \
+ /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.pb.h \
  /usr/include/c++/14.2.1/limits \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -414,7 +414,7 @@ CMakeFiles/protolib.dir/mom.grpc.pb.cc.o: \
  /include/google/protobuf/map_field_inl.h \
  /include/google/protobuf/map_field.h \
  /include/google/protobuf/map_field_lite.h \
- /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.grpc.pb.h \
+ /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.grpc.pb.h \
  /include/grpcpp/generic/async_generic_service.h \
  /include/grpc/support/port_platform.h /usr/include/linux/version.h \
  /include/grpcpp/generic/callback_generic_service.h \

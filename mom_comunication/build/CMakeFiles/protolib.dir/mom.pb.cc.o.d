@@ -1,7 +1,7 @@
 CMakeFiles/protolib.dir/mom.pb.cc.o: \
- /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.cc \
+ /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.pb.cc \
  /usr/include/stdc-predef.h \
- /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.h \
+ /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.pb.h \
  /usr/include/c++/14.2.1/limits \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \

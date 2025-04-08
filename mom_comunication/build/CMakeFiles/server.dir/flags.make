@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCARES_STATICLIB
 
-CXX_INCLUDES = -I/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build -isystem /include
+CXX_INCLUDES = -I/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build -isystem /include
 
 CXX_FLAGS = 
 

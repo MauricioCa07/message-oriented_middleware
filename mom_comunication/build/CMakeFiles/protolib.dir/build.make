@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication
+CMAKE_SOURCE_DIR = /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build
+CMAKE_BINARY_DIR = /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/protolib.dir/depend.make
@@ -69,18 +69,18 @@ include CMakeFiles/protolib.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/protolib.dir/flags.make
 
-mom.pb.h: /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/mom.proto
+mom.pb.h: /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/mom.proto
 mom.pb.h: /usr/bin/protoc
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running cpp protocol buffer compiler on mom.proto"
-	/usr/bin/protoc --cpp_out :/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build -I /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/mom.proto
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running cpp protocol buffer compiler on mom.proto"
+	/usr/bin/protoc --cpp_out :/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build -I /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/mom.proto
 
 mom.pb.cc: mom.pb.h
 	@$(CMAKE_COMMAND) -E touch_nocreate mom.pb.cc
 
-mom.grpc.pb.h: /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/mom.proto
+mom.grpc.pb.h: /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/mom.proto
 mom.grpc.pb.h: /usr/bin/protoc
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Running grpc protocol buffer compiler on mom.proto"
-	/usr/bin/protoc --grpc_out :/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin -I /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/mom.proto
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Running grpc protocol buffer compiler on mom.proto"
+	/usr/bin/protoc --grpc_out :/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin -I /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/mom.proto
 
 mom.grpc.pb.cc: mom.grpc.pb.h
 	@$(CMAKE_COMMAND) -E touch_nocreate mom.grpc.pb.cc
@@ -91,30 +91,30 @@ CMakeFiles/protolib.dir/codegen:
 CMakeFiles/protolib.dir/mom.pb.cc.o: CMakeFiles/protolib.dir/flags.make
 CMakeFiles/protolib.dir/mom.pb.cc.o: mom.pb.cc
 CMakeFiles/protolib.dir/mom.pb.cc.o: CMakeFiles/protolib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/protolib.dir/mom.pb.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/protolib.dir/mom.pb.cc.o -MF CMakeFiles/protolib.dir/mom.pb.cc.o.d -o CMakeFiles/protolib.dir/mom.pb.cc.o -c /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/protolib.dir/mom.pb.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/protolib.dir/mom.pb.cc.o -MF CMakeFiles/protolib.dir/mom.pb.cc.o.d -o CMakeFiles/protolib.dir/mom.pb.cc.o -c /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.pb.cc
 
 CMakeFiles/protolib.dir/mom.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/protolib.dir/mom.pb.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.cc > CMakeFiles/protolib.dir/mom.pb.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.pb.cc > CMakeFiles/protolib.dir/mom.pb.cc.i
 
 CMakeFiles/protolib.dir/mom.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/protolib.dir/mom.pb.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.pb.cc -o CMakeFiles/protolib.dir/mom.pb.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.pb.cc -o CMakeFiles/protolib.dir/mom.pb.cc.s
 
 CMakeFiles/protolib.dir/mom.grpc.pb.cc.o: CMakeFiles/protolib.dir/flags.make
 CMakeFiles/protolib.dir/mom.grpc.pb.cc.o: mom.grpc.pb.cc
 CMakeFiles/protolib.dir/mom.grpc.pb.cc.o: CMakeFiles/protolib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/protolib.dir/mom.grpc.pb.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/protolib.dir/mom.grpc.pb.cc.o -MF CMakeFiles/protolib.dir/mom.grpc.pb.cc.o.d -o CMakeFiles/protolib.dir/mom.grpc.pb.cc.o -c /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.grpc.pb.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/protolib.dir/mom.grpc.pb.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/protolib.dir/mom.grpc.pb.cc.o -MF CMakeFiles/protolib.dir/mom.grpc.pb.cc.o.d -o CMakeFiles/protolib.dir/mom.grpc.pb.cc.o -c /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.grpc.pb.cc
 
 CMakeFiles/protolib.dir/mom.grpc.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/protolib.dir/mom.grpc.pb.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.grpc.pb.cc > CMakeFiles/protolib.dir/mom.grpc.pb.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.grpc.pb.cc > CMakeFiles/protolib.dir/mom.grpc.pb.cc.i
 
 CMakeFiles/protolib.dir/mom.grpc.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/protolib.dir/mom.grpc.pb.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/mom.grpc.pb.cc -o CMakeFiles/protolib.dir/mom.grpc.pb.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/mom.grpc.pb.cc -o CMakeFiles/protolib.dir/mom.grpc.pb.cc.s
 
 # Object files for target protolib
 protolib_OBJECTS = \
@@ -128,7 +128,7 @@ libprotolib.a: CMakeFiles/protolib.dir/mom.pb.cc.o
 libprotolib.a: CMakeFiles/protolib.dir/mom.grpc.pb.cc.o
 libprotolib.a: CMakeFiles/protolib.dir/build.make
 libprotolib.a: CMakeFiles/protolib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libprotolib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libprotolib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/protolib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/protolib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -144,6 +144,6 @@ CMakeFiles/protolib.dir/depend: mom.grpc.pb.cc
 CMakeFiles/protolib.dir/depend: mom.grpc.pb.h
 CMakeFiles/protolib.dir/depend: mom.pb.cc
 CMakeFiles/protolib.dir/depend: mom.pb.h
-	cd /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build /home/laptop1/Desktop/codes/middleware_oriented_messages/mom_comunication/build/CMakeFiles/protolib.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build /home/laptop1/Desktop/codes/messages_middleware_oriented/mom_comunication/build/CMakeFiles/protolib.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/protolib.dir/depend
 

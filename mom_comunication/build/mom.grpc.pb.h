@@ -28,7 +28,6 @@
 
 namespace mom {
 
-// Servicio principal ya definido por ti
 class MOM_service final {
  public:
   static constexpr char const* service_full_name() {
@@ -37,201 +36,411 @@ class MOM_service final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status SyncState(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::state_response* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> AsyncSyncState(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(AsyncSyncStateRaw(context, request, cq));
+    // ---------------------------------------------------
+    // -                                                -
+    // -              METHODS FOR SYNC MOMS             -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status sync_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> Asyncsync_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(Asyncsync_topicsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> PrepareAsyncSyncState(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(PrepareAsyncSyncStateRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> PrepareAsyncsync_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(PrepareAsyncsync_topicsRaw(context, request, cq));
     }
-    virtual ::grpc::Status SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::topics_response* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>> AsyncSyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>>(AsyncSyncTopicsRaw(context, request, cq));
+    virtual ::grpc::Status sync_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> Asyncsync_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(Asyncsync_queuesRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>> PrepareAsyncSyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>>(PrepareAsyncSyncTopicsRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> PrepareAsyncsync_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(PrepareAsyncsync_queuesRaw(context, request, cq));
     }
-    virtual ::grpc::Status SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::queues_response* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::queues_response>> AsyncSyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::queues_response>>(AsyncSyncQueuesRaw(context, request, cq));
+    // ---------------------------------------------------
+    // -                                                -
+    // -              QUEUE'S METHODS                   -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status create_queue(::grpc::ClientContext* context, const ::mom::queue_config& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asynccreate_queue(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(Asynccreate_queueRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::queues_response>> PrepareAsyncSyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::queues_response>>(PrepareAsyncSyncQueuesRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsynccreate_queue(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsynccreate_queueRaw(context, request, cq));
     }
-    virtual ::grpc::Status ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message& request, ::mom::replication_status* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::replication_status>> AsyncReplicateMessage(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::replication_status>>(AsyncReplicateMessageRaw(context, request, cq));
+    virtual ::grpc::Status delete_queue(::grpc::ClientContext* context, const ::mom::queue& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asyncdelete_queue(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(Asyncdelete_queueRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::replication_status>> PrepareAsyncReplicateMessage(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::replication_status>>(PrepareAsyncReplicateMessageRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncdelete_queue(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncdelete_queueRaw(context, request, cq));
     }
-    virtual ::grpc::Status ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config& request, ::mom::config_status* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>> AsyncReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>>(AsyncReplicateTopicConfigRaw(context, request, cq));
+    virtual ::grpc::Status list_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> Asynclist_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(Asynclist_queuesRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>> PrepareAsyncReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>>(PrepareAsyncReplicateTopicConfigRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> PrepareAsynclist_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(PrepareAsynclist_queuesRaw(context, request, cq));
     }
-    virtual ::grpc::Status ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config& request, ::mom::config_status* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>> AsyncReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>>(AsyncReplicateQueueConfigRaw(context, request, cq));
+    // ---------------------------------------------------
+    // -                                                -
+    // -              TOPIC'S METHODS                   -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status create_topic(::grpc::ClientContext* context, const ::mom::topic_config& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asynccreate_topic(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(Asynccreate_topicRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>> PrepareAsyncReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>>(PrepareAsyncReplicateQueueConfigRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsynccreate_topic(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsynccreate_topicRaw(context, request, cq));
     }
-    virtual ::grpc::Status JoinCluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::mom::clusterInfo* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::clusterInfo>> AsyncJoinCluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::clusterInfo>>(AsyncJoinClusterRaw(context, request, cq));
+    virtual ::grpc::Status delete_topic(::grpc::ClientContext* context, const ::mom::topic& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asyncdelete_topic(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(Asyncdelete_topicRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::clusterInfo>> PrepareAsyncJoinCluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::clusterInfo>>(PrepareAsyncJoinClusterRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncdelete_topic(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncdelete_topicRaw(context, request, cq));
     }
-    virtual ::grpc::Status LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::status* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> AsyncLeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(AsyncLeaveClusterRaw(context, request, cq));
+    virtual ::grpc::Status list_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> Asynclist_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(Asynclist_topicsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncLeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncLeaveClusterRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>> PrepareAsynclist_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>>(PrepareAsynclist_topicsRaw(context, request, cq));
     }
-    virtual ::grpc::Status Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::status* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> AsyncHeartbeat(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(AsyncHeartbeatRaw(context, request, cq));
+    virtual ::grpc::Status subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asyncsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(Asyncsubscribe_topicRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncHeartbeat(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncHeartbeatRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncsubscribe_topicRaw(context, request, cq));
+    }
+    virtual ::grpc::Status unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asyncunsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(Asyncunsubscribe_topicRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncunsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncunsubscribe_topicRaw(context, request, cq));
+    }
+    // ---------------------------------------------------
+    // -                                                -
+    // -                     MESSAGES                   -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message& request, ::mom::message_status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> Asyncsend_queue_message(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>>(Asyncsend_queue_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> PrepareAsyncsend_queue_message(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>>(PrepareAsyncsend_queue_messageRaw(context, request, cq));
+    }
+    virtual ::grpc::Status receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id& request, ::mom::Message* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>> Asyncreceive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>>(Asyncreceive_queue_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>> PrepareAsyncreceive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>>(PrepareAsyncreceive_queue_messageRaw(context, request, cq));
+    }
+    virtual ::grpc::Status publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::mom::message_status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> Asyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>>(Asyncpublish_topic_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> PrepareAsyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>>(PrepareAsyncpublish_topic_messageRaw(context, request, cq));
+    }
+    virtual ::grpc::Status receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::Message* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>> Asyncreceive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>>(Asyncreceive_topic_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>> PrepareAsyncreceive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>>(PrepareAsyncreceive_topic_messageRaw(context, request, cq));
+    }
+    // ---------------------------------------------------
+    // -                                                -
+    // -                     CLUSTER                    -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status join_cluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::mom::cluster_info* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::cluster_info>> Asyncjoin_cluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::cluster_info>>(Asyncjoin_clusterRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::cluster_info>> PrepareAsyncjoin_cluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::cluster_info>>(PrepareAsyncjoin_clusterRaw(context, request, cq));
+    }
+    virtual ::grpc::Status leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asyncleave_cluster(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(Asyncleave_clusterRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncleave_cluster(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncleave_clusterRaw(context, request, cq));
+    }
+    virtual ::grpc::Status heartbeat(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asyncheartbeat(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(AsyncheartbeatRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> PrepareAsyncheartbeat(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>>(PrepareAsyncheartbeatRaw(context, request, cq));
     }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void SyncState(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void SyncState(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message* request, ::mom::replication_status* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message* request, ::mom::replication_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::config_status* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::config_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::config_status* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::config_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void JoinCluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void JoinCluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // ---------------------------------------------------
+      // -                                                -
+      // -              METHODS FOR SYNC MOMS             -
+      // -                                                -
+      // --------------------------------------------------
+      virtual void sync_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void sync_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void sync_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void sync_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // ---------------------------------------------------
+      // -                                                -
+      // -              QUEUE'S METHODS                   -
+      // -                                                -
+      // --------------------------------------------------
+      virtual void create_queue(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void create_queue(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void delete_queue(::grpc::ClientContext* context, const ::mom::queue* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void delete_queue(::grpc::ClientContext* context, const ::mom::queue* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void list_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void list_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // ---------------------------------------------------
+      // -                                                -
+      // -              TOPIC'S METHODS                   -
+      // -                                                -
+      // --------------------------------------------------
+      virtual void create_topic(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void create_topic(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void delete_topic(::grpc::ClientContext* context, const ::mom::topic* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void delete_topic(::grpc::ClientContext* context, const ::mom::topic* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void list_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void list_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // ---------------------------------------------------
+      // -                                                -
+      // -                     MESSAGES                   -
+      // -                                                -
+      // --------------------------------------------------
+      virtual void send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id* request, ::mom::Message* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id* request, ::mom::Message* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::Message* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::Message* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // ---------------------------------------------------
+      // -                                                -
+      // -                     CLUSTER                    -
+      // -                                                -
+      // --------------------------------------------------
+      virtual void join_cluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::cluster_info* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void join_cluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::cluster_info* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void heartbeat(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void heartbeat(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* AsyncSyncStateRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* PrepareAsyncSyncStateRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>* AsyncSyncTopicsRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>* PrepareAsyncSyncTopicsRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::queues_response>* AsyncSyncQueuesRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::queues_response>* PrepareAsyncSyncQueuesRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::replication_status>* AsyncReplicateMessageRaw(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::replication_status>* PrepareAsyncReplicateMessageRaw(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>* AsyncReplicateTopicConfigRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>* PrepareAsyncReplicateTopicConfigRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>* AsyncReplicateQueueConfigRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::config_status>* PrepareAsyncReplicateQueueConfigRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::clusterInfo>* AsyncJoinClusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::clusterInfo>* PrepareAsyncJoinClusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* AsyncLeaveClusterRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncLeaveClusterRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* AsyncHeartbeatRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncHeartbeatRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* Asyncsync_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* PrepareAsyncsync_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* Asyncsync_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* PrepareAsyncsync_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asynccreate_queueRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsynccreate_queueRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncdelete_queueRaw(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncdelete_queueRaw(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* Asynclist_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* PrepareAsynclist_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asynccreate_topicRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsynccreate_topicRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* Asynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::state_response>* PrepareAsynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* Asyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* PrepareAsyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>* Asyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>* PrepareAsyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>* Asyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::Message>* PrepareAsyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::cluster_info>* Asyncjoin_clusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::cluster_info>* PrepareAsyncjoin_clusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncleave_clusterRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncleave_clusterRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* AsyncheartbeatRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncheartbeatRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status SyncState(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::state_response* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> AsyncSyncState(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(AsyncSyncStateRaw(context, request, cq));
+    ::grpc::Status sync_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> Asyncsync_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(Asyncsync_topicsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> PrepareAsyncSyncState(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(PrepareAsyncSyncStateRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> PrepareAsyncsync_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(PrepareAsyncsync_topicsRaw(context, request, cq));
     }
-    ::grpc::Status SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::topics_response* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topics_response>> AsyncSyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topics_response>>(AsyncSyncTopicsRaw(context, request, cq));
+    ::grpc::Status sync_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> Asyncsync_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(Asyncsync_queuesRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topics_response>> PrepareAsyncSyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topics_response>>(PrepareAsyncSyncTopicsRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> PrepareAsyncsync_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(PrepareAsyncsync_queuesRaw(context, request, cq));
     }
-    ::grpc::Status SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::queues_response* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::queues_response>> AsyncSyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::queues_response>>(AsyncSyncQueuesRaw(context, request, cq));
+    ::grpc::Status create_queue(::grpc::ClientContext* context, const ::mom::queue_config& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asynccreate_queue(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(Asynccreate_queueRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::queues_response>> PrepareAsyncSyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::queues_response>>(PrepareAsyncSyncQueuesRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsynccreate_queue(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsynccreate_queueRaw(context, request, cq));
     }
-    ::grpc::Status ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message& request, ::mom::replication_status* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::replication_status>> AsyncReplicateMessage(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::replication_status>>(AsyncReplicateMessageRaw(context, request, cq));
+    ::grpc::Status delete_queue(::grpc::ClientContext* context, const ::mom::queue& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asyncdelete_queue(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(Asyncdelete_queueRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::replication_status>> PrepareAsyncReplicateMessage(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::replication_status>>(PrepareAsyncReplicateMessageRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncdelete_queue(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncdelete_queueRaw(context, request, cq));
     }
-    ::grpc::Status ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config& request, ::mom::config_status* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>> AsyncReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>>(AsyncReplicateTopicConfigRaw(context, request, cq));
+    ::grpc::Status list_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> Asynclist_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(Asynclist_queuesRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>> PrepareAsyncReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>>(PrepareAsyncReplicateTopicConfigRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> PrepareAsynclist_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(PrepareAsynclist_queuesRaw(context, request, cq));
     }
-    ::grpc::Status ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config& request, ::mom::config_status* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>> AsyncReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>>(AsyncReplicateQueueConfigRaw(context, request, cq));
+    ::grpc::Status create_topic(::grpc::ClientContext* context, const ::mom::topic_config& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asynccreate_topic(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(Asynccreate_topicRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>> PrepareAsyncReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::config_status>>(PrepareAsyncReplicateQueueConfigRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsynccreate_topic(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsynccreate_topicRaw(context, request, cq));
     }
-    ::grpc::Status JoinCluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::mom::clusterInfo* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>> AsyncJoinCluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>>(AsyncJoinClusterRaw(context, request, cq));
+    ::grpc::Status delete_topic(::grpc::ClientContext* context, const ::mom::topic& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asyncdelete_topic(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(Asyncdelete_topicRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>> PrepareAsyncJoinCluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>>(PrepareAsyncJoinClusterRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncdelete_topic(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncdelete_topicRaw(context, request, cq));
     }
-    ::grpc::Status LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::status* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> AsyncLeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(AsyncLeaveClusterRaw(context, request, cq));
+    ::grpc::Status list_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> Asynclist_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(Asynclist_topicsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncLeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncLeaveClusterRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>> PrepareAsynclist_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::state_response>>(PrepareAsynclist_topicsRaw(context, request, cq));
     }
-    ::grpc::Status Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::status* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> AsyncHeartbeat(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(AsyncHeartbeatRaw(context, request, cq));
+    ::grpc::Status subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asyncsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(Asyncsubscribe_topicRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncHeartbeat(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncHeartbeatRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncsubscribe_topicRaw(context, request, cq));
+    }
+    ::grpc::Status unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asyncunsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(Asyncunsubscribe_topicRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncunsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncunsubscribe_topicRaw(context, request, cq));
+    }
+    ::grpc::Status send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message& request, ::mom::message_status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> Asyncsend_queue_message(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>>(Asyncsend_queue_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> PrepareAsyncsend_queue_message(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>>(PrepareAsyncsend_queue_messageRaw(context, request, cq));
+    }
+    ::grpc::Status receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id& request, ::mom::Message* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>> Asyncreceive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>>(Asyncreceive_queue_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>> PrepareAsyncreceive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>>(PrepareAsyncreceive_queue_messageRaw(context, request, cq));
+    }
+    ::grpc::Status publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::mom::message_status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> Asyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>>(Asyncpublish_topic_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> PrepareAsyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>>(PrepareAsyncpublish_topic_messageRaw(context, request, cq));
+    }
+    ::grpc::Status receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::Message* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>> Asyncreceive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>>(Asyncreceive_topic_messageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>> PrepareAsyncreceive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Message>>(PrepareAsyncreceive_topic_messageRaw(context, request, cq));
+    }
+    ::grpc::Status join_cluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::mom::cluster_info* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::cluster_info>> Asyncjoin_cluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::cluster_info>>(Asyncjoin_clusterRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::cluster_info>> PrepareAsyncjoin_cluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::cluster_info>>(PrepareAsyncjoin_clusterRaw(context, request, cq));
+    }
+    ::grpc::Status leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asyncleave_cluster(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(Asyncleave_clusterRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncleave_cluster(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncleave_clusterRaw(context, request, cq));
+    }
+    ::grpc::Status heartbeat(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asyncheartbeat(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(AsyncheartbeatRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> PrepareAsyncheartbeat(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>>(PrepareAsyncheartbeatRaw(context, request, cq));
     }
     class async final :
       public StubInterface::async_interface {
      public:
-      void SyncState(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) override;
-      void SyncState(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response, std::function<void(::grpc::Status)>) override;
-      void SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response, std::function<void(::grpc::Status)>) override;
-      void SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message* request, ::mom::replication_status* response, std::function<void(::grpc::Status)>) override;
-      void ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message* request, ::mom::replication_status* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::config_status* response, std::function<void(::grpc::Status)>) override;
-      void ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::config_status* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::config_status* response, std::function<void(::grpc::Status)>) override;
-      void ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::config_status* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void JoinCluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response, std::function<void(::grpc::Status)>) override;
-      void JoinCluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
-      void LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
-      void Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void sync_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) override;
+      void sync_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void sync_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) override;
+      void sync_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void create_queue(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void create_queue(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void delete_queue(::grpc::ClientContext* context, const ::mom::queue* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void delete_queue(::grpc::ClientContext* context, const ::mom::queue* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void list_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) override;
+      void list_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void create_topic(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void create_topic(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void delete_topic(::grpc::ClientContext* context, const ::mom::topic* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void delete_topic(::grpc::ClientContext* context, const ::mom::topic* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void list_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)>) override;
+      void list_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) override;
+      void send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id* request, ::mom::Message* response, std::function<void(::grpc::Status)>) override;
+      void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id* request, ::mom::Message* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) override;
+      void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::Message* response, std::function<void(::grpc::Status)>) override;
+      void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::Message* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void join_cluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::cluster_info* response, std::function<void(::grpc::Status)>) override;
+      void join_cluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::cluster_info* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void heartbeat(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
+      void heartbeat(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -243,33 +452,57 @@ class MOM_service final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* AsyncSyncStateRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* PrepareAsyncSyncStateRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::topics_response>* AsyncSyncTopicsRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::topics_response>* PrepareAsyncSyncTopicsRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::queues_response>* AsyncSyncQueuesRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::queues_response>* PrepareAsyncSyncQueuesRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::replication_status>* AsyncReplicateMessageRaw(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::replication_status>* PrepareAsyncReplicateMessageRaw(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::config_status>* AsyncReplicateTopicConfigRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::config_status>* PrepareAsyncReplicateTopicConfigRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::config_status>* AsyncReplicateQueueConfigRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::config_status>* PrepareAsyncReplicateQueueConfigRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>* AsyncJoinClusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>* PrepareAsyncJoinClusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::status>* AsyncLeaveClusterRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncLeaveClusterRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::status>* AsyncHeartbeatRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncHeartbeatRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) override;
-    const ::grpc::internal::RpcMethod rpcmethod_SyncState_;
-    const ::grpc::internal::RpcMethod rpcmethod_SyncTopics_;
-    const ::grpc::internal::RpcMethod rpcmethod_SyncQueues_;
-    const ::grpc::internal::RpcMethod rpcmethod_ReplicateMessage_;
-    const ::grpc::internal::RpcMethod rpcmethod_ReplicateTopicConfig_;
-    const ::grpc::internal::RpcMethod rpcmethod_ReplicateQueueConfig_;
-    const ::grpc::internal::RpcMethod rpcmethod_JoinCluster_;
-    const ::grpc::internal::RpcMethod rpcmethod_LeaveCluster_;
-    const ::grpc::internal::RpcMethod rpcmethod_Heartbeat_;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* Asyncsync_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* PrepareAsyncsync_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* Asyncsync_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* PrepareAsyncsync_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* Asynccreate_queueRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsynccreate_queueRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncdelete_queueRaw(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncdelete_queueRaw(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* Asynclist_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* PrepareAsynclist_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* Asynccreate_topicRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsynccreate_topicRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* Asynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::state_response>* PrepareAsynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* Asyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* PrepareAsyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::Message>* Asyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::Message>* PrepareAsyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::Message>* Asyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::Message>* PrepareAsyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::cluster_info>* Asyncjoin_clusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::cluster_info>* PrepareAsyncjoin_clusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncleave_clusterRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncleave_clusterRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* AsyncheartbeatRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncheartbeatRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_sync_topics_;
+    const ::grpc::internal::RpcMethod rpcmethod_sync_queues_;
+    const ::grpc::internal::RpcMethod rpcmethod_create_queue_;
+    const ::grpc::internal::RpcMethod rpcmethod_delete_queue_;
+    const ::grpc::internal::RpcMethod rpcmethod_list_queues_;
+    const ::grpc::internal::RpcMethod rpcmethod_create_topic_;
+    const ::grpc::internal::RpcMethod rpcmethod_delete_topic_;
+    const ::grpc::internal::RpcMethod rpcmethod_list_topics_;
+    const ::grpc::internal::RpcMethod rpcmethod_subscribe_topic_;
+    const ::grpc::internal::RpcMethod rpcmethod_unsubscribe_topic_;
+    const ::grpc::internal::RpcMethod rpcmethod_send_queue_message_;
+    const ::grpc::internal::RpcMethod rpcmethod_receive_queue_message_;
+    const ::grpc::internal::RpcMethod rpcmethod_publish_topic_message_;
+    const ::grpc::internal::RpcMethod rpcmethod_receive_topic_message_;
+    const ::grpc::internal::RpcMethod rpcmethod_join_cluster_;
+    const ::grpc::internal::RpcMethod rpcmethod_leave_cluster_;
+    const ::grpc::internal::RpcMethod rpcmethod_heartbeat_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -277,1219 +510,2316 @@ class MOM_service final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status SyncState(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::state_response* response);
-    virtual ::grpc::Status SyncTopics(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response);
-    virtual ::grpc::Status SyncQueues(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response);
-    virtual ::grpc::Status ReplicateMessage(::grpc::ServerContext* context, const ::mom::Message* request, ::mom::replication_status* response);
-    virtual ::grpc::Status ReplicateTopicConfig(::grpc::ServerContext* context, const ::mom::topic_config* request, ::mom::config_status* response);
-    virtual ::grpc::Status ReplicateQueueConfig(::grpc::ServerContext* context, const ::mom::queue_config* request, ::mom::config_status* response);
-    virtual ::grpc::Status JoinCluster(::grpc::ServerContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response);
-    virtual ::grpc::Status LeaveCluster(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::status* response);
-    virtual ::grpc::Status Heartbeat(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::status* response);
+    // ---------------------------------------------------
+    // -                                                -
+    // -              METHODS FOR SYNC MOMS             -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status sync_topics(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response);
+    virtual ::grpc::Status sync_queues(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response);
+    // ---------------------------------------------------
+    // -                                                -
+    // -              QUEUE'S METHODS                   -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status create_queue(::grpc::ServerContext* context, const ::mom::queue_config* request, ::mom::status* response);
+    virtual ::grpc::Status delete_queue(::grpc::ServerContext* context, const ::mom::queue* request, ::mom::status* response);
+    virtual ::grpc::Status list_queues(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response);
+    // ---------------------------------------------------
+    // -                                                -
+    // -              TOPIC'S METHODS                   -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status create_topic(::grpc::ServerContext* context, const ::mom::topic_config* request, ::mom::status* response);
+    virtual ::grpc::Status delete_topic(::grpc::ServerContext* context, const ::mom::topic* request, ::mom::status* response);
+    virtual ::grpc::Status list_topics(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response);
+    virtual ::grpc::Status subscribe_topic(::grpc::ServerContext* context, const ::mom::topic_id* request, ::mom::status* response);
+    virtual ::grpc::Status unsubscribe_topic(::grpc::ServerContext* context, const ::mom::topic_id* request, ::mom::status* response);
+    // ---------------------------------------------------
+    // -                                                -
+    // -                     MESSAGES                   -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status send_queue_message(::grpc::ServerContext* context, const ::mom::queue_message* request, ::mom::message_status* response);
+    virtual ::grpc::Status receive_queue_message(::grpc::ServerContext* context, const ::mom::queue_id* request, ::mom::Message* response);
+    virtual ::grpc::Status publish_topic_message(::grpc::ServerContext* context, const ::mom::topic_message* request, ::mom::message_status* response);
+    virtual ::grpc::Status receive_topic_message(::grpc::ServerContext* context, const ::mom::topic_id* request, ::mom::Message* response);
+    // ---------------------------------------------------
+    // -                                                -
+    // -                     CLUSTER                    -
+    // -                                                -
+    // --------------------------------------------------
+    virtual ::grpc::Status join_cluster(::grpc::ServerContext* context, const ::mom::node_info* request, ::mom::cluster_info* response);
+    virtual ::grpc::Status leave_cluster(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::status* response);
+    virtual ::grpc::Status heartbeat(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::status* response);
   };
   template <class BaseClass>
-  class WithAsyncMethod_SyncState : public BaseClass {
+  class WithAsyncMethod_sync_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_SyncState() {
+    WithAsyncMethod_sync_topics() {
       ::grpc::Service::MarkMethodAsync(0);
     }
-    ~WithAsyncMethod_SyncState() override {
+    ~WithAsyncMethod_sync_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncState(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::state_response* /*response*/) override {
+    ::grpc::Status sync_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSyncState(::grpc::ServerContext* context, ::mom::Node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::state_response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestsync_topics(::grpc::ServerContext* context, ::mom::node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::state_response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_SyncTopics : public BaseClass {
+  class WithAsyncMethod_sync_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_SyncTopics() {
+    WithAsyncMethod_sync_queues() {
       ::grpc::Service::MarkMethodAsync(1);
     }
-    ~WithAsyncMethod_SyncTopics() override {
+    ~WithAsyncMethod_sync_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncTopics(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::topics_response* /*response*/) override {
+    ::grpc::Status sync_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSyncTopics(::grpc::ServerContext* context, ::mom::Node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::topics_response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestsync_queues(::grpc::ServerContext* context, ::mom::node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::state_response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_SyncQueues : public BaseClass {
+  class WithAsyncMethod_create_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_SyncQueues() {
+    WithAsyncMethod_create_queue() {
       ::grpc::Service::MarkMethodAsync(2);
     }
-    ~WithAsyncMethod_SyncQueues() override {
+    ~WithAsyncMethod_create_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncQueues(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::queues_response* /*response*/) override {
+    ::grpc::Status create_queue(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSyncQueues(::grpc::ServerContext* context, ::mom::Node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::queues_response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestcreate_queue(::grpc::ServerContext* context, ::mom::queue_config* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_ReplicateMessage : public BaseClass {
+  class WithAsyncMethod_delete_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_ReplicateMessage() {
+    WithAsyncMethod_delete_queue() {
       ::grpc::Service::MarkMethodAsync(3);
     }
-    ~WithAsyncMethod_ReplicateMessage() override {
+    ~WithAsyncMethod_delete_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateMessage(::grpc::ServerContext* /*context*/, const ::mom::Message* /*request*/, ::mom::replication_status* /*response*/) override {
+    ::grpc::Status delete_queue(::grpc::ServerContext* /*context*/, const ::mom::queue* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestReplicateMessage(::grpc::ServerContext* context, ::mom::Message* request, ::grpc::ServerAsyncResponseWriter< ::mom::replication_status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestdelete_queue(::grpc::ServerContext* context, ::mom::queue* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_ReplicateTopicConfig : public BaseClass {
+  class WithAsyncMethod_list_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_ReplicateTopicConfig() {
+    WithAsyncMethod_list_queues() {
       ::grpc::Service::MarkMethodAsync(4);
     }
-    ~WithAsyncMethod_ReplicateTopicConfig() override {
+    ~WithAsyncMethod_list_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateTopicConfig(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status list_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestReplicateTopicConfig(::grpc::ServerContext* context, ::mom::topic_config* request, ::grpc::ServerAsyncResponseWriter< ::mom::config_status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestlist_queues(::grpc::ServerContext* context, ::mom::node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::state_response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_ReplicateQueueConfig : public BaseClass {
+  class WithAsyncMethod_create_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_ReplicateQueueConfig() {
+    WithAsyncMethod_create_topic() {
       ::grpc::Service::MarkMethodAsync(5);
     }
-    ~WithAsyncMethod_ReplicateQueueConfig() override {
+    ~WithAsyncMethod_create_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateQueueConfig(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status create_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestReplicateQueueConfig(::grpc::ServerContext* context, ::mom::queue_config* request, ::grpc::ServerAsyncResponseWriter< ::mom::config_status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestcreate_topic(::grpc::ServerContext* context, ::mom::topic_config* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_JoinCluster : public BaseClass {
+  class WithAsyncMethod_delete_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_JoinCluster() {
+    WithAsyncMethod_delete_topic() {
       ::grpc::Service::MarkMethodAsync(6);
     }
-    ~WithAsyncMethod_JoinCluster() override {
+    ~WithAsyncMethod_delete_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status JoinCluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::clusterInfo* /*response*/) override {
+    ::grpc::Status delete_topic(::grpc::ServerContext* /*context*/, const ::mom::topic* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestJoinCluster(::grpc::ServerContext* context, ::mom::node_info* request, ::grpc::ServerAsyncResponseWriter< ::mom::clusterInfo>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestdelete_topic(::grpc::ServerContext* context, ::mom::topic* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_LeaveCluster : public BaseClass {
+  class WithAsyncMethod_list_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_LeaveCluster() {
+    WithAsyncMethod_list_topics() {
       ::grpc::Service::MarkMethodAsync(7);
     }
-    ~WithAsyncMethod_LeaveCluster() override {
+    ~WithAsyncMethod_list_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LeaveCluster(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status list_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestLeaveCluster(::grpc::ServerContext* context, ::mom::Node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestlist_topics(::grpc::ServerContext* context, ::mom::node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::state_response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_Heartbeat : public BaseClass {
+  class WithAsyncMethod_subscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_Heartbeat() {
+    WithAsyncMethod_subscribe_topic() {
       ::grpc::Service::MarkMethodAsync(8);
     }
-    ~WithAsyncMethod_Heartbeat() override {
+    ~WithAsyncMethod_subscribe_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Heartbeat(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status subscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestHeartbeat(::grpc::ServerContext* context, ::mom::Node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestsubscribe_topic(::grpc::ServerContext* context, ::mom::topic_id* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_SyncState<WithAsyncMethod_SyncTopics<WithAsyncMethod_SyncQueues<WithAsyncMethod_ReplicateMessage<WithAsyncMethod_ReplicateTopicConfig<WithAsyncMethod_ReplicateQueueConfig<WithAsyncMethod_JoinCluster<WithAsyncMethod_LeaveCluster<WithAsyncMethod_Heartbeat<Service > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class WithCallbackMethod_SyncState : public BaseClass {
+  class WithAsyncMethod_unsubscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_SyncState() {
+    WithAsyncMethod_unsubscribe_topic() {
+      ::grpc::Service::MarkMethodAsync(9);
+    }
+    ~WithAsyncMethod_unsubscribe_topic() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status unsubscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestunsubscribe_topic(::grpc::ServerContext* context, ::mom::topic_id* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_send_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_send_queue_message() {
+      ::grpc::Service::MarkMethodAsync(10);
+    }
+    ~WithAsyncMethod_send_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status send_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestsend_queue_message(::grpc::ServerContext* context, ::mom::queue_message* request, ::grpc::ServerAsyncResponseWriter< ::mom::message_status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_receive_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_receive_queue_message() {
+      ::grpc::Service::MarkMethodAsync(11);
+    }
+    ~WithAsyncMethod_receive_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestreceive_queue_message(::grpc::ServerContext* context, ::mom::queue_id* request, ::grpc::ServerAsyncResponseWriter< ::mom::Message>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_publish_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_publish_topic_message() {
+      ::grpc::Service::MarkMethodAsync(12);
+    }
+    ~WithAsyncMethod_publish_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestpublish_topic_message(::grpc::ServerContext* context, ::mom::topic_message* request, ::grpc::ServerAsyncResponseWriter< ::mom::message_status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_receive_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_receive_topic_message() {
+      ::grpc::Service::MarkMethodAsync(13);
+    }
+    ~WithAsyncMethod_receive_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestreceive_topic_message(::grpc::ServerContext* context, ::mom::topic_id* request, ::grpc::ServerAsyncResponseWriter< ::mom::Message>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_join_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_join_cluster() {
+      ::grpc::Service::MarkMethodAsync(14);
+    }
+    ~WithAsyncMethod_join_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status join_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::cluster_info* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestjoin_cluster(::grpc::ServerContext* context, ::mom::node_info* request, ::grpc::ServerAsyncResponseWriter< ::mom::cluster_info>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_leave_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_leave_cluster() {
+      ::grpc::Service::MarkMethodAsync(15);
+    }
+    ~WithAsyncMethod_leave_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status leave_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestleave_cluster(::grpc::ServerContext* context, ::mom::node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_heartbeat : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_heartbeat() {
+      ::grpc::Service::MarkMethodAsync(16);
+    }
+    ~WithAsyncMethod_heartbeat() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status heartbeat(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestheartbeat(::grpc::ServerContext* context, ::mom::node_ID* request, ::grpc::ServerAsyncResponseWriter< ::mom::status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_sync_topics<WithAsyncMethod_sync_queues<WithAsyncMethod_create_queue<WithAsyncMethod_delete_queue<WithAsyncMethod_list_queues<WithAsyncMethod_create_topic<WithAsyncMethod_delete_topic<WithAsyncMethod_list_topics<WithAsyncMethod_subscribe_topic<WithAsyncMethod_unsubscribe_topic<WithAsyncMethod_send_queue_message<WithAsyncMethod_receive_queue_message<WithAsyncMethod_publish_topic_message<WithAsyncMethod_receive_topic_message<WithAsyncMethod_join_cluster<WithAsyncMethod_leave_cluster<WithAsyncMethod_heartbeat<Service > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithCallbackMethod_sync_topics : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_sync_topics() {
       ::grpc::Service::MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::state_response>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::Node_ID* request, ::mom::state_response* response) { return this->SyncState(context, request, response); }));}
-    void SetMessageAllocatorFor_SyncState(
-        ::grpc::MessageAllocator< ::mom::Node_ID, ::mom::state_response>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) { return this->sync_topics(context, request, response); }));}
+    void SetMessageAllocatorFor_sync_topics(
+        ::grpc::MessageAllocator< ::mom::node_ID, ::mom::state_response>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::state_response>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_SyncState() override {
+    ~WithCallbackMethod_sync_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncState(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::state_response* /*response*/) override {
+    ::grpc::Status sync_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* SyncState(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::state_response* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* sync_topics(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_SyncTopics : public BaseClass {
+  class WithCallbackMethod_sync_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_SyncTopics() {
+    WithCallbackMethod_sync_queues() {
       ::grpc::Service::MarkMethodCallback(1,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::topics_response>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response) { return this->SyncTopics(context, request, response); }));}
-    void SetMessageAllocatorFor_SyncTopics(
-        ::grpc::MessageAllocator< ::mom::Node_ID, ::mom::topics_response>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) { return this->sync_queues(context, request, response); }));}
+    void SetMessageAllocatorFor_sync_queues(
+        ::grpc::MessageAllocator< ::mom::node_ID, ::mom::state_response>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::topics_response>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_SyncTopics() override {
+    ~WithCallbackMethod_sync_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncTopics(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::topics_response* /*response*/) override {
+    ::grpc::Status sync_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* SyncTopics(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::topics_response* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* sync_queues(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_SyncQueues : public BaseClass {
+  class WithCallbackMethod_create_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_SyncQueues() {
+    WithCallbackMethod_create_queue() {
       ::grpc::Service::MarkMethodCallback(2,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::queues_response>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::queue_config, ::mom::status>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response) { return this->SyncQueues(context, request, response); }));}
-    void SetMessageAllocatorFor_SyncQueues(
-        ::grpc::MessageAllocator< ::mom::Node_ID, ::mom::queues_response>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::queue_config* request, ::mom::status* response) { return this->create_queue(context, request, response); }));}
+    void SetMessageAllocatorFor_create_queue(
+        ::grpc::MessageAllocator< ::mom::queue_config, ::mom::status>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::queues_response>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::queue_config, ::mom::status>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_SyncQueues() override {
+    ~WithCallbackMethod_create_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncQueues(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::queues_response* /*response*/) override {
+    ::grpc::Status create_queue(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* SyncQueues(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::queues_response* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* create_queue(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_ReplicateMessage : public BaseClass {
+  class WithCallbackMethod_delete_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_ReplicateMessage() {
+    WithCallbackMethod_delete_queue() {
       ::grpc::Service::MarkMethodCallback(3,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::Message, ::mom::replication_status>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::queue, ::mom::status>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::Message* request, ::mom::replication_status* response) { return this->ReplicateMessage(context, request, response); }));}
-    void SetMessageAllocatorFor_ReplicateMessage(
-        ::grpc::MessageAllocator< ::mom::Message, ::mom::replication_status>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::queue* request, ::mom::status* response) { return this->delete_queue(context, request, response); }));}
+    void SetMessageAllocatorFor_delete_queue(
+        ::grpc::MessageAllocator< ::mom::queue, ::mom::status>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::Message, ::mom::replication_status>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::queue, ::mom::status>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_ReplicateMessage() override {
+    ~WithCallbackMethod_delete_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateMessage(::grpc::ServerContext* /*context*/, const ::mom::Message* /*request*/, ::mom::replication_status* /*response*/) override {
+    ::grpc::Status delete_queue(::grpc::ServerContext* /*context*/, const ::mom::queue* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ReplicateMessage(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::Message* /*request*/, ::mom::replication_status* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* delete_queue(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::queue* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_ReplicateTopicConfig : public BaseClass {
+  class WithCallbackMethod_list_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_ReplicateTopicConfig() {
+    WithCallbackMethod_list_queues() {
       ::grpc::Service::MarkMethodCallback(4,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_config, ::mom::config_status>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::topic_config* request, ::mom::config_status* response) { return this->ReplicateTopicConfig(context, request, response); }));}
-    void SetMessageAllocatorFor_ReplicateTopicConfig(
-        ::grpc::MessageAllocator< ::mom::topic_config, ::mom::config_status>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) { return this->list_queues(context, request, response); }));}
+    void SetMessageAllocatorFor_list_queues(
+        ::grpc::MessageAllocator< ::mom::node_ID, ::mom::state_response>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_config, ::mom::config_status>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_ReplicateTopicConfig() override {
+    ~WithCallbackMethod_list_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateTopicConfig(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status list_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ReplicateTopicConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::config_status* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* list_queues(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_ReplicateQueueConfig : public BaseClass {
+  class WithCallbackMethod_create_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_ReplicateQueueConfig() {
+    WithCallbackMethod_create_topic() {
       ::grpc::Service::MarkMethodCallback(5,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::queue_config, ::mom::config_status>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_config, ::mom::status>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::queue_config* request, ::mom::config_status* response) { return this->ReplicateQueueConfig(context, request, response); }));}
-    void SetMessageAllocatorFor_ReplicateQueueConfig(
-        ::grpc::MessageAllocator< ::mom::queue_config, ::mom::config_status>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::topic_config* request, ::mom::status* response) { return this->create_topic(context, request, response); }));}
+    void SetMessageAllocatorFor_create_topic(
+        ::grpc::MessageAllocator< ::mom::topic_config, ::mom::status>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::queue_config, ::mom::config_status>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_config, ::mom::status>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_ReplicateQueueConfig() override {
+    ~WithCallbackMethod_create_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateQueueConfig(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status create_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ReplicateQueueConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::config_status* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* create_topic(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_JoinCluster : public BaseClass {
+  class WithCallbackMethod_delete_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_JoinCluster() {
+    WithCallbackMethod_delete_topic() {
       ::grpc::Service::MarkMethodCallback(6,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_info, ::mom::clusterInfo>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic, ::mom::status>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response) { return this->JoinCluster(context, request, response); }));}
-    void SetMessageAllocatorFor_JoinCluster(
-        ::grpc::MessageAllocator< ::mom::node_info, ::mom::clusterInfo>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::topic* request, ::mom::status* response) { return this->delete_topic(context, request, response); }));}
+    void SetMessageAllocatorFor_delete_topic(
+        ::grpc::MessageAllocator< ::mom::topic, ::mom::status>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_info, ::mom::clusterInfo>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic, ::mom::status>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_JoinCluster() override {
+    ~WithCallbackMethod_delete_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status JoinCluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::clusterInfo* /*response*/) override {
+    ::grpc::Status delete_topic(::grpc::ServerContext* /*context*/, const ::mom::topic* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* JoinCluster(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::clusterInfo* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* delete_topic(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_LeaveCluster : public BaseClass {
+  class WithCallbackMethod_list_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_LeaveCluster() {
+    WithCallbackMethod_list_topics() {
       ::grpc::Service::MarkMethodCallback(7,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::status>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::Node_ID* request, ::mom::status* response) { return this->LeaveCluster(context, request, response); }));}
-    void SetMessageAllocatorFor_LeaveCluster(
-        ::grpc::MessageAllocator< ::mom::Node_ID, ::mom::status>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) { return this->list_topics(context, request, response); }));}
+    void SetMessageAllocatorFor_list_topics(
+        ::grpc::MessageAllocator< ::mom::node_ID, ::mom::state_response>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::status>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::state_response>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_LeaveCluster() override {
+    ~WithCallbackMethod_list_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LeaveCluster(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status list_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* LeaveCluster(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* list_topics(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_Heartbeat : public BaseClass {
+  class WithCallbackMethod_subscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_Heartbeat() {
+    WithCallbackMethod_subscribe_topic() {
       ::grpc::Service::MarkMethodCallback(8,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::status>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_id, ::mom::status>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::Node_ID* request, ::mom::status* response) { return this->Heartbeat(context, request, response); }));}
-    void SetMessageAllocatorFor_Heartbeat(
-        ::grpc::MessageAllocator< ::mom::Node_ID, ::mom::status>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::mom::topic_id* request, ::mom::status* response) { return this->subscribe_topic(context, request, response); }));}
+    void SetMessageAllocatorFor_subscribe_topic(
+        ::grpc::MessageAllocator< ::mom::topic_id, ::mom::status>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::Node_ID, ::mom::status>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_id, ::mom::status>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_Heartbeat() override {
+    ~WithCallbackMethod_subscribe_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Heartbeat(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status subscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* Heartbeat(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* subscribe_topic(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_SyncState<WithCallbackMethod_SyncTopics<WithCallbackMethod_SyncQueues<WithCallbackMethod_ReplicateMessage<WithCallbackMethod_ReplicateTopicConfig<WithCallbackMethod_ReplicateQueueConfig<WithCallbackMethod_JoinCluster<WithCallbackMethod_LeaveCluster<WithCallbackMethod_Heartbeat<Service > > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_unsubscribe_topic : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_unsubscribe_topic() {
+      ::grpc::Service::MarkMethodCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_id, ::mom::status>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::topic_id* request, ::mom::status* response) { return this->unsubscribe_topic(context, request, response); }));}
+    void SetMessageAllocatorFor_unsubscribe_topic(
+        ::grpc::MessageAllocator< ::mom::topic_id, ::mom::status>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_id, ::mom::status>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_unsubscribe_topic() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status unsubscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* unsubscribe_topic(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_send_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_send_queue_message() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::queue_message, ::mom::message_status>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::queue_message* request, ::mom::message_status* response) { return this->send_queue_message(context, request, response); }));}
+    void SetMessageAllocatorFor_send_queue_message(
+        ::grpc::MessageAllocator< ::mom::queue_message, ::mom::message_status>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::queue_message, ::mom::message_status>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_send_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status send_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* send_queue_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::queue_message* /*request*/, ::mom::message_status* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_receive_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_receive_queue_message() {
+      ::grpc::Service::MarkMethodCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::queue_id, ::mom::Message>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::queue_id* request, ::mom::Message* response) { return this->receive_queue_message(context, request, response); }));}
+    void SetMessageAllocatorFor_receive_queue_message(
+        ::grpc::MessageAllocator< ::mom::queue_id, ::mom::Message>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::queue_id, ::mom::Message>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_receive_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* receive_queue_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::queue_id* /*request*/, ::mom::Message* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_publish_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_publish_topic_message() {
+      ::grpc::Service::MarkMethodCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_message, ::mom::message_status>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::topic_message* request, ::mom::message_status* response) { return this->publish_topic_message(context, request, response); }));}
+    void SetMessageAllocatorFor_publish_topic_message(
+        ::grpc::MessageAllocator< ::mom::topic_message, ::mom::message_status>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_message, ::mom::message_status>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_publish_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* publish_topic_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_receive_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_receive_topic_message() {
+      ::grpc::Service::MarkMethodCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_id, ::mom::Message>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::topic_id* request, ::mom::Message* response) { return this->receive_topic_message(context, request, response); }));}
+    void SetMessageAllocatorFor_receive_topic_message(
+        ::grpc::MessageAllocator< ::mom::topic_id, ::mom::Message>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_id, ::mom::Message>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_receive_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* receive_topic_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::Message* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_join_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_join_cluster() {
+      ::grpc::Service::MarkMethodCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_info, ::mom::cluster_info>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::node_info* request, ::mom::cluster_info* response) { return this->join_cluster(context, request, response); }));}
+    void SetMessageAllocatorFor_join_cluster(
+        ::grpc::MessageAllocator< ::mom::node_info, ::mom::cluster_info>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_info, ::mom::cluster_info>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_join_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status join_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::cluster_info* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* join_cluster(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::cluster_info* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_leave_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_leave_cluster() {
+      ::grpc::Service::MarkMethodCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::status>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::node_ID* request, ::mom::status* response) { return this->leave_cluster(context, request, response); }));}
+    void SetMessageAllocatorFor_leave_cluster(
+        ::grpc::MessageAllocator< ::mom::node_ID, ::mom::status>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::status>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_leave_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status leave_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* leave_cluster(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_heartbeat : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_heartbeat() {
+      ::grpc::Service::MarkMethodCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::status>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mom::node_ID* request, ::mom::status* response) { return this->heartbeat(context, request, response); }));}
+    void SetMessageAllocatorFor_heartbeat(
+        ::grpc::MessageAllocator< ::mom::node_ID, ::mom::status>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::node_ID, ::mom::status>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_heartbeat() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status heartbeat(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* heartbeat(
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_sync_topics<WithCallbackMethod_sync_queues<WithCallbackMethod_create_queue<WithCallbackMethod_delete_queue<WithCallbackMethod_list_queues<WithCallbackMethod_create_topic<WithCallbackMethod_delete_topic<WithCallbackMethod_list_topics<WithCallbackMethod_subscribe_topic<WithCallbackMethod_unsubscribe_topic<WithCallbackMethod_send_queue_message<WithCallbackMethod_receive_queue_message<WithCallbackMethod_publish_topic_message<WithCallbackMethod_receive_topic_message<WithCallbackMethod_join_cluster<WithCallbackMethod_leave_cluster<WithCallbackMethod_heartbeat<Service > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
-  class WithGenericMethod_SyncState : public BaseClass {
+  class WithGenericMethod_sync_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_SyncState() {
+    WithGenericMethod_sync_topics() {
       ::grpc::Service::MarkMethodGeneric(0);
     }
-    ~WithGenericMethod_SyncState() override {
+    ~WithGenericMethod_sync_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncState(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::state_response* /*response*/) override {
+    ::grpc::Status sync_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_SyncTopics : public BaseClass {
+  class WithGenericMethod_sync_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_SyncTopics() {
+    WithGenericMethod_sync_queues() {
       ::grpc::Service::MarkMethodGeneric(1);
     }
-    ~WithGenericMethod_SyncTopics() override {
+    ~WithGenericMethod_sync_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncTopics(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::topics_response* /*response*/) override {
+    ::grpc::Status sync_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_SyncQueues : public BaseClass {
+  class WithGenericMethod_create_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_SyncQueues() {
+    WithGenericMethod_create_queue() {
       ::grpc::Service::MarkMethodGeneric(2);
     }
-    ~WithGenericMethod_SyncQueues() override {
+    ~WithGenericMethod_create_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncQueues(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::queues_response* /*response*/) override {
+    ::grpc::Status create_queue(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_ReplicateMessage : public BaseClass {
+  class WithGenericMethod_delete_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_ReplicateMessage() {
+    WithGenericMethod_delete_queue() {
       ::grpc::Service::MarkMethodGeneric(3);
     }
-    ~WithGenericMethod_ReplicateMessage() override {
+    ~WithGenericMethod_delete_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateMessage(::grpc::ServerContext* /*context*/, const ::mom::Message* /*request*/, ::mom::replication_status* /*response*/) override {
+    ::grpc::Status delete_queue(::grpc::ServerContext* /*context*/, const ::mom::queue* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_ReplicateTopicConfig : public BaseClass {
+  class WithGenericMethod_list_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_ReplicateTopicConfig() {
+    WithGenericMethod_list_queues() {
       ::grpc::Service::MarkMethodGeneric(4);
     }
-    ~WithGenericMethod_ReplicateTopicConfig() override {
+    ~WithGenericMethod_list_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateTopicConfig(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status list_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_ReplicateQueueConfig : public BaseClass {
+  class WithGenericMethod_create_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_ReplicateQueueConfig() {
+    WithGenericMethod_create_topic() {
       ::grpc::Service::MarkMethodGeneric(5);
     }
-    ~WithGenericMethod_ReplicateQueueConfig() override {
+    ~WithGenericMethod_create_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateQueueConfig(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status create_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_JoinCluster : public BaseClass {
+  class WithGenericMethod_delete_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_JoinCluster() {
+    WithGenericMethod_delete_topic() {
       ::grpc::Service::MarkMethodGeneric(6);
     }
-    ~WithGenericMethod_JoinCluster() override {
+    ~WithGenericMethod_delete_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status JoinCluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::clusterInfo* /*response*/) override {
+    ::grpc::Status delete_topic(::grpc::ServerContext* /*context*/, const ::mom::topic* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_LeaveCluster : public BaseClass {
+  class WithGenericMethod_list_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_LeaveCluster() {
+    WithGenericMethod_list_topics() {
       ::grpc::Service::MarkMethodGeneric(7);
     }
-    ~WithGenericMethod_LeaveCluster() override {
+    ~WithGenericMethod_list_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LeaveCluster(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status list_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_Heartbeat : public BaseClass {
+  class WithGenericMethod_subscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_Heartbeat() {
+    WithGenericMethod_subscribe_topic() {
       ::grpc::Service::MarkMethodGeneric(8);
     }
-    ~WithGenericMethod_Heartbeat() override {
+    ~WithGenericMethod_subscribe_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Heartbeat(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status subscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithRawMethod_SyncState : public BaseClass {
+  class WithGenericMethod_unsubscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_SyncState() {
-      ::grpc::Service::MarkMethodRaw(0);
+    WithGenericMethod_unsubscribe_topic() {
+      ::grpc::Service::MarkMethodGeneric(9);
     }
-    ~WithRawMethod_SyncState() override {
+    ~WithGenericMethod_unsubscribe_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncState(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::state_response* /*response*/) override {
+    ::grpc::Status unsubscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSyncState(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+  };
+  template <class BaseClass>
+  class WithGenericMethod_send_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_send_queue_message() {
+      ::grpc::Service::MarkMethodGeneric(10);
+    }
+    ~WithGenericMethod_send_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status send_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_receive_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_receive_queue_message() {
+      ::grpc::Service::MarkMethodGeneric(11);
+    }
+    ~WithGenericMethod_receive_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_publish_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_publish_topic_message() {
+      ::grpc::Service::MarkMethodGeneric(12);
+    }
+    ~WithGenericMethod_publish_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_receive_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_receive_topic_message() {
+      ::grpc::Service::MarkMethodGeneric(13);
+    }
+    ~WithGenericMethod_receive_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_join_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_join_cluster() {
+      ::grpc::Service::MarkMethodGeneric(14);
+    }
+    ~WithGenericMethod_join_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status join_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::cluster_info* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_leave_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_leave_cluster() {
+      ::grpc::Service::MarkMethodGeneric(15);
+    }
+    ~WithGenericMethod_leave_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status leave_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_heartbeat : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_heartbeat() {
+      ::grpc::Service::MarkMethodGeneric(16);
+    }
+    ~WithGenericMethod_heartbeat() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status heartbeat(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_sync_topics : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_sync_topics() {
+      ::grpc::Service::MarkMethodRaw(0);
+    }
+    ~WithRawMethod_sync_topics() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status sync_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestsync_topics(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_SyncTopics : public BaseClass {
+  class WithRawMethod_sync_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_SyncTopics() {
+    WithRawMethod_sync_queues() {
       ::grpc::Service::MarkMethodRaw(1);
     }
-    ~WithRawMethod_SyncTopics() override {
+    ~WithRawMethod_sync_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncTopics(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::topics_response* /*response*/) override {
+    ::grpc::Status sync_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSyncTopics(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestsync_queues(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_SyncQueues : public BaseClass {
+  class WithRawMethod_create_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_SyncQueues() {
+    WithRawMethod_create_queue() {
       ::grpc::Service::MarkMethodRaw(2);
     }
-    ~WithRawMethod_SyncQueues() override {
+    ~WithRawMethod_create_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncQueues(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::queues_response* /*response*/) override {
+    ::grpc::Status create_queue(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSyncQueues(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestcreate_queue(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_ReplicateMessage : public BaseClass {
+  class WithRawMethod_delete_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_ReplicateMessage() {
+    WithRawMethod_delete_queue() {
       ::grpc::Service::MarkMethodRaw(3);
     }
-    ~WithRawMethod_ReplicateMessage() override {
+    ~WithRawMethod_delete_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateMessage(::grpc::ServerContext* /*context*/, const ::mom::Message* /*request*/, ::mom::replication_status* /*response*/) override {
+    ::grpc::Status delete_queue(::grpc::ServerContext* /*context*/, const ::mom::queue* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestReplicateMessage(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestdelete_queue(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_ReplicateTopicConfig : public BaseClass {
+  class WithRawMethod_list_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_ReplicateTopicConfig() {
+    WithRawMethod_list_queues() {
       ::grpc::Service::MarkMethodRaw(4);
     }
-    ~WithRawMethod_ReplicateTopicConfig() override {
+    ~WithRawMethod_list_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateTopicConfig(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status list_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestReplicateTopicConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestlist_queues(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_ReplicateQueueConfig : public BaseClass {
+  class WithRawMethod_create_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_ReplicateQueueConfig() {
+    WithRawMethod_create_topic() {
       ::grpc::Service::MarkMethodRaw(5);
     }
-    ~WithRawMethod_ReplicateQueueConfig() override {
+    ~WithRawMethod_create_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateQueueConfig(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status create_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestReplicateQueueConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestcreate_topic(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_JoinCluster : public BaseClass {
+  class WithRawMethod_delete_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_JoinCluster() {
+    WithRawMethod_delete_topic() {
       ::grpc::Service::MarkMethodRaw(6);
     }
-    ~WithRawMethod_JoinCluster() override {
+    ~WithRawMethod_delete_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status JoinCluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::clusterInfo* /*response*/) override {
+    ::grpc::Status delete_topic(::grpc::ServerContext* /*context*/, const ::mom::topic* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestJoinCluster(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestdelete_topic(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_LeaveCluster : public BaseClass {
+  class WithRawMethod_list_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_LeaveCluster() {
+    WithRawMethod_list_topics() {
       ::grpc::Service::MarkMethodRaw(7);
     }
-    ~WithRawMethod_LeaveCluster() override {
+    ~WithRawMethod_list_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LeaveCluster(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status list_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestLeaveCluster(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestlist_topics(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_Heartbeat : public BaseClass {
+  class WithRawMethod_subscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_Heartbeat() {
+    WithRawMethod_subscribe_topic() {
       ::grpc::Service::MarkMethodRaw(8);
     }
-    ~WithRawMethod_Heartbeat() override {
+    ~WithRawMethod_subscribe_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Heartbeat(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status subscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestHeartbeat(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestsubscribe_topic(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_SyncState : public BaseClass {
+  class WithRawMethod_unsubscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_SyncState() {
+    WithRawMethod_unsubscribe_topic() {
+      ::grpc::Service::MarkMethodRaw(9);
+    }
+    ~WithRawMethod_unsubscribe_topic() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status unsubscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestunsubscribe_topic(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_send_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_send_queue_message() {
+      ::grpc::Service::MarkMethodRaw(10);
+    }
+    ~WithRawMethod_send_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status send_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestsend_queue_message(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_receive_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_receive_queue_message() {
+      ::grpc::Service::MarkMethodRaw(11);
+    }
+    ~WithRawMethod_receive_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestreceive_queue_message(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_publish_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_publish_topic_message() {
+      ::grpc::Service::MarkMethodRaw(12);
+    }
+    ~WithRawMethod_publish_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestpublish_topic_message(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_receive_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_receive_topic_message() {
+      ::grpc::Service::MarkMethodRaw(13);
+    }
+    ~WithRawMethod_receive_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestreceive_topic_message(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_join_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_join_cluster() {
+      ::grpc::Service::MarkMethodRaw(14);
+    }
+    ~WithRawMethod_join_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status join_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::cluster_info* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestjoin_cluster(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_leave_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_leave_cluster() {
+      ::grpc::Service::MarkMethodRaw(15);
+    }
+    ~WithRawMethod_leave_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status leave_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestleave_cluster(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_heartbeat : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_heartbeat() {
+      ::grpc::Service::MarkMethodRaw(16);
+    }
+    ~WithRawMethod_heartbeat() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status heartbeat(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestheartbeat(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_sync_topics : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_sync_topics() {
       ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SyncState(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->sync_topics(context, request, response); }));
     }
-    ~WithRawCallbackMethod_SyncState() override {
+    ~WithRawCallbackMethod_sync_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncState(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::state_response* /*response*/) override {
+    ::grpc::Status sync_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* SyncState(
+    virtual ::grpc::ServerUnaryReactor* sync_topics(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_SyncTopics : public BaseClass {
+  class WithRawCallbackMethod_sync_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_SyncTopics() {
+    WithRawCallbackMethod_sync_queues() {
       ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SyncTopics(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->sync_queues(context, request, response); }));
     }
-    ~WithRawCallbackMethod_SyncTopics() override {
+    ~WithRawCallbackMethod_sync_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncTopics(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::topics_response* /*response*/) override {
+    ::grpc::Status sync_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* SyncTopics(
+    virtual ::grpc::ServerUnaryReactor* sync_queues(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_SyncQueues : public BaseClass {
+  class WithRawCallbackMethod_create_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_SyncQueues() {
+    WithRawCallbackMethod_create_queue() {
       ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SyncQueues(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->create_queue(context, request, response); }));
     }
-    ~WithRawCallbackMethod_SyncQueues() override {
+    ~WithRawCallbackMethod_create_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SyncQueues(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::queues_response* /*response*/) override {
+    ::grpc::Status create_queue(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* SyncQueues(
+    virtual ::grpc::ServerUnaryReactor* create_queue(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_ReplicateMessage : public BaseClass {
+  class WithRawCallbackMethod_delete_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_ReplicateMessage() {
+    WithRawCallbackMethod_delete_queue() {
       ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReplicateMessage(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->delete_queue(context, request, response); }));
     }
-    ~WithRawCallbackMethod_ReplicateMessage() override {
+    ~WithRawCallbackMethod_delete_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateMessage(::grpc::ServerContext* /*context*/, const ::mom::Message* /*request*/, ::mom::replication_status* /*response*/) override {
+    ::grpc::Status delete_queue(::grpc::ServerContext* /*context*/, const ::mom::queue* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ReplicateMessage(
+    virtual ::grpc::ServerUnaryReactor* delete_queue(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_ReplicateTopicConfig : public BaseClass {
+  class WithRawCallbackMethod_list_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_ReplicateTopicConfig() {
+    WithRawCallbackMethod_list_queues() {
       ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReplicateTopicConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->list_queues(context, request, response); }));
     }
-    ~WithRawCallbackMethod_ReplicateTopicConfig() override {
+    ~WithRawCallbackMethod_list_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateTopicConfig(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status list_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ReplicateTopicConfig(
+    virtual ::grpc::ServerUnaryReactor* list_queues(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_ReplicateQueueConfig : public BaseClass {
+  class WithRawCallbackMethod_create_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_ReplicateQueueConfig() {
+    WithRawCallbackMethod_create_topic() {
       ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReplicateQueueConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->create_topic(context, request, response); }));
     }
-    ~WithRawCallbackMethod_ReplicateQueueConfig() override {
+    ~WithRawCallbackMethod_create_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ReplicateQueueConfig(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status create_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ReplicateQueueConfig(
+    virtual ::grpc::ServerUnaryReactor* create_topic(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_JoinCluster : public BaseClass {
+  class WithRawCallbackMethod_delete_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_JoinCluster() {
+    WithRawCallbackMethod_delete_topic() {
       ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->JoinCluster(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->delete_topic(context, request, response); }));
     }
-    ~WithRawCallbackMethod_JoinCluster() override {
+    ~WithRawCallbackMethod_delete_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status JoinCluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::clusterInfo* /*response*/) override {
+    ::grpc::Status delete_topic(::grpc::ServerContext* /*context*/, const ::mom::topic* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* JoinCluster(
+    virtual ::grpc::ServerUnaryReactor* delete_topic(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_LeaveCluster : public BaseClass {
+  class WithRawCallbackMethod_list_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_LeaveCluster() {
+    WithRawCallbackMethod_list_topics() {
       ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LeaveCluster(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->list_topics(context, request, response); }));
     }
-    ~WithRawCallbackMethod_LeaveCluster() override {
+    ~WithRawCallbackMethod_list_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LeaveCluster(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status list_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* LeaveCluster(
+    virtual ::grpc::ServerUnaryReactor* list_topics(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_Heartbeat : public BaseClass {
+  class WithRawCallbackMethod_subscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_Heartbeat() {
+    WithRawCallbackMethod_subscribe_topic() {
       ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Heartbeat(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->subscribe_topic(context, request, response); }));
     }
-    ~WithRawCallbackMethod_Heartbeat() override {
+    ~WithRawCallbackMethod_subscribe_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Heartbeat(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status subscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* Heartbeat(
+    virtual ::grpc::ServerUnaryReactor* subscribe_topic(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_SyncState : public BaseClass {
+  class WithRawCallbackMethod_unsubscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_SyncState() {
+    WithRawCallbackMethod_unsubscribe_topic() {
+      ::grpc::Service::MarkMethodRawCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->unsubscribe_topic(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_unsubscribe_topic() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status unsubscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* unsubscribe_topic(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_send_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_send_queue_message() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->send_queue_message(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_send_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status send_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* send_queue_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_receive_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_receive_queue_message() {
+      ::grpc::Service::MarkMethodRawCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->receive_queue_message(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_receive_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* receive_queue_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_publish_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_publish_topic_message() {
+      ::grpc::Service::MarkMethodRawCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->publish_topic_message(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_publish_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* publish_topic_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_receive_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_receive_topic_message() {
+      ::grpc::Service::MarkMethodRawCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->receive_topic_message(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_receive_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status receive_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* receive_topic_message(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_join_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_join_cluster() {
+      ::grpc::Service::MarkMethodRawCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->join_cluster(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_join_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status join_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::cluster_info* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* join_cluster(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_leave_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_leave_cluster() {
+      ::grpc::Service::MarkMethodRawCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->leave_cluster(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_leave_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status leave_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* leave_cluster(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_heartbeat : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_heartbeat() {
+      ::grpc::Service::MarkMethodRawCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->heartbeat(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_heartbeat() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status heartbeat(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* heartbeat(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_sync_topics : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_sync_topics() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::Node_ID, ::mom::state_response>(
+          ::mom::node_ID, ::mom::state_response>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::Node_ID, ::mom::state_response>* streamer) {
-                       return this->StreamedSyncState(context,
+                     ::mom::node_ID, ::mom::state_response>* streamer) {
+                       return this->Streamedsync_topics(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_SyncState() override {
+    ~WithStreamedUnaryMethod_sync_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SyncState(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::state_response* /*response*/) override {
+    ::grpc::Status sync_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedSyncState(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::Node_ID,::mom::state_response>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedsync_topics(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_ID,::mom::state_response>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_SyncTopics : public BaseClass {
+  class WithStreamedUnaryMethod_sync_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_SyncTopics() {
+    WithStreamedUnaryMethod_sync_queues() {
       ::grpc::Service::MarkMethodStreamed(1,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::Node_ID, ::mom::topics_response>(
+          ::mom::node_ID, ::mom::state_response>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::Node_ID, ::mom::topics_response>* streamer) {
-                       return this->StreamedSyncTopics(context,
+                     ::mom::node_ID, ::mom::state_response>* streamer) {
+                       return this->Streamedsync_queues(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_SyncTopics() override {
+    ~WithStreamedUnaryMethod_sync_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SyncTopics(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::topics_response* /*response*/) override {
+    ::grpc::Status sync_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedSyncTopics(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::Node_ID,::mom::topics_response>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedsync_queues(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_ID,::mom::state_response>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_SyncQueues : public BaseClass {
+  class WithStreamedUnaryMethod_create_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_SyncQueues() {
+    WithStreamedUnaryMethod_create_queue() {
       ::grpc::Service::MarkMethodStreamed(2,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::Node_ID, ::mom::queues_response>(
+          ::mom::queue_config, ::mom::status>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::Node_ID, ::mom::queues_response>* streamer) {
-                       return this->StreamedSyncQueues(context,
+                     ::mom::queue_config, ::mom::status>* streamer) {
+                       return this->Streamedcreate_queue(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_SyncQueues() override {
+    ~WithStreamedUnaryMethod_create_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SyncQueues(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::queues_response* /*response*/) override {
+    ::grpc::Status create_queue(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedSyncQueues(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::Node_ID,::mom::queues_response>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedcreate_queue(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::queue_config,::mom::status>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_ReplicateMessage : public BaseClass {
+  class WithStreamedUnaryMethod_delete_queue : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_ReplicateMessage() {
+    WithStreamedUnaryMethod_delete_queue() {
       ::grpc::Service::MarkMethodStreamed(3,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::Message, ::mom::replication_status>(
+          ::mom::queue, ::mom::status>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::Message, ::mom::replication_status>* streamer) {
-                       return this->StreamedReplicateMessage(context,
+                     ::mom::queue, ::mom::status>* streamer) {
+                       return this->Streameddelete_queue(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_ReplicateMessage() override {
+    ~WithStreamedUnaryMethod_delete_queue() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ReplicateMessage(::grpc::ServerContext* /*context*/, const ::mom::Message* /*request*/, ::mom::replication_status* /*response*/) override {
+    ::grpc::Status delete_queue(::grpc::ServerContext* /*context*/, const ::mom::queue* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedReplicateMessage(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::Message,::mom::replication_status>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streameddelete_queue(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::queue,::mom::status>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_ReplicateTopicConfig : public BaseClass {
+  class WithStreamedUnaryMethod_list_queues : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_ReplicateTopicConfig() {
+    WithStreamedUnaryMethod_list_queues() {
       ::grpc::Service::MarkMethodStreamed(4,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::topic_config, ::mom::config_status>(
+          ::mom::node_ID, ::mom::state_response>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::topic_config, ::mom::config_status>* streamer) {
-                       return this->StreamedReplicateTopicConfig(context,
+                     ::mom::node_ID, ::mom::state_response>* streamer) {
+                       return this->Streamedlist_queues(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_ReplicateTopicConfig() override {
+    ~WithStreamedUnaryMethod_list_queues() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ReplicateTopicConfig(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status list_queues(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedReplicateTopicConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_config,::mom::config_status>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedlist_queues(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_ID,::mom::state_response>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_ReplicateQueueConfig : public BaseClass {
+  class WithStreamedUnaryMethod_create_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_ReplicateQueueConfig() {
+    WithStreamedUnaryMethod_create_topic() {
       ::grpc::Service::MarkMethodStreamed(5,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::queue_config, ::mom::config_status>(
+          ::mom::topic_config, ::mom::status>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::queue_config, ::mom::config_status>* streamer) {
-                       return this->StreamedReplicateQueueConfig(context,
+                     ::mom::topic_config, ::mom::status>* streamer) {
+                       return this->Streamedcreate_topic(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_ReplicateQueueConfig() override {
+    ~WithStreamedUnaryMethod_create_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ReplicateQueueConfig(::grpc::ServerContext* /*context*/, const ::mom::queue_config* /*request*/, ::mom::config_status* /*response*/) override {
+    ::grpc::Status create_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_config* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedReplicateQueueConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::queue_config,::mom::config_status>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedcreate_topic(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_config,::mom::status>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_JoinCluster : public BaseClass {
+  class WithStreamedUnaryMethod_delete_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_JoinCluster() {
+    WithStreamedUnaryMethod_delete_topic() {
       ::grpc::Service::MarkMethodStreamed(6,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::node_info, ::mom::clusterInfo>(
+          ::mom::topic, ::mom::status>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::node_info, ::mom::clusterInfo>* streamer) {
-                       return this->StreamedJoinCluster(context,
+                     ::mom::topic, ::mom::status>* streamer) {
+                       return this->Streameddelete_topic(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_JoinCluster() override {
+    ~WithStreamedUnaryMethod_delete_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status JoinCluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::clusterInfo* /*response*/) override {
+    ::grpc::Status delete_topic(::grpc::ServerContext* /*context*/, const ::mom::topic* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedJoinCluster(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_info,::mom::clusterInfo>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streameddelete_topic(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic,::mom::status>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_LeaveCluster : public BaseClass {
+  class WithStreamedUnaryMethod_list_topics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_LeaveCluster() {
+    WithStreamedUnaryMethod_list_topics() {
       ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::Node_ID, ::mom::status>(
+          ::mom::node_ID, ::mom::state_response>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::Node_ID, ::mom::status>* streamer) {
-                       return this->StreamedLeaveCluster(context,
+                     ::mom::node_ID, ::mom::state_response>* streamer) {
+                       return this->Streamedlist_topics(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_LeaveCluster() override {
+    ~WithStreamedUnaryMethod_list_topics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status LeaveCluster(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status list_topics(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::state_response* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedLeaveCluster(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::Node_ID,::mom::status>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedlist_topics(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_ID,::mom::state_response>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_Heartbeat : public BaseClass {
+  class WithStreamedUnaryMethod_subscribe_topic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_Heartbeat() {
+    WithStreamedUnaryMethod_subscribe_topic() {
       ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::Node_ID, ::mom::status>(
+          ::mom::topic_id, ::mom::status>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::Node_ID, ::mom::status>* streamer) {
-                       return this->StreamedHeartbeat(context,
+                     ::mom::topic_id, ::mom::status>* streamer) {
+                       return this->Streamedsubscribe_topic(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_Heartbeat() override {
+    ~WithStreamedUnaryMethod_subscribe_topic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status Heartbeat(::grpc::ServerContext* /*context*/, const ::mom::Node_ID* /*request*/, ::mom::status* /*response*/) override {
+    ::grpc::Status subscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedHeartbeat(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::Node_ID,::mom::status>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedsubscribe_topic(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_id,::mom::status>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_SyncState<WithStreamedUnaryMethod_SyncTopics<WithStreamedUnaryMethod_SyncQueues<WithStreamedUnaryMethod_ReplicateMessage<WithStreamedUnaryMethod_ReplicateTopicConfig<WithStreamedUnaryMethod_ReplicateQueueConfig<WithStreamedUnaryMethod_JoinCluster<WithStreamedUnaryMethod_LeaveCluster<WithStreamedUnaryMethod_Heartbeat<Service > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_unsubscribe_topic : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_unsubscribe_topic() {
+      ::grpc::Service::MarkMethodStreamed(9,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::topic_id, ::mom::status>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::topic_id, ::mom::status>* streamer) {
+                       return this->Streamedunsubscribe_topic(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_unsubscribe_topic() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status unsubscribe_topic(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedunsubscribe_topic(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_id,::mom::status>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_send_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_send_queue_message() {
+      ::grpc::Service::MarkMethodStreamed(10,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::queue_message, ::mom::message_status>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::queue_message, ::mom::message_status>* streamer) {
+                       return this->Streamedsend_queue_message(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_send_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status send_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedsend_queue_message(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::queue_message,::mom::message_status>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_receive_queue_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_receive_queue_message() {
+      ::grpc::Service::MarkMethodStreamed(11,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::queue_id, ::mom::Message>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::queue_id, ::mom::Message>* streamer) {
+                       return this->Streamedreceive_queue_message(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_receive_queue_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status receive_queue_message(::grpc::ServerContext* /*context*/, const ::mom::queue_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedreceive_queue_message(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::queue_id,::mom::Message>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_publish_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_publish_topic_message() {
+      ::grpc::Service::MarkMethodStreamed(12,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::topic_message, ::mom::message_status>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::topic_message, ::mom::message_status>* streamer) {
+                       return this->Streamedpublish_topic_message(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_publish_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedpublish_topic_message(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_message,::mom::message_status>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_receive_topic_message : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_receive_topic_message() {
+      ::grpc::Service::MarkMethodStreamed(13,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::topic_id, ::mom::Message>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::topic_id, ::mom::Message>* streamer) {
+                       return this->Streamedreceive_topic_message(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_receive_topic_message() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status receive_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_id* /*request*/, ::mom::Message* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedreceive_topic_message(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_id,::mom::Message>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_join_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_join_cluster() {
+      ::grpc::Service::MarkMethodStreamed(14,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::node_info, ::mom::cluster_info>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::node_info, ::mom::cluster_info>* streamer) {
+                       return this->Streamedjoin_cluster(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_join_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status join_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_info* /*request*/, ::mom::cluster_info* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedjoin_cluster(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_info,::mom::cluster_info>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_leave_cluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_leave_cluster() {
+      ::grpc::Service::MarkMethodStreamed(15,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::node_ID, ::mom::status>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::node_ID, ::mom::status>* streamer) {
+                       return this->Streamedleave_cluster(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_leave_cluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status leave_cluster(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedleave_cluster(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_ID,::mom::status>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_heartbeat : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_heartbeat() {
+      ::grpc::Service::MarkMethodStreamed(16,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mom::node_ID, ::mom::status>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mom::node_ID, ::mom::status>* streamer) {
+                       return this->Streamedheartbeat(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_heartbeat() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status heartbeat(::grpc::ServerContext* /*context*/, const ::mom::node_ID* /*request*/, ::mom::status* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedheartbeat(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::node_ID,::mom::status>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_sync_topics<WithStreamedUnaryMethod_sync_queues<WithStreamedUnaryMethod_create_queue<WithStreamedUnaryMethod_delete_queue<WithStreamedUnaryMethod_list_queues<WithStreamedUnaryMethod_create_topic<WithStreamedUnaryMethod_delete_topic<WithStreamedUnaryMethod_list_topics<WithStreamedUnaryMethod_subscribe_topic<WithStreamedUnaryMethod_unsubscribe_topic<WithStreamedUnaryMethod_send_queue_message<WithStreamedUnaryMethod_receive_queue_message<WithStreamedUnaryMethod_publish_topic_message<WithStreamedUnaryMethod_receive_topic_message<WithStreamedUnaryMethod_join_cluster<WithStreamedUnaryMethod_leave_cluster<WithStreamedUnaryMethod_heartbeat<Service > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_SyncState<WithStreamedUnaryMethod_SyncTopics<WithStreamedUnaryMethod_SyncQueues<WithStreamedUnaryMethod_ReplicateMessage<WithStreamedUnaryMethod_ReplicateTopicConfig<WithStreamedUnaryMethod_ReplicateQueueConfig<WithStreamedUnaryMethod_JoinCluster<WithStreamedUnaryMethod_LeaveCluster<WithStreamedUnaryMethod_Heartbeat<Service > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_sync_topics<WithStreamedUnaryMethod_sync_queues<WithStreamedUnaryMethod_create_queue<WithStreamedUnaryMethod_delete_queue<WithStreamedUnaryMethod_list_queues<WithStreamedUnaryMethod_create_topic<WithStreamedUnaryMethod_delete_topic<WithStreamedUnaryMethod_list_topics<WithStreamedUnaryMethod_subscribe_topic<WithStreamedUnaryMethod_unsubscribe_topic<WithStreamedUnaryMethod_send_queue_message<WithStreamedUnaryMethod_receive_queue_message<WithStreamedUnaryMethod_publish_topic_message<WithStreamedUnaryMethod_receive_topic_message<WithStreamedUnaryMethod_join_cluster<WithStreamedUnaryMethod_leave_cluster<WithStreamedUnaryMethod_heartbeat<Service > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace mom

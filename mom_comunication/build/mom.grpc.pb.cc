@@ -22,15 +22,23 @@
 namespace mom {
 
 static const char* MOM_service_method_names[] = {
-  "/mom.MOM_service/SyncState",
-  "/mom.MOM_service/SyncTopics",
-  "/mom.MOM_service/SyncQueues",
-  "/mom.MOM_service/ReplicateMessage",
-  "/mom.MOM_service/ReplicateTopicConfig",
-  "/mom.MOM_service/ReplicateQueueConfig",
-  "/mom.MOM_service/JoinCluster",
-  "/mom.MOM_service/LeaveCluster",
-  "/mom.MOM_service/Heartbeat",
+  "/mom.MOM_service/sync_topics",
+  "/mom.MOM_service/sync_queues",
+  "/mom.MOM_service/create_queue",
+  "/mom.MOM_service/delete_queue",
+  "/mom.MOM_service/list_queues",
+  "/mom.MOM_service/create_topic",
+  "/mom.MOM_service/delete_topic",
+  "/mom.MOM_service/list_topics",
+  "/mom.MOM_service/subscribe_topic",
+  "/mom.MOM_service/unsubscribe_topic",
+  "/mom.MOM_service/send_queue_message",
+  "/mom.MOM_service/receive_queue_message",
+  "/mom.MOM_service/publish_topic_message",
+  "/mom.MOM_service/receive_topic_message",
+  "/mom.MOM_service/join_cluster",
+  "/mom.MOM_service/leave_cluster",
+  "/mom.MOM_service/heartbeat",
 };
 
 std::unique_ptr< MOM_service::Stub> MOM_service::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -40,220 +48,412 @@ std::unique_ptr< MOM_service::Stub> MOM_service::NewStub(const std::shared_ptr< 
 }
 
 MOM_service::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_SyncState_(MOM_service_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SyncTopics_(MOM_service_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SyncQueues_(MOM_service_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ReplicateMessage_(MOM_service_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ReplicateTopicConfig_(MOM_service_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ReplicateQueueConfig_(MOM_service_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_JoinCluster_(MOM_service_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_LeaveCluster_(MOM_service_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Heartbeat_(MOM_service_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_sync_topics_(MOM_service_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_sync_queues_(MOM_service_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_create_queue_(MOM_service_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_delete_queue_(MOM_service_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_list_queues_(MOM_service_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_create_topic_(MOM_service_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_delete_topic_(MOM_service_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_list_topics_(MOM_service_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_subscribe_topic_(MOM_service_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_unsubscribe_topic_(MOM_service_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_send_queue_message_(MOM_service_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_receive_queue_message_(MOM_service_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_publish_topic_message_(MOM_service_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_receive_topic_message_(MOM_service_method_names[13], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_join_cluster_(MOM_service_method_names[14], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_leave_cluster_(MOM_service_method_names[15], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_heartbeat_(MOM_service_method_names[16], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status MOM_service::Stub::SyncState(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::state_response* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::Node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SyncState_, context, request, response);
+::grpc::Status MOM_service::Stub::sync_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_sync_topics_, context, request, response);
 }
 
-void MOM_service::Stub::async::SyncState(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::Node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SyncState_, context, request, response, std::move(f));
+void MOM_service::Stub::async::sync_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_sync_topics_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::SyncState(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SyncState_, context, request, response, reactor);
+void MOM_service::Stub::async::sync_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_sync_topics_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::PrepareAsyncSyncStateRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::state_response, ::mom::Node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SyncState_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::PrepareAsyncsync_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::state_response, ::mom::node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_sync_topics_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::AsyncSyncStateRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::Asyncsync_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncSyncStateRaw(context, request, cq);
+    this->PrepareAsyncsync_topicsRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::topics_response* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::Node_ID, ::mom::topics_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SyncTopics_, context, request, response);
+::grpc::Status MOM_service::Stub::sync_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_sync_queues_, context, request, response);
 }
 
-void MOM_service::Stub::async::SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::Node_ID, ::mom::topics_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SyncTopics_, context, request, response, std::move(f));
+void MOM_service::Stub::async::sync_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_sync_queues_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::SyncTopics(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SyncTopics_, context, request, response, reactor);
+void MOM_service::Stub::async::sync_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_sync_queues_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::topics_response>* MOM_service::Stub::PrepareAsyncSyncTopicsRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::topics_response, ::mom::Node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SyncTopics_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::PrepareAsyncsync_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::state_response, ::mom::node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_sync_queues_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::topics_response>* MOM_service::Stub::AsyncSyncTopicsRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::Asyncsync_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncSyncTopicsRaw(context, request, cq);
+    this->PrepareAsyncsync_queuesRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::queues_response* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::Node_ID, ::mom::queues_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SyncQueues_, context, request, response);
+::grpc::Status MOM_service::Stub::create_queue(::grpc::ClientContext* context, const ::mom::queue_config& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::queue_config, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_create_queue_, context, request, response);
 }
 
-void MOM_service::Stub::async::SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::Node_ID, ::mom::queues_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SyncQueues_, context, request, response, std::move(f));
+void MOM_service::Stub::async::create_queue(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::queue_config, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_create_queue_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::SyncQueues(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SyncQueues_, context, request, response, reactor);
+void MOM_service::Stub::async::create_queue(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_create_queue_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::queues_response>* MOM_service::Stub::PrepareAsyncSyncQueuesRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::queues_response, ::mom::Node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SyncQueues_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsynccreate_queueRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::queue_config, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_create_queue_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::queues_response>* MOM_service::Stub::AsyncSyncQueuesRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::Asynccreate_queueRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncSyncQueuesRaw(context, request, cq);
+    this->PrepareAsynccreate_queueRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message& request, ::mom::replication_status* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::Message, ::mom::replication_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ReplicateMessage_, context, request, response);
+::grpc::Status MOM_service::Stub::delete_queue(::grpc::ClientContext* context, const ::mom::queue& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::queue, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_delete_queue_, context, request, response);
 }
 
-void MOM_service::Stub::async::ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message* request, ::mom::replication_status* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::Message, ::mom::replication_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ReplicateMessage_, context, request, response, std::move(f));
+void MOM_service::Stub::async::delete_queue(::grpc::ClientContext* context, const ::mom::queue* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::queue, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_delete_queue_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::ReplicateMessage(::grpc::ClientContext* context, const ::mom::Message* request, ::mom::replication_status* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ReplicateMessage_, context, request, response, reactor);
+void MOM_service::Stub::async::delete_queue(::grpc::ClientContext* context, const ::mom::queue* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_delete_queue_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::replication_status>* MOM_service::Stub::PrepareAsyncReplicateMessageRaw(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::replication_status, ::mom::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ReplicateMessage_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncdelete_queueRaw(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::queue, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_delete_queue_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::replication_status>* MOM_service::Stub::AsyncReplicateMessageRaw(::grpc::ClientContext* context, const ::mom::Message& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::Asyncdelete_queueRaw(::grpc::ClientContext* context, const ::mom::queue& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncReplicateMessageRaw(context, request, cq);
+    this->PrepareAsyncdelete_queueRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config& request, ::mom::config_status* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_config, ::mom::config_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ReplicateTopicConfig_, context, request, response);
+::grpc::Status MOM_service::Stub::list_queues(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_list_queues_, context, request, response);
 }
 
-void MOM_service::Stub::async::ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::config_status* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::topic_config, ::mom::config_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ReplicateTopicConfig_, context, request, response, std::move(f));
+void MOM_service::Stub::async::list_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_list_queues_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::ReplicateTopicConfig(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::config_status* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ReplicateTopicConfig_, context, request, response, reactor);
+void MOM_service::Stub::async::list_queues(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_list_queues_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::config_status>* MOM_service::Stub::PrepareAsyncReplicateTopicConfigRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::config_status, ::mom::topic_config, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ReplicateTopicConfig_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::PrepareAsynclist_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::state_response, ::mom::node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_list_queues_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::config_status>* MOM_service::Stub::AsyncReplicateTopicConfigRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::Asynclist_queuesRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncReplicateTopicConfigRaw(context, request, cq);
+    this->PrepareAsynclist_queuesRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config& request, ::mom::config_status* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::queue_config, ::mom::config_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ReplicateQueueConfig_, context, request, response);
+::grpc::Status MOM_service::Stub::create_topic(::grpc::ClientContext* context, const ::mom::topic_config& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_config, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_create_topic_, context, request, response);
 }
 
-void MOM_service::Stub::async::ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::config_status* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::queue_config, ::mom::config_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ReplicateQueueConfig_, context, request, response, std::move(f));
+void MOM_service::Stub::async::create_topic(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic_config, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_create_topic_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::ReplicateQueueConfig(::grpc::ClientContext* context, const ::mom::queue_config* request, ::mom::config_status* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ReplicateQueueConfig_, context, request, response, reactor);
+void MOM_service::Stub::async::create_topic(::grpc::ClientContext* context, const ::mom::topic_config* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_create_topic_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::config_status>* MOM_service::Stub::PrepareAsyncReplicateQueueConfigRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::config_status, ::mom::queue_config, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ReplicateQueueConfig_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsynccreate_topicRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::topic_config, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_create_topic_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::config_status>* MOM_service::Stub::AsyncReplicateQueueConfigRaw(::grpc::ClientContext* context, const ::mom::queue_config& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::Asynccreate_topicRaw(::grpc::ClientContext* context, const ::mom::topic_config& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncReplicateQueueConfigRaw(context, request, cq);
+    this->PrepareAsynccreate_topicRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::JoinCluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::mom::clusterInfo* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::node_info, ::mom::clusterInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_JoinCluster_, context, request, response);
+::grpc::Status MOM_service::Stub::delete_topic(::grpc::ClientContext* context, const ::mom::topic& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_delete_topic_, context, request, response);
 }
 
-void MOM_service::Stub::async::JoinCluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::node_info, ::mom::clusterInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_JoinCluster_, context, request, response, std::move(f));
+void MOM_service::Stub::async::delete_topic(::grpc::ClientContext* context, const ::mom::topic* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_delete_topic_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::JoinCluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_JoinCluster_, context, request, response, reactor);
+void MOM_service::Stub::async::delete_topic(::grpc::ClientContext* context, const ::mom::topic* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_delete_topic_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>* MOM_service::Stub::PrepareAsyncJoinClusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::clusterInfo, ::mom::node_info, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_JoinCluster_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::topic, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_delete_topic_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::clusterInfo>* MOM_service::Stub::AsyncJoinClusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::Asyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncJoinClusterRaw(context, request, cq);
+    this->PrepareAsyncdelete_topicRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::status* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::Node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_LeaveCluster_, context, request, response);
+::grpc::Status MOM_service::Stub::list_topics(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::state_response* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_list_topics_, context, request, response);
 }
 
-void MOM_service::Stub::async::LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::Node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LeaveCluster_, context, request, response, std::move(f));
+void MOM_service::Stub::async::list_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_list_topics_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::LeaveCluster(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LeaveCluster_, context, request, response, reactor);
+void MOM_service::Stub::async::list_topics(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::state_response* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_list_topics_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncLeaveClusterRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::Node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_LeaveCluster_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::PrepareAsynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::state_response, ::mom::node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_list_topics_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::AsyncLeaveClusterRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::state_response>* MOM_service::Stub::Asynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncLeaveClusterRaw(context, request, cq);
+    this->PrepareAsynclist_topicsRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status MOM_service::Stub::Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::mom::status* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::Node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Heartbeat_, context, request, response);
+::grpc::Status MOM_service::Stub::subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_id, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_subscribe_topic_, context, request, response);
 }
 
-void MOM_service::Stub::async::Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::Node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Heartbeat_, context, request, response, std::move(f));
+void MOM_service::Stub::async::subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic_id, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_subscribe_topic_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::Heartbeat(::grpc::ClientContext* context, const ::mom::Node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Heartbeat_, context, request, response, reactor);
+void MOM_service::Stub::async::subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_subscribe_topic_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncHeartbeatRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::Node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Heartbeat_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::topic_id, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_subscribe_topic_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::AsyncHeartbeatRaw(::grpc::ClientContext* context, const ::mom::Node_ID& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::Asyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncHeartbeatRaw(context, request, cq);
+    this->PrepareAsyncsubscribe_topicRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_id, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_unsubscribe_topic_, context, request, response);
+}
+
+void MOM_service::Stub::async::unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic_id, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_unsubscribe_topic_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_unsubscribe_topic_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::topic_id, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_unsubscribe_topic_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::Asyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncunsubscribe_topicRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message& request, ::mom::message_status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::queue_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_send_queue_message_, context, request, response);
+}
+
+void MOM_service::Stub::async::send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::queue_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_send_queue_message_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_send_queue_message_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::PrepareAsyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::message_status, ::mom::queue_message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_send_queue_message_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::Asyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncsend_queue_messageRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id& request, ::mom::Message* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::queue_id, ::mom::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_receive_queue_message_, context, request, response);
+}
+
+void MOM_service::Stub::async::receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id* request, ::mom::Message* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::queue_id, ::mom::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_receive_queue_message_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_id* request, ::mom::Message* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_receive_queue_message_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::Message>* MOM_service::Stub::PrepareAsyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::Message, ::mom::queue_id, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_receive_queue_message_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::Message>* MOM_service::Stub::Asyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_id& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncreceive_queue_messageRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::mom::message_status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_publish_topic_message_, context, request, response);
+}
+
+void MOM_service::Stub::async::publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_publish_topic_message_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_publish_topic_message_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::message_status, ::mom::topic_message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_publish_topic_message_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncpublish_topic_messageRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id& request, ::mom::Message* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_id, ::mom::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_receive_topic_message_, context, request, response);
+}
+
+void MOM_service::Stub::async::receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::Message* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic_id, ::mom::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_receive_topic_message_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_id* request, ::mom::Message* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_receive_topic_message_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::Message>* MOM_service::Stub::PrepareAsyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::Message, ::mom::topic_id, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_receive_topic_message_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::Message>* MOM_service::Stub::Asyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_id& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncreceive_topic_messageRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::join_cluster(::grpc::ClientContext* context, const ::mom::node_info& request, ::mom::cluster_info* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::node_info, ::mom::cluster_info, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_join_cluster_, context, request, response);
+}
+
+void MOM_service::Stub::async::join_cluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::cluster_info* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::node_info, ::mom::cluster_info, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_join_cluster_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::join_cluster(::grpc::ClientContext* context, const ::mom::node_info* request, ::mom::cluster_info* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_join_cluster_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::cluster_info>* MOM_service::Stub::PrepareAsyncjoin_clusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::cluster_info, ::mom::node_info, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_join_cluster_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::cluster_info>* MOM_service::Stub::Asyncjoin_clusterRaw(::grpc::ClientContext* context, const ::mom::node_info& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncjoin_clusterRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_leave_cluster_, context, request, response);
+}
+
+void MOM_service::Stub::async::leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_leave_cluster_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::leave_cluster(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_leave_cluster_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncleave_clusterRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_leave_cluster_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::Asyncleave_clusterRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncleave_clusterRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status MOM_service::Stub::heartbeat(::grpc::ClientContext* context, const ::mom::node_ID& request, ::mom::status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_heartbeat_, context, request, response);
+}
+
+void MOM_service::Stub::async::heartbeat(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_heartbeat_, context, request, response, std::move(f));
+}
+
+void MOM_service::Stub::async::heartbeat(::grpc::ClientContext* context, const ::mom::node_ID* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_heartbeat_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::PrepareAsyncheartbeatRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::status, ::mom::node_ID, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_heartbeat_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mom::status>* MOM_service::Stub::AsyncheartbeatRaw(::grpc::ClientContext* context, const ::mom::node_ID& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncheartbeatRaw(context, request, cq);
   result->StartCall();
   return result;
 }
@@ -262,155 +462,291 @@ MOM_service::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::Node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::Node_ID* req,
+             const ::mom::node_ID* req,
              ::mom::state_response* resp) {
-               return service->SyncState(ctx, req, resp);
+               return service->sync_topics(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::Node_ID, ::mom::topics_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::Node_ID* req,
-             ::mom::topics_response* resp) {
-               return service->SyncTopics(ctx, req, resp);
+             const ::mom::node_ID* req,
+             ::mom::state_response* resp) {
+               return service->sync_queues(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::Node_ID, ::mom::queues_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::queue_config, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::Node_ID* req,
-             ::mom::queues_response* resp) {
-               return service->SyncQueues(ctx, req, resp);
+             const ::mom::queue_config* req,
+             ::mom::status* resp) {
+               return service->create_queue(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::Message, ::mom::replication_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::queue, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::Message* req,
-             ::mom::replication_status* resp) {
-               return service->ReplicateMessage(ctx, req, resp);
+             const ::mom::queue* req,
+             ::mom::status* resp) {
+               return service->delete_queue(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_config, ::mom::config_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::topic_config* req,
-             ::mom::config_status* resp) {
-               return service->ReplicateTopicConfig(ctx, req, resp);
+             const ::mom::node_ID* req,
+             ::mom::state_response* resp) {
+               return service->list_queues(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::queue_config, ::mom::config_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_config, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::queue_config* req,
-             ::mom::config_status* resp) {
-               return service->ReplicateQueueConfig(ctx, req, resp);
+             const ::mom::topic_config* req,
+             ::mom::status* resp) {
+               return service->create_topic(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_info, ::mom::clusterInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::node_info* req,
-             ::mom::clusterInfo* resp) {
-               return service->JoinCluster(ctx, req, resp);
+             const ::mom::topic* req,
+             ::mom::status* resp) {
+               return service->delete_topic(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::Node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_ID, ::mom::state_response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::Node_ID* req,
-             ::mom::status* resp) {
-               return service->LeaveCluster(ctx, req, resp);
+             const ::mom::node_ID* req,
+             ::mom::state_response* resp) {
+               return service->list_topics(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::Node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_id, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::Node_ID* req,
+             const ::mom::topic_id* req,
              ::mom::status* resp) {
-               return service->Heartbeat(ctx, req, resp);
+               return service->subscribe_topic(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[9],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_id, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::topic_id* req,
+             ::mom::status* resp) {
+               return service->unsubscribe_topic(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[10],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::queue_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::queue_message* req,
+             ::mom::message_status* resp) {
+               return service->send_queue_message(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[11],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::queue_id, ::mom::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::queue_id* req,
+             ::mom::Message* resp) {
+               return service->receive_queue_message(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[12],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::topic_message* req,
+             ::mom::message_status* resp) {
+               return service->publish_topic_message(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[13],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_id, ::mom::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::topic_id* req,
+             ::mom::Message* resp) {
+               return service->receive_topic_message(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[14],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_info, ::mom::cluster_info, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::node_info* req,
+             ::mom::cluster_info* resp) {
+               return service->join_cluster(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[15],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::node_ID* req,
+             ::mom::status* resp) {
+               return service->leave_cluster(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MOM_service_method_names[16],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::node_ID, ::mom::status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MOM_service::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mom::node_ID* req,
+             ::mom::status* resp) {
+               return service->heartbeat(ctx, req, resp);
              }, this)));
 }
 
 MOM_service::Service::~Service() {
 }
 
-::grpc::Status MOM_service::Service::SyncState(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::state_response* response) {
+::grpc::Status MOM_service::Service::sync_topics(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::SyncTopics(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::topics_response* response) {
+::grpc::Status MOM_service::Service::sync_queues(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::SyncQueues(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::queues_response* response) {
+::grpc::Status MOM_service::Service::create_queue(::grpc::ServerContext* context, const ::mom::queue_config* request, ::mom::status* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::ReplicateMessage(::grpc::ServerContext* context, const ::mom::Message* request, ::mom::replication_status* response) {
+::grpc::Status MOM_service::Service::delete_queue(::grpc::ServerContext* context, const ::mom::queue* request, ::mom::status* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::ReplicateTopicConfig(::grpc::ServerContext* context, const ::mom::topic_config* request, ::mom::config_status* response) {
+::grpc::Status MOM_service::Service::list_queues(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::ReplicateQueueConfig(::grpc::ServerContext* context, const ::mom::queue_config* request, ::mom::config_status* response) {
+::grpc::Status MOM_service::Service::create_topic(::grpc::ServerContext* context, const ::mom::topic_config* request, ::mom::status* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::JoinCluster(::grpc::ServerContext* context, const ::mom::node_info* request, ::mom::clusterInfo* response) {
+::grpc::Status MOM_service::Service::delete_topic(::grpc::ServerContext* context, const ::mom::topic* request, ::mom::status* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::LeaveCluster(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::status* response) {
+::grpc::Status MOM_service::Service::list_topics(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::state_response* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::Heartbeat(::grpc::ServerContext* context, const ::mom::Node_ID* request, ::mom::status* response) {
+::grpc::Status MOM_service::Service::subscribe_topic(::grpc::ServerContext* context, const ::mom::topic_id* request, ::mom::status* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::unsubscribe_topic(::grpc::ServerContext* context, const ::mom::topic_id* request, ::mom::status* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::send_queue_message(::grpc::ServerContext* context, const ::mom::queue_message* request, ::mom::message_status* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::receive_queue_message(::grpc::ServerContext* context, const ::mom::queue_id* request, ::mom::Message* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::publish_topic_message(::grpc::ServerContext* context, const ::mom::topic_message* request, ::mom::message_status* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::receive_topic_message(::grpc::ServerContext* context, const ::mom::topic_id* request, ::mom::Message* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::join_cluster(::grpc::ServerContext* context, const ::mom::node_info* request, ::mom::cluster_info* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::leave_cluster(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::status* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MOM_service::Service::heartbeat(::grpc::ServerContext* context, const ::mom::node_ID* request, ::mom::status* response) {
   (void) context;
   (void) request;
   (void) response;
