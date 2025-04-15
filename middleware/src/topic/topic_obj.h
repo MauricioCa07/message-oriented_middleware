@@ -1,24 +1,23 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <queue>
-#include <ctime>
-#include <map>
-
+#include "string"
+#include "vector"
+#include "../queue/queue_obj.h"
+#include "map"
 
 using namespace std;
 
-class queue_obj {
-private:
-    string queue_name;
-    string queue_owner;
-    time_t creation_stamp;
-    std::queue<string> message_queue;
-    std::map<std::string, std::string> properties;
+class topic_obj{
+    private:
+        string topic_name;
+        string topic_owner;
+        time_t creation_stamp;
+        vector<queue_obj>  subscribed_topics;
+        int message_count;
+        map<string, string> properties;
 
-public:
-    queue_obj(string name, string owner,map<string, string> properties);
-
+    public:
+    topic_obj(string topic_name,string topic_owner, map<string, string> properties);
+    
     /* ---------------------------------------------------
         -                                                -
         -                    GETTERS                     -
@@ -26,9 +25,9 @@ public:
         --------------------------------------------------
     */
 
-    string get_queue_name();
+    string get_topic_name();
 
-    string get_queue_owner();
+    string get_topic_owner();
 
     time_t get_creation_stamp();
 
@@ -43,15 +42,20 @@ public:
         -                                                -
         --------------------------------------------------
     */
-    void set_queue_name(string new_name);
+    void set_topic_name(string new_name);
 
     void set_properties(map<string,string> new_properties);
 
-    
 
 
-    void add_message(string message);
+    void subscribe_to_queue(queue_obj& queue);
 
-    void delete_message();
 
+    void unsubscribe_from_queue(queue_obj& queue);     
 };
+
+
+
+
+
+

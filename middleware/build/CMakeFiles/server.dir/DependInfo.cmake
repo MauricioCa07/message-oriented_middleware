@@ -8,9 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/app/src/queue_list.cc" "CMakeFiles/server.dir/src/queue_list.cc.o" "gcc" "CMakeFiles/server.dir/src/queue_list.cc.o.d"
-  "/app/src/queue_obj.cc" "CMakeFiles/server.dir/src/queue_obj.cc.o" "gcc" "CMakeFiles/server.dir/src/queue_obj.cc.o.d"
+  "/app/src/queue/queue_list.cc" "CMakeFiles/server.dir/src/queue/queue_list.cc.o" "gcc" "CMakeFiles/server.dir/src/queue/queue_list.cc.o.d"
+  "/app/src/queue/queue_obj.cc" "CMakeFiles/server.dir/src/queue/queue_obj.cc.o" "gcc" "CMakeFiles/server.dir/src/queue/queue_obj.cc.o.d"
   "/app/src/server.cc" "CMakeFiles/server.dir/src/server.cc.o" "gcc" "CMakeFiles/server.dir/src/server.cc.o.d"
+  "/app/src/topic/topic_list.cc" "CMakeFiles/server.dir/src/topic/topic_list.cc.o" "gcc" "CMakeFiles/server.dir/src/topic/topic_list.cc.o.d"
+  "/app/src/topic/topic_obj.cc" "CMakeFiles/server.dir/src/topic/topic_obj.cc.o" "gcc" "CMakeFiles/server.dir/src/topic/topic_obj.cc.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

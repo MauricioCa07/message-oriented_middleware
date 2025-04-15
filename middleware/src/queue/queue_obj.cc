@@ -1,13 +1,13 @@
 #include "queue_obj.h"
 
-queue_obj::queue_obj(string name, string owner,map<string, string> properties) {
-    this->queue_name = name;
-    this->queue_owner = owner;
-    time_t now;
-    time(&now);
-    this->creation_stamp = now;
-    this->properties = properties;
-}
+    queue_obj::queue_obj(string name, string owner,map<string, string> properties) {
+        this->queue_name = name;
+        this->queue_owner = owner;
+        time_t now;
+        time(&now);
+        this->creation_stamp = now;
+        this->properties = properties;
+    }
 
 
 
@@ -46,16 +46,23 @@ queue_obj::queue_obj(string name, string owner,map<string, string> properties) {
 
 
 
+    void queue_obj::add_message(string message) {
+        this->message_queue.push(message);
+    }
+
+    void queue_obj::delete_message() {
+        this->message_queue.pop();
+    }
+
+
+    bool queue_obj::operator==(queue_obj& queue_to_compare){
+        return this->queue_name == queue_to_compare.get_queue_name()  && 
+            this->queue_owner == queue_to_compare.get_queue_owner() && 
+            this->creation_stamp == queue_to_compare.get_creation_stamp() &&
+            this->properties == queue_to_compare.get_properties();
+    }
 
 
 
 
-void queue_obj::add_message(string message) {
-    this->message_queue.push(message);
-}
-
-void queue_obj::delete_message() {
-    this->message_queue.pop();
-}
-
-
+    

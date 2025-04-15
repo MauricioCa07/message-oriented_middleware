@@ -190,53 +190,53 @@ mom.pb.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/mom.pb.cc.s
 .PHONY : mom.pb.cc.s
 
-src/queue_list.o: src/queue_list.cc.o
-.PHONY : src/queue_list.o
+src/queue/queue_list.o: src/queue/queue_list.cc.o
+.PHONY : src/queue/queue_list.o
 
 # target to build an object file
-src/queue_list.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue_list.cc.o
-.PHONY : src/queue_list.cc.o
+src/queue/queue_list.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue/queue_list.cc.o
+.PHONY : src/queue/queue_list.cc.o
 
-src/queue_list.i: src/queue_list.cc.i
-.PHONY : src/queue_list.i
+src/queue/queue_list.i: src/queue/queue_list.cc.i
+.PHONY : src/queue/queue_list.i
 
 # target to preprocess a source file
-src/queue_list.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue_list.cc.i
-.PHONY : src/queue_list.cc.i
+src/queue/queue_list.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue/queue_list.cc.i
+.PHONY : src/queue/queue_list.cc.i
 
-src/queue_list.s: src/queue_list.cc.s
-.PHONY : src/queue_list.s
+src/queue/queue_list.s: src/queue/queue_list.cc.s
+.PHONY : src/queue/queue_list.s
 
 # target to generate assembly for a file
-src/queue_list.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue_list.cc.s
-.PHONY : src/queue_list.cc.s
+src/queue/queue_list.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue/queue_list.cc.s
+.PHONY : src/queue/queue_list.cc.s
 
-src/queue_obj.o: src/queue_obj.cc.o
-.PHONY : src/queue_obj.o
+src/queue/queue_obj.o: src/queue/queue_obj.cc.o
+.PHONY : src/queue/queue_obj.o
 
 # target to build an object file
-src/queue_obj.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue_obj.cc.o
-.PHONY : src/queue_obj.cc.o
+src/queue/queue_obj.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue/queue_obj.cc.o
+.PHONY : src/queue/queue_obj.cc.o
 
-src/queue_obj.i: src/queue_obj.cc.i
-.PHONY : src/queue_obj.i
+src/queue/queue_obj.i: src/queue/queue_obj.cc.i
+.PHONY : src/queue/queue_obj.i
 
 # target to preprocess a source file
-src/queue_obj.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue_obj.cc.i
-.PHONY : src/queue_obj.cc.i
+src/queue/queue_obj.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue/queue_obj.cc.i
+.PHONY : src/queue/queue_obj.cc.i
 
-src/queue_obj.s: src/queue_obj.cc.s
-.PHONY : src/queue_obj.s
+src/queue/queue_obj.s: src/queue/queue_obj.cc.s
+.PHONY : src/queue/queue_obj.s
 
 # target to generate assembly for a file
-src/queue_obj.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue_obj.cc.s
-.PHONY : src/queue_obj.cc.s
+src/queue/queue_obj.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/queue/queue_obj.cc.s
+.PHONY : src/queue/queue_obj.cc.s
 
 src/server.o: src/server.cc.o
 .PHONY : src/server.o
@@ -262,6 +262,54 @@ src/server.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server.cc.s
 .PHONY : src/server.cc.s
 
+src/topic/topic_list.o: src/topic/topic_list.cc.o
+.PHONY : src/topic/topic_list.o
+
+# target to build an object file
+src/topic/topic_list.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/topic/topic_list.cc.o
+.PHONY : src/topic/topic_list.cc.o
+
+src/topic/topic_list.i: src/topic/topic_list.cc.i
+.PHONY : src/topic/topic_list.i
+
+# target to preprocess a source file
+src/topic/topic_list.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/topic/topic_list.cc.i
+.PHONY : src/topic/topic_list.cc.i
+
+src/topic/topic_list.s: src/topic/topic_list.cc.s
+.PHONY : src/topic/topic_list.s
+
+# target to generate assembly for a file
+src/topic/topic_list.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/topic/topic_list.cc.s
+.PHONY : src/topic/topic_list.cc.s
+
+src/topic/topic_obj.o: src/topic/topic_obj.cc.o
+.PHONY : src/topic/topic_obj.o
+
+# target to build an object file
+src/topic/topic_obj.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/topic/topic_obj.cc.o
+.PHONY : src/topic/topic_obj.cc.o
+
+src/topic/topic_obj.i: src/topic/topic_obj.cc.i
+.PHONY : src/topic/topic_obj.i
+
+# target to preprocess a source file
+src/topic/topic_obj.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/topic/topic_obj.cc.i
+.PHONY : src/topic/topic_obj.cc.i
+
+src/topic/topic_obj.s: src/topic/topic_obj.cc.s
+.PHONY : src/topic/topic_obj.s
+
+# target to generate assembly for a file
+src/topic/topic_obj.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/topic/topic_obj.cc.s
+.PHONY : src/topic/topic_obj.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -278,15 +326,21 @@ help:
 	@echo "... mom.pb.o"
 	@echo "... mom.pb.i"
 	@echo "... mom.pb.s"
-	@echo "... src/queue_list.o"
-	@echo "... src/queue_list.i"
-	@echo "... src/queue_list.s"
-	@echo "... src/queue_obj.o"
-	@echo "... src/queue_obj.i"
-	@echo "... src/queue_obj.s"
+	@echo "... src/queue/queue_list.o"
+	@echo "... src/queue/queue_list.i"
+	@echo "... src/queue/queue_list.s"
+	@echo "... src/queue/queue_obj.o"
+	@echo "... src/queue/queue_obj.i"
+	@echo "... src/queue/queue_obj.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"
+	@echo "... src/topic/topic_list.o"
+	@echo "... src/topic/topic_list.i"
+	@echo "... src/topic/topic_list.s"
+	@echo "... src/topic/topic_obj.o"
+	@echo "... src/topic/topic_obj.i"
+	@echo "... src/topic/topic_obj.s"
 .PHONY : help
 
 

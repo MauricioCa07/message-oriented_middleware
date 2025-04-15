@@ -27,8 +27,10 @@ target_include_directories(protolib PUBLIC
 
 set(SERVER_SRCS
     src/server.cc
-    src/queue_obj.cc
-    src/queue_list.cc
+    src/queue/queue_obj.cc
+    src/queue/queue_list.cc
+    src/topic/topic_obj.cc
+    src/topic/topic_list.cc
 )
 
 add_executable(server ${SERVER_SRCS})

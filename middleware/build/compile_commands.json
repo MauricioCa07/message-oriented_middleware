@@ -19,14 +19,26 @@
 },
 {
   "directory": "/app/build",
-  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/server.dir/src/queue_obj.cc.o -c /app/src/queue_obj.cc",
-  "file": "/app/src/queue_obj.cc",
-  "output": "CMakeFiles/server.dir/src/queue_obj.cc.o"
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/server.dir/src/queue/queue_obj.cc.o -c /app/src/queue/queue_obj.cc",
+  "file": "/app/src/queue/queue_obj.cc",
+  "output": "CMakeFiles/server.dir/src/queue/queue_obj.cc.o"
 },
 {
   "directory": "/app/build",
-  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/server.dir/src/queue_list.cc.o -c /app/src/queue_list.cc",
-  "file": "/app/src/queue_list.cc",
-  "output": "CMakeFiles/server.dir/src/queue_list.cc.o"
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/server.dir/src/queue/queue_list.cc.o -c /app/src/queue/queue_list.cc",
+  "file": "/app/src/queue/queue_list.cc",
+  "output": "CMakeFiles/server.dir/src/queue/queue_list.cc.o"
+},
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/server.dir/src/topic/topic_obj.cc.o -c /app/src/topic/topic_obj.cc",
+  "file": "/app/src/topic/topic_obj.cc",
+  "output": "CMakeFiles/server.dir/src/topic/topic_obj.cc.o"
+},
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/server.dir/src/topic/topic_list.cc.o -c /app/src/topic/topic_list.cc",
+  "file": "/app/src/topic/topic_list.cc",
+  "output": "CMakeFiles/server.dir/src/topic/topic_list.cc.o"
 }
 ]

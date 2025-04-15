@@ -32,7 +32,7 @@ service MOM_service {
   rpc create_topic(topic_config) returns (status) {}
   rpc delete_topic(topic_identifier) returns (status) {}
   rpc list_topics(NodeID) returns (topics_response) {}
-  rpc get_topic_info(topic_identifier) returns (Topic) {}
+  rpc get_topic_info(topic_identifier) returns (topic) {}
   rpc subscribe_topic(topic_subscription) returns (status) {}
   rpc unsubscribe_topic(topic_subscription) returns (status) {}
 
@@ -44,7 +44,7 @@ service MOM_service {
   */
   rpc send_queue_message(queue_message) returns (message_status) {}
   rpc receive_queue_message(queue_identifier) returns (message) {}
-  rpc publish_topic_message(TopicMessage) returns (message_status) {}
+  rpc publish_topic_message(topic_message) returns (message_status) {}
   rpc receive_topic_message(topic_subscription) returns (message) {}
   rpc acknowledge_message(message_identifier) returns (status) {}
 
@@ -163,17 +163,16 @@ message status {
     map<string, string> properties = 3;
   }
 
-  message Topic {
+  message topic {
     string name = 1;
     string owner = 2;
     int64 creation_timestamp = 3;
     repeated string subscribers = 4;     
     int32 message_count = 5;             
     map<string, string> properties = 6;  
-    NodeAssignment node_assignment = 7;  
   }
 
-  message TopicMessage {
+  message topic_message {
     string topic_name = 1;
     string content = 2;
     string sender = 3;
@@ -185,14 +184,16 @@ message status {
 
   message topic_subscription {
     string topic_name = 1;
-    string subscriber_id = 2;
-    bool durable = 3;           
+    string topic_owner = 2;
+    string subscriber_queue_name = 3;
+    string subscriber_queue_owner = 4;
+    bool durable = 5;           
   }
 
   message topics_response {
     bool success = 1;
     string message = 2;
-    repeated Topic topics = 3;
+    repeated topic topics = 3;
   }
 
 
@@ -247,7 +248,7 @@ message status {
     bool success = 1;
     string message = 2;
     repeated queue queues = 3;
-    repeated Topic topics = 4;
+    repeated topic topics = 4;
     cluster_state cluster_state = 5;
     int64 sync_timestamp = 6;
   }

@@ -282,23 +282,23 @@ void MOM_service::Stub::async::list_topics(::grpc::ClientContext* context, const
   return result;
 }
 
-::grpc::Status MOM_service::Stub::get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::mom::Topic* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_identifier, ::mom::Topic, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_get_topic_info_, context, request, response);
+::grpc::Status MOM_service::Stub::get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::mom::topic* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_identifier, ::mom::topic, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_get_topic_info_, context, request, response);
 }
 
-void MOM_service::Stub::async::get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::topic_identifier, ::mom::Topic, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_get_topic_info_, context, request, response, std::move(f));
+void MOM_service::Stub::async::get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::topic* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic_identifier, ::mom::topic, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_get_topic_info_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response, ::grpc::ClientUnaryReactor* reactor) {
+void MOM_service::Stub::async::get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::topic* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_get_topic_info_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::Topic>* MOM_service::Stub::PrepareAsyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::Topic, ::mom::topic_identifier, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_get_topic_info_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::topic>* MOM_service::Stub::PrepareAsyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::topic, ::mom::topic_identifier, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_get_topic_info_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::Topic>* MOM_service::Stub::Asyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::topic>* MOM_service::Stub::Asyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncget_topic_infoRaw(context, request, cq);
   result->StartCall();
@@ -397,23 +397,23 @@ void MOM_service::Stub::async::receive_queue_message(::grpc::ClientContext* cont
   return result;
 }
 
-::grpc::Status MOM_service::Stub::publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::mom::message_status* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::mom::TopicMessage, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_publish_topic_message_, context, request, response);
+::grpc::Status MOM_service::Stub::publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::mom::message_status* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mom::topic_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_publish_topic_message_, context, request, response);
 }
 
-void MOM_service::Stub::async::publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::mom::TopicMessage, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_publish_topic_message_, context, request, response, std::move(f));
+void MOM_service::Stub::async::publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mom::topic_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_publish_topic_message_, context, request, response, std::move(f));
 }
 
-void MOM_service::Stub::async::publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) {
+void MOM_service::Stub::async::publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_publish_topic_message_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::message_status, ::mom::TopicMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_publish_topic_message_, context, request);
+::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mom::message_status, ::mom::topic_message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_publish_topic_message_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::mom::message_status>* MOM_service::Stub::Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncpublish_topic_messageRaw(context, request, cq);
   result->StartCall();
@@ -652,11 +652,11 @@ MOM_service::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_identifier, ::mom::Topic, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_identifier, ::mom::topic, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
              const ::mom::topic_identifier* req,
-             ::mom::Topic* resp) {
+             ::mom::topic* resp) {
                return service->get_topic_info(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
@@ -702,10 +702,10 @@ MOM_service::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MOM_service_method_names[14],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::TopicMessage, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< MOM_service::Service, ::mom::topic_message, ::mom::message_status, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MOM_service::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::mom::TopicMessage* req,
+             const ::mom::topic_message* req,
              ::mom::message_status* resp) {
                return service->publish_topic_message(ctx, req, resp);
              }, this)));
@@ -837,7 +837,7 @@ MOM_service::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::get_topic_info(::grpc::ServerContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response) {
+::grpc::Status MOM_service::Service::get_topic_info(::grpc::ServerContext* context, const ::mom::topic_identifier* request, ::mom::topic* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -872,7 +872,7 @@ MOM_service::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MOM_service::Service::publish_topic_message(::grpc::ServerContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response) {
+::grpc::Status MOM_service::Service::publish_topic_message(::grpc::ServerContext* context, const ::mom::topic_message* request, ::mom::message_status* response) {
   (void) context;
   (void) request;
   (void) response;

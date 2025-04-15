@@ -8,7 +8,7 @@
     Otherwise, we add the object to the 
     list of queues.
 */
-int queue_list::add_queue_to_list(queue_obj queue){
+int queue_list::add_queue_to_list(queue_obj& queue){
     for(queue_obj queue_in_list:queue_list){
         if (queue_in_list.get_queue_name() == queue.get_queue_name()){
             cout<<"there is already a queue with this name"<<endl;
@@ -42,7 +42,7 @@ vector<queue_obj> queue_list::get_queue_list(){return this->queue_list;}
 
 
 queue_obj* queue_list::get_specific_queue(string name_queue_to_get, string owner_queue_to_get){
-    for(queue_obj& queue_in_list:queue_list){ 
+    for(queue_obj& queue_in_list:this->queue_list){ 
         if (queue_in_list.get_queue_name() == name_queue_to_get && queue_in_list.get_queue_owner() == owner_queue_to_get ){
             return &queue_in_list; 
         }

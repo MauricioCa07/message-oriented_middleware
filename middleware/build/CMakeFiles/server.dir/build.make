@@ -83,46 +83,78 @@ CMakeFiles/server.dir/src/server.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/server.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/server.cc -o CMakeFiles/server.dir/src/server.cc.s
 
-CMakeFiles/server.dir/src/queue_obj.cc.o: CMakeFiles/server.dir/flags.make
-CMakeFiles/server.dir/src/queue_obj.cc.o: /app/src/queue_obj.cc
-CMakeFiles/server.dir/src/queue_obj.cc.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/server.dir/src/queue_obj.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/queue_obj.cc.o -MF CMakeFiles/server.dir/src/queue_obj.cc.o.d -o CMakeFiles/server.dir/src/queue_obj.cc.o -c /app/src/queue_obj.cc
+CMakeFiles/server.dir/src/queue/queue_obj.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/queue/queue_obj.cc.o: /app/src/queue/queue_obj.cc
+CMakeFiles/server.dir/src/queue/queue_obj.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/server.dir/src/queue/queue_obj.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/queue/queue_obj.cc.o -MF CMakeFiles/server.dir/src/queue/queue_obj.cc.o.d -o CMakeFiles/server.dir/src/queue/queue_obj.cc.o -c /app/src/queue/queue_obj.cc
 
-CMakeFiles/server.dir/src/queue_obj.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/queue_obj.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/queue_obj.cc > CMakeFiles/server.dir/src/queue_obj.cc.i
+CMakeFiles/server.dir/src/queue/queue_obj.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/queue/queue_obj.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/queue/queue_obj.cc > CMakeFiles/server.dir/src/queue/queue_obj.cc.i
 
-CMakeFiles/server.dir/src/queue_obj.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/queue_obj.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/queue_obj.cc -o CMakeFiles/server.dir/src/queue_obj.cc.s
+CMakeFiles/server.dir/src/queue/queue_obj.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/queue/queue_obj.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/queue/queue_obj.cc -o CMakeFiles/server.dir/src/queue/queue_obj.cc.s
 
-CMakeFiles/server.dir/src/queue_list.cc.o: CMakeFiles/server.dir/flags.make
-CMakeFiles/server.dir/src/queue_list.cc.o: /app/src/queue_list.cc
-CMakeFiles/server.dir/src/queue_list.cc.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/server.dir/src/queue_list.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/queue_list.cc.o -MF CMakeFiles/server.dir/src/queue_list.cc.o.d -o CMakeFiles/server.dir/src/queue_list.cc.o -c /app/src/queue_list.cc
+CMakeFiles/server.dir/src/queue/queue_list.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/queue/queue_list.cc.o: /app/src/queue/queue_list.cc
+CMakeFiles/server.dir/src/queue/queue_list.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/server.dir/src/queue/queue_list.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/queue/queue_list.cc.o -MF CMakeFiles/server.dir/src/queue/queue_list.cc.o.d -o CMakeFiles/server.dir/src/queue/queue_list.cc.o -c /app/src/queue/queue_list.cc
 
-CMakeFiles/server.dir/src/queue_list.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/queue_list.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/queue_list.cc > CMakeFiles/server.dir/src/queue_list.cc.i
+CMakeFiles/server.dir/src/queue/queue_list.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/queue/queue_list.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/queue/queue_list.cc > CMakeFiles/server.dir/src/queue/queue_list.cc.i
 
-CMakeFiles/server.dir/src/queue_list.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/queue_list.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/queue_list.cc -o CMakeFiles/server.dir/src/queue_list.cc.s
+CMakeFiles/server.dir/src/queue/queue_list.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/queue/queue_list.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/queue/queue_list.cc -o CMakeFiles/server.dir/src/queue/queue_list.cc.s
+
+CMakeFiles/server.dir/src/topic/topic_obj.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/topic/topic_obj.cc.o: /app/src/topic/topic_obj.cc
+CMakeFiles/server.dir/src/topic/topic_obj.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/server.dir/src/topic/topic_obj.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/topic/topic_obj.cc.o -MF CMakeFiles/server.dir/src/topic/topic_obj.cc.o.d -o CMakeFiles/server.dir/src/topic/topic_obj.cc.o -c /app/src/topic/topic_obj.cc
+
+CMakeFiles/server.dir/src/topic/topic_obj.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/topic/topic_obj.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/topic/topic_obj.cc > CMakeFiles/server.dir/src/topic/topic_obj.cc.i
+
+CMakeFiles/server.dir/src/topic/topic_obj.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/topic/topic_obj.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/topic/topic_obj.cc -o CMakeFiles/server.dir/src/topic/topic_obj.cc.s
+
+CMakeFiles/server.dir/src/topic/topic_list.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/topic/topic_list.cc.o: /app/src/topic/topic_list.cc
+CMakeFiles/server.dir/src/topic/topic_list.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/server.dir/src/topic/topic_list.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/topic/topic_list.cc.o -MF CMakeFiles/server.dir/src/topic/topic_list.cc.o.d -o CMakeFiles/server.dir/src/topic/topic_list.cc.o -c /app/src/topic/topic_list.cc
+
+CMakeFiles/server.dir/src/topic/topic_list.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/topic/topic_list.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/topic/topic_list.cc > CMakeFiles/server.dir/src/topic/topic_list.cc.i
+
+CMakeFiles/server.dir/src/topic/topic_list.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/topic/topic_list.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/topic/topic_list.cc -o CMakeFiles/server.dir/src/topic/topic_list.cc.s
 
 # Object files for target server
 server_OBJECTS = \
 "CMakeFiles/server.dir/src/server.cc.o" \
-"CMakeFiles/server.dir/src/queue_obj.cc.o" \
-"CMakeFiles/server.dir/src/queue_list.cc.o"
+"CMakeFiles/server.dir/src/queue/queue_obj.cc.o" \
+"CMakeFiles/server.dir/src/queue/queue_list.cc.o" \
+"CMakeFiles/server.dir/src/topic/topic_obj.cc.o" \
+"CMakeFiles/server.dir/src/topic/topic_list.cc.o"
 
 # External object files for target server
 server_EXTERNAL_OBJECTS =
 
 server: CMakeFiles/server.dir/src/server.cc.o
-server: CMakeFiles/server.dir/src/queue_obj.cc.o
-server: CMakeFiles/server.dir/src/queue_list.cc.o
+server: CMakeFiles/server.dir/src/queue/queue_obj.cc.o
+server: CMakeFiles/server.dir/src/queue/queue_list.cc.o
+server: CMakeFiles/server.dir/src/topic/topic_obj.cc.o
+server: CMakeFiles/server.dir/src/topic/topic_list.cc.o
 server: CMakeFiles/server.dir/build.make
 server: libprotolib.a
 server: /usr/local/lib/libprotobuf.a
@@ -223,7 +255,7 @@ server: /usr/local/lib/libabsl_raw_logging_internal.a
 server: /usr/local/lib/libabsl_log_severity.a
 server: /usr/local/lib/libprotobuf.a
 server: CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

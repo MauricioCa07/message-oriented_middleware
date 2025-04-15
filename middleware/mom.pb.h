@@ -61,18 +61,6 @@ extern NodeAssignmentDefaultTypeInternal _NodeAssignment_default_instance_;
 class NodeID;
 struct NodeIDDefaultTypeInternal;
 extern NodeIDDefaultTypeInternal _NodeID_default_instance_;
-class Topic;
-struct TopicDefaultTypeInternal;
-extern TopicDefaultTypeInternal _Topic_default_instance_;
-class TopicMessage;
-struct TopicMessageDefaultTypeInternal;
-extern TopicMessageDefaultTypeInternal _TopicMessage_default_instance_;
-class TopicMessage_HeadersEntry_DoNotUse;
-struct TopicMessage_HeadersEntry_DoNotUseDefaultTypeInternal;
-extern TopicMessage_HeadersEntry_DoNotUseDefaultTypeInternal _TopicMessage_HeadersEntry_DoNotUse_default_instance_;
-class Topic_PropertiesEntry_DoNotUse;
-struct Topic_PropertiesEntry_DoNotUseDefaultTypeInternal;
-extern Topic_PropertiesEntry_DoNotUseDefaultTypeInternal _Topic_PropertiesEntry_DoNotUse_default_instance_;
 class cluster_info;
 struct cluster_infoDefaultTypeInternal;
 extern cluster_infoDefaultTypeInternal _cluster_info_default_instance_;
@@ -139,6 +127,12 @@ extern statusDefaultTypeInternal _status_default_instance_;
 class sync_response;
 struct sync_responseDefaultTypeInternal;
 extern sync_responseDefaultTypeInternal _sync_response_default_instance_;
+class topic;
+struct topicDefaultTypeInternal;
+extern topicDefaultTypeInternal _topic_default_instance_;
+class topic_PropertiesEntry_DoNotUse;
+struct topic_PropertiesEntry_DoNotUseDefaultTypeInternal;
+extern topic_PropertiesEntry_DoNotUseDefaultTypeInternal _topic_PropertiesEntry_DoNotUse_default_instance_;
 class topic_config;
 struct topic_configDefaultTypeInternal;
 extern topic_configDefaultTypeInternal _topic_config_default_instance_;
@@ -148,6 +142,12 @@ extern topic_config_PropertiesEntry_DoNotUseDefaultTypeInternal _topic_config_Pr
 class topic_identifier;
 struct topic_identifierDefaultTypeInternal;
 extern topic_identifierDefaultTypeInternal _topic_identifier_default_instance_;
+class topic_message;
+struct topic_messageDefaultTypeInternal;
+extern topic_messageDefaultTypeInternal _topic_message_default_instance_;
+class topic_message_HeadersEntry_DoNotUse;
+struct topic_message_HeadersEntry_DoNotUseDefaultTypeInternal;
+extern topic_message_HeadersEntry_DoNotUseDefaultTypeInternal _topic_message_HeadersEntry_DoNotUse_default_instance_;
 class topic_subscription;
 struct topic_subscriptionDefaultTypeInternal;
 extern topic_subscriptionDefaultTypeInternal _topic_subscription_default_instance_;
@@ -315,8 +315,10 @@ class topic_subscription final
   // accessors -------------------------------------------------------
   enum : int {
     kTopicNameFieldNumber = 1,
-    kSubscriberIdFieldNumber = 2,
-    kDurableFieldNumber = 3,
+    kTopicOwnerFieldNumber = 2,
+    kSubscriberQueueNameFieldNumber = 3,
+    kSubscriberQueueOwnerFieldNumber = 4,
+    kDurableFieldNumber = 5,
   };
   // string topic_name = 1;
   void clear_topic_name() ;
@@ -334,23 +336,55 @@ class topic_subscription final
   std::string* _internal_mutable_topic_name();
 
   public:
-  // string subscriber_id = 2;
-  void clear_subscriber_id() ;
-  const std::string& subscriber_id() const;
+  // string topic_owner = 2;
+  void clear_topic_owner() ;
+  const std::string& topic_owner() const;
   template <typename Arg_ = const std::string&, typename... Args_>
-  void set_subscriber_id(Arg_&& arg, Args_... args);
-  std::string* mutable_subscriber_id();
-  PROTOBUF_NODISCARD std::string* release_subscriber_id();
-  void set_allocated_subscriber_id(std::string* value);
+  void set_topic_owner(Arg_&& arg, Args_... args);
+  std::string* mutable_topic_owner();
+  PROTOBUF_NODISCARD std::string* release_topic_owner();
+  void set_allocated_topic_owner(std::string* value);
 
   private:
-  const std::string& _internal_subscriber_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_subscriber_id(
+  const std::string& _internal_topic_owner() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_topic_owner(
       const std::string& value);
-  std::string* _internal_mutable_subscriber_id();
+  std::string* _internal_mutable_topic_owner();
 
   public:
-  // bool durable = 3;
+  // string subscriber_queue_name = 3;
+  void clear_subscriber_queue_name() ;
+  const std::string& subscriber_queue_name() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_subscriber_queue_name(Arg_&& arg, Args_... args);
+  std::string* mutable_subscriber_queue_name();
+  PROTOBUF_NODISCARD std::string* release_subscriber_queue_name();
+  void set_allocated_subscriber_queue_name(std::string* value);
+
+  private:
+  const std::string& _internal_subscriber_queue_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_subscriber_queue_name(
+      const std::string& value);
+  std::string* _internal_mutable_subscriber_queue_name();
+
+  public:
+  // string subscriber_queue_owner = 4;
+  void clear_subscriber_queue_owner() ;
+  const std::string& subscriber_queue_owner() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_subscriber_queue_owner(Arg_&& arg, Args_... args);
+  std::string* mutable_subscriber_queue_owner();
+  PROTOBUF_NODISCARD std::string* release_subscriber_queue_owner();
+  void set_allocated_subscriber_queue_owner(std::string* value);
+
+  private:
+  const std::string& _internal_subscriber_queue_owner() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_subscriber_queue_owner(
+      const std::string& value);
+  std::string* _internal_mutable_subscriber_queue_owner();
+
+  public:
+  // bool durable = 5;
   void clear_durable() ;
   bool durable() const;
   void set_durable(bool value);
@@ -365,8 +399,8 @@ class topic_subscription final
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      2, 3, 0,
-      54, 2>
+      3, 5, 0,
+      95, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -384,13 +418,54 @@ class topic_subscription final
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const topic_subscription& from_msg);
     ::google::protobuf::internal::ArenaStringPtr topic_name_;
-    ::google::protobuf::internal::ArenaStringPtr subscriber_id_;
+    ::google::protobuf::internal::ArenaStringPtr topic_owner_;
+    ::google::protobuf::internal::ArenaStringPtr subscriber_queue_name_;
+    ::google::protobuf::internal::ArenaStringPtr subscriber_queue_owner_;
     bool durable_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_mom_2eproto;
+};
+// -------------------------------------------------------------------
+
+class topic_message_HeadersEntry_DoNotUse final
+    : public ::google::protobuf::internal::MapEntry<
+          std::string, std::string,
+          ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+          ::google::protobuf::internal::WireFormatLite::TYPE_STRING> {
+ public:
+  using SuperType = ::google::protobuf::internal::MapEntry<
+      std::string, std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>;
+  topic_message_HeadersEntry_DoNotUse();
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR topic_message_HeadersEntry_DoNotUse(
+      ::google::protobuf::internal::ConstantInitialized);
+  explicit topic_message_HeadersEntry_DoNotUse(::google::protobuf::Arena* arena);
+  static const topic_message_HeadersEntry_DoNotUse* internal_default_instance() {
+    return reinterpret_cast<const topic_message_HeadersEntry_DoNotUse*>(
+        &_topic_message_HeadersEntry_DoNotUse_default_instance_);
+  }
+
+
+ private:
+  friend class ::google::protobuf::MessageLite;
+  friend struct ::TableStruct_mom_2eproto;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      47, 2>
+      _table_;
+
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
 };
 // -------------------------------------------------------------------
 
@@ -638,6 +713,45 @@ class topic_config_PropertiesEntry_DoNotUse final
   static const ::google::protobuf::internal::TcParseTable<
       1, 2, 0,
       49, 2>
+      _table_;
+
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+};
+// -------------------------------------------------------------------
+
+class topic_PropertiesEntry_DoNotUse final
+    : public ::google::protobuf::internal::MapEntry<
+          std::string, std::string,
+          ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+          ::google::protobuf::internal::WireFormatLite::TYPE_STRING> {
+ public:
+  using SuperType = ::google::protobuf::internal::MapEntry<
+      std::string, std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>;
+  topic_PropertiesEntry_DoNotUse();
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR topic_PropertiesEntry_DoNotUse(
+      ::google::protobuf::internal::ConstantInitialized);
+  explicit topic_PropertiesEntry_DoNotUse(::google::protobuf::Arena* arena);
+  static const topic_PropertiesEntry_DoNotUse* internal_default_instance() {
+    return reinterpret_cast<const topic_PropertiesEntry_DoNotUse*>(
+        &_topic_PropertiesEntry_DoNotUse_default_instance_);
+  }
+
+
+ private:
+  friend class ::google::protobuf::MessageLite;
+  friend struct ::TableStruct_mom_2eproto;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      42, 2>
       _table_;
 
   const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
@@ -1721,84 +1835,6 @@ class message_HeadersEntry_DoNotUse final
 };
 // -------------------------------------------------------------------
 
-class TopicMessage_HeadersEntry_DoNotUse final
-    : public ::google::protobuf::internal::MapEntry<
-          std::string, std::string,
-          ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-          ::google::protobuf::internal::WireFormatLite::TYPE_STRING> {
- public:
-  using SuperType = ::google::protobuf::internal::MapEntry<
-      std::string, std::string,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>;
-  TopicMessage_HeadersEntry_DoNotUse();
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR TopicMessage_HeadersEntry_DoNotUse(
-      ::google::protobuf::internal::ConstantInitialized);
-  explicit TopicMessage_HeadersEntry_DoNotUse(::google::protobuf::Arena* arena);
-  static const TopicMessage_HeadersEntry_DoNotUse* internal_default_instance() {
-    return reinterpret_cast<const TopicMessage_HeadersEntry_DoNotUse*>(
-        &_TopicMessage_HeadersEntry_DoNotUse_default_instance_);
-  }
-
-
- private:
-  friend class ::google::protobuf::MessageLite;
-  friend struct ::TableStruct_mom_2eproto;
-
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 0,
-      46, 2>
-      _table_;
-
-  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
-  static constexpr auto InternalNewImpl_();
-  static const ::google::protobuf::internal::ClassDataFull _class_data_;
-};
-// -------------------------------------------------------------------
-
-class Topic_PropertiesEntry_DoNotUse final
-    : public ::google::protobuf::internal::MapEntry<
-          std::string, std::string,
-          ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-          ::google::protobuf::internal::WireFormatLite::TYPE_STRING> {
- public:
-  using SuperType = ::google::protobuf::internal::MapEntry<
-      std::string, std::string,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>;
-  Topic_PropertiesEntry_DoNotUse();
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR Topic_PropertiesEntry_DoNotUse(
-      ::google::protobuf::internal::ConstantInitialized);
-  explicit Topic_PropertiesEntry_DoNotUse(::google::protobuf::Arena* arena);
-  static const Topic_PropertiesEntry_DoNotUse* internal_default_instance() {
-    return reinterpret_cast<const Topic_PropertiesEntry_DoNotUse*>(
-        &_Topic_PropertiesEntry_DoNotUse_default_instance_);
-  }
-
-
- private:
-  friend class ::google::protobuf::MessageLite;
-  friend struct ::TableStruct_mom_2eproto;
-
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 0,
-      42, 2>
-      _table_;
-
-  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
-  static constexpr auto InternalNewImpl_();
-  static const ::google::protobuf::internal::ClassDataFull _class_data_;
-};
-// -------------------------------------------------------------------
-
 class NodeID final
     : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:mom.NodeID) */ {
@@ -2229,6 +2265,295 @@ class NodeAssignment final
 };
 // -------------------------------------------------------------------
 
+class topic_message final
+    : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:mom.topic_message) */ {
+ public:
+  inline topic_message() : topic_message(nullptr) {}
+  ~topic_message() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(topic_message* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(topic_message));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR topic_message(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline topic_message(const topic_message& from) : topic_message(nullptr, from) {}
+  inline topic_message(topic_message&& from) noexcept
+      : topic_message(nullptr, std::move(from)) {}
+  inline topic_message& operator=(const topic_message& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline topic_message& operator=(topic_message&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const topic_message& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const topic_message* internal_default_instance() {
+    return reinterpret_cast<const topic_message*>(
+        &_topic_message_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 19;
+  friend void swap(topic_message& a, topic_message& b) { a.Swap(&b); }
+  inline void Swap(topic_message* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(topic_message* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  topic_message* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<topic_message>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const topic_message& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const topic_message& from) { topic_message::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(topic_message* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "mom.topic_message"; }
+
+ protected:
+  explicit topic_message(::google::protobuf::Arena* arena);
+  topic_message(::google::protobuf::Arena* arena, const topic_message& from);
+  topic_message(::google::protobuf::Arena* arena, topic_message&& from) noexcept
+      : topic_message(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kHeadersFieldNumber = 4,
+    kTopicNameFieldNumber = 1,
+    kContentFieldNumber = 2,
+    kSenderFieldNumber = 3,
+    kPersistentFieldNumber = 5,
+    kPriorityFieldNumber = 6,
+    kExpirationFieldNumber = 7,
+  };
+  // map<string, string> headers = 4;
+  int headers_size() const;
+  private:
+  int _internal_headers_size() const;
+
+  public:
+  void clear_headers() ;
+  const ::google::protobuf::Map<std::string, std::string>& headers() const;
+  ::google::protobuf::Map<std::string, std::string>* mutable_headers();
+
+  private:
+  const ::google::protobuf::Map<std::string, std::string>& _internal_headers() const;
+  ::google::protobuf::Map<std::string, std::string>* _internal_mutable_headers();
+
+  public:
+  // string topic_name = 1;
+  void clear_topic_name() ;
+  const std::string& topic_name() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_topic_name(Arg_&& arg, Args_... args);
+  std::string* mutable_topic_name();
+  PROTOBUF_NODISCARD std::string* release_topic_name();
+  void set_allocated_topic_name(std::string* value);
+
+  private:
+  const std::string& _internal_topic_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_topic_name(
+      const std::string& value);
+  std::string* _internal_mutable_topic_name();
+
+  public:
+  // string content = 2;
+  void clear_content() ;
+  const std::string& content() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_content(Arg_&& arg, Args_... args);
+  std::string* mutable_content();
+  PROTOBUF_NODISCARD std::string* release_content();
+  void set_allocated_content(std::string* value);
+
+  private:
+  const std::string& _internal_content() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_content(
+      const std::string& value);
+  std::string* _internal_mutable_content();
+
+  public:
+  // string sender = 3;
+  void clear_sender() ;
+  const std::string& sender() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_sender(Arg_&& arg, Args_... args);
+  std::string* mutable_sender();
+  PROTOBUF_NODISCARD std::string* release_sender();
+  void set_allocated_sender(std::string* value);
+
+  private:
+  const std::string& _internal_sender() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sender(
+      const std::string& value);
+  std::string* _internal_mutable_sender();
+
+  public:
+  // bool persistent = 5;
+  void clear_persistent() ;
+  bool persistent() const;
+  void set_persistent(bool value);
+
+  private:
+  bool _internal_persistent() const;
+  void _internal_set_persistent(bool value);
+
+  public:
+  // int32 priority = 6;
+  void clear_priority() ;
+  ::int32_t priority() const;
+  void set_priority(::int32_t value);
+
+  private:
+  ::int32_t _internal_priority() const;
+  void _internal_set_priority(::int32_t value);
+
+  public:
+  // int64 expiration = 7;
+  void clear_expiration() ;
+  ::int64_t expiration() const;
+  void set_expiration(::int64_t value);
+
+  private:
+  ::int64_t _internal_expiration() const;
+  void _internal_set_expiration(::int64_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:mom.topic_message)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      3, 7, 1,
+      56, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const topic_message& from_msg);
+    ::google::protobuf::internal::MapField<topic_message_HeadersEntry_DoNotUse, std::string, std::string,
+                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>
+        headers_;
+    ::google::protobuf::internal::ArenaStringPtr topic_name_;
+    ::google::protobuf::internal::ArenaStringPtr content_;
+    ::google::protobuf::internal::ArenaStringPtr sender_;
+    bool persistent_;
+    ::int32_t priority_;
+    ::int64_t expiration_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_mom_2eproto;
+};
+// -------------------------------------------------------------------
+
 class topic_config final
     : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:mom.topic_config) */ {
@@ -2456,6 +2781,289 @@ class topic_config final
         properties_;
     ::google::protobuf::internal::ArenaStringPtr name_;
     ::google::protobuf::internal::ArenaStringPtr owner_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_mom_2eproto;
+};
+// -------------------------------------------------------------------
+
+class topic final
+    : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:mom.topic) */ {
+ public:
+  inline topic() : topic(nullptr) {}
+  ~topic() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(topic* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(topic));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR topic(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline topic(const topic& from) : topic(nullptr, from) {}
+  inline topic(topic&& from) noexcept
+      : topic(nullptr, std::move(from)) {}
+  inline topic& operator=(const topic& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline topic& operator=(topic&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const topic& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const topic* internal_default_instance() {
+    return reinterpret_cast<const topic*>(
+        &_topic_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 17;
+  friend void swap(topic& a, topic& b) { a.Swap(&b); }
+  inline void Swap(topic* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(topic* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  topic* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<topic>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const topic& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const topic& from) { topic::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(topic* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "mom.topic"; }
+
+ protected:
+  explicit topic(::google::protobuf::Arena* arena);
+  topic(::google::protobuf::Arena* arena, const topic& from);
+  topic(::google::protobuf::Arena* arena, topic&& from) noexcept
+      : topic(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kSubscribersFieldNumber = 4,
+    kPropertiesFieldNumber = 6,
+    kNameFieldNumber = 1,
+    kOwnerFieldNumber = 2,
+    kCreationTimestampFieldNumber = 3,
+    kMessageCountFieldNumber = 5,
+  };
+  // repeated string subscribers = 4;
+  int subscribers_size() const;
+  private:
+  int _internal_subscribers_size() const;
+
+  public:
+  void clear_subscribers() ;
+  const std::string& subscribers(int index) const;
+  std::string* mutable_subscribers(int index);
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_subscribers(int index, Arg_&& value, Args_... args);
+  std::string* add_subscribers();
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void add_subscribers(Arg_&& value, Args_... args);
+  const ::google::protobuf::RepeatedPtrField<std::string>& subscribers() const;
+  ::google::protobuf::RepeatedPtrField<std::string>* mutable_subscribers();
+
+  private:
+  const ::google::protobuf::RepeatedPtrField<std::string>& _internal_subscribers() const;
+  ::google::protobuf::RepeatedPtrField<std::string>* _internal_mutable_subscribers();
+
+  public:
+  // map<string, string> properties = 6;
+  int properties_size() const;
+  private:
+  int _internal_properties_size() const;
+
+  public:
+  void clear_properties() ;
+  const ::google::protobuf::Map<std::string, std::string>& properties() const;
+  ::google::protobuf::Map<std::string, std::string>* mutable_properties();
+
+  private:
+  const ::google::protobuf::Map<std::string, std::string>& _internal_properties() const;
+  ::google::protobuf::Map<std::string, std::string>* _internal_mutable_properties();
+
+  public:
+  // string name = 1;
+  void clear_name() ;
+  const std::string& name() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_name(Arg_&& arg, Args_... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* value);
+
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(
+      const std::string& value);
+  std::string* _internal_mutable_name();
+
+  public:
+  // string owner = 2;
+  void clear_owner() ;
+  const std::string& owner() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_owner(Arg_&& arg, Args_... args);
+  std::string* mutable_owner();
+  PROTOBUF_NODISCARD std::string* release_owner();
+  void set_allocated_owner(std::string* value);
+
+  private:
+  const std::string& _internal_owner() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner(
+      const std::string& value);
+  std::string* _internal_mutable_owner();
+
+  public:
+  // int64 creation_timestamp = 3;
+  void clear_creation_timestamp() ;
+  ::int64_t creation_timestamp() const;
+  void set_creation_timestamp(::int64_t value);
+
+  private:
+  ::int64_t _internal_creation_timestamp() const;
+  void _internal_set_creation_timestamp(::int64_t value);
+
+  public:
+  // int32 message_count = 5;
+  void clear_message_count() ;
+  ::int32_t message_count() const;
+  void set_message_count(::int32_t value);
+
+  private:
+  ::int32_t _internal_message_count() const;
+  void _internal_set_message_count(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:mom.topic)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      3, 6, 1,
+      48, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const topic& from_msg);
+    ::google::protobuf::RepeatedPtrField<std::string> subscribers_;
+    ::google::protobuf::internal::MapField<topic_PropertiesEntry_DoNotUse, std::string, std::string,
+                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>
+        properties_;
+    ::google::protobuf::internal::ArenaStringPtr name_;
+    ::google::protobuf::internal::ArenaStringPtr owner_;
+    ::int64_t creation_timestamp_;
+    ::int32_t message_count_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -3981,596 +4589,6 @@ class cluster_info_QueueAssignmentsEntry_DoNotUse final
 };
 // -------------------------------------------------------------------
 
-class TopicMessage final
-    : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:mom.TopicMessage) */ {
- public:
-  inline TopicMessage() : TopicMessage(nullptr) {}
-  ~TopicMessage() PROTOBUF_FINAL;
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(TopicMessage* msg, std::destroying_delete_t) {
-    SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(TopicMessage));
-  }
-#endif
-
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR TopicMessage(
-      ::google::protobuf::internal::ConstantInitialized);
-
-  inline TopicMessage(const TopicMessage& from) : TopicMessage(nullptr, from) {}
-  inline TopicMessage(TopicMessage&& from) noexcept
-      : TopicMessage(nullptr, std::move(from)) {}
-  inline TopicMessage& operator=(const TopicMessage& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline TopicMessage& operator=(TopicMessage&& from) noexcept {
-    if (this == &from) return *this;
-    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const TopicMessage& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const TopicMessage* internal_default_instance() {
-    return reinterpret_cast<const TopicMessage*>(
-        &_TopicMessage_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages = 19;
-  friend void swap(TopicMessage& a, TopicMessage& b) { a.Swap(&b); }
-  inline void Swap(TopicMessage* other) {
-    if (other == this) return;
-    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(TopicMessage* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  TopicMessage* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<TopicMessage>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const TopicMessage& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const TopicMessage& from) { TopicMessage::MergeImpl(*this, from); }
-
-  private:
-  static void MergeImpl(
-      ::google::protobuf::MessageLite& to_msg,
-      const ::google::protobuf::MessageLite& from_msg);
-
-  public:
-  bool IsInitialized() const {
-    return true;
-  }
-  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
-  #if defined(PROTOBUF_CUSTOM_VTABLE)
-  private:
-  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
-  static ::uint8_t* _InternalSerialize(
-      const MessageLite& msg, ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream);
-
-  public:
-  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-    return _InternalSerialize(*this, target, stream);
-  }
-  #else   // PROTOBUF_CUSTOM_VTABLE
-  ::size_t ByteSizeLong() const final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  #endif  // PROTOBUF_CUSTOM_VTABLE
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::google::protobuf::Arena* arena);
-  static void SharedDtor(MessageLite& self);
-  void InternalSwap(TopicMessage* other);
- private:
-  template <typename T>
-  friend ::absl::string_view(
-      ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "mom.TopicMessage"; }
-
- protected:
-  explicit TopicMessage(::google::protobuf::Arena* arena);
-  TopicMessage(::google::protobuf::Arena* arena, const TopicMessage& from);
-  TopicMessage(::google::protobuf::Arena* arena, TopicMessage&& from) noexcept
-      : TopicMessage(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
-  static constexpr auto InternalNewImpl_();
-  static const ::google::protobuf::internal::ClassDataFull _class_data_;
-
- public:
-  ::google::protobuf::Metadata GetMetadata() const;
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-  enum : int {
-    kHeadersFieldNumber = 4,
-    kTopicNameFieldNumber = 1,
-    kContentFieldNumber = 2,
-    kSenderFieldNumber = 3,
-    kPersistentFieldNumber = 5,
-    kPriorityFieldNumber = 6,
-    kExpirationFieldNumber = 7,
-  };
-  // map<string, string> headers = 4;
-  int headers_size() const;
-  private:
-  int _internal_headers_size() const;
-
-  public:
-  void clear_headers() ;
-  const ::google::protobuf::Map<std::string, std::string>& headers() const;
-  ::google::protobuf::Map<std::string, std::string>* mutable_headers();
-
-  private:
-  const ::google::protobuf::Map<std::string, std::string>& _internal_headers() const;
-  ::google::protobuf::Map<std::string, std::string>* _internal_mutable_headers();
-
-  public:
-  // string topic_name = 1;
-  void clear_topic_name() ;
-  const std::string& topic_name() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_topic_name(Arg_&& arg, Args_... args);
-  std::string* mutable_topic_name();
-  PROTOBUF_NODISCARD std::string* release_topic_name();
-  void set_allocated_topic_name(std::string* value);
-
-  private:
-  const std::string& _internal_topic_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_topic_name(
-      const std::string& value);
-  std::string* _internal_mutable_topic_name();
-
-  public:
-  // string content = 2;
-  void clear_content() ;
-  const std::string& content() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_content(Arg_&& arg, Args_... args);
-  std::string* mutable_content();
-  PROTOBUF_NODISCARD std::string* release_content();
-  void set_allocated_content(std::string* value);
-
-  private:
-  const std::string& _internal_content() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_content(
-      const std::string& value);
-  std::string* _internal_mutable_content();
-
-  public:
-  // string sender = 3;
-  void clear_sender() ;
-  const std::string& sender() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_sender(Arg_&& arg, Args_... args);
-  std::string* mutable_sender();
-  PROTOBUF_NODISCARD std::string* release_sender();
-  void set_allocated_sender(std::string* value);
-
-  private:
-  const std::string& _internal_sender() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sender(
-      const std::string& value);
-  std::string* _internal_mutable_sender();
-
-  public:
-  // bool persistent = 5;
-  void clear_persistent() ;
-  bool persistent() const;
-  void set_persistent(bool value);
-
-  private:
-  bool _internal_persistent() const;
-  void _internal_set_persistent(bool value);
-
-  public:
-  // int32 priority = 6;
-  void clear_priority() ;
-  ::int32_t priority() const;
-  void set_priority(::int32_t value);
-
-  private:
-  ::int32_t _internal_priority() const;
-  void _internal_set_priority(::int32_t value);
-
-  public:
-  // int64 expiration = 7;
-  void clear_expiration() ;
-  ::int64_t expiration() const;
-  void set_expiration(::int64_t value);
-
-  private:
-  ::int64_t _internal_expiration() const;
-  void _internal_set_expiration(::int64_t value);
-
-  public:
-  // @@protoc_insertion_point(class_scope:mom.TopicMessage)
- private:
-  class _Internal;
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      3, 7, 1,
-      55, 2>
-      _table_;
-
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena);
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena, const Impl_& from,
-                          const TopicMessage& from_msg);
-    ::google::protobuf::internal::MapField<TopicMessage_HeadersEntry_DoNotUse, std::string, std::string,
-                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>
-        headers_;
-    ::google::protobuf::internal::ArenaStringPtr topic_name_;
-    ::google::protobuf::internal::ArenaStringPtr content_;
-    ::google::protobuf::internal::ArenaStringPtr sender_;
-    bool persistent_;
-    ::int32_t priority_;
-    ::int64_t expiration_;
-    ::google::protobuf::internal::CachedSize _cached_size_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_mom_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Topic final
-    : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:mom.Topic) */ {
- public:
-  inline Topic() : Topic(nullptr) {}
-  ~Topic() PROTOBUF_FINAL;
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(Topic* msg, std::destroying_delete_t) {
-    SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(Topic));
-  }
-#endif
-
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR Topic(
-      ::google::protobuf::internal::ConstantInitialized);
-
-  inline Topic(const Topic& from) : Topic(nullptr, from) {}
-  inline Topic(Topic&& from) noexcept
-      : Topic(nullptr, std::move(from)) {}
-  inline Topic& operator=(const Topic& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Topic& operator=(Topic&& from) noexcept {
-    if (this == &from) return *this;
-    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const Topic& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const Topic* internal_default_instance() {
-    return reinterpret_cast<const Topic*>(
-        &_Topic_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages = 17;
-  friend void swap(Topic& a, Topic& b) { a.Swap(&b); }
-  inline void Swap(Topic* other) {
-    if (other == this) return;
-    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Topic* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  Topic* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<Topic>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const Topic& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const Topic& from) { Topic::MergeImpl(*this, from); }
-
-  private:
-  static void MergeImpl(
-      ::google::protobuf::MessageLite& to_msg,
-      const ::google::protobuf::MessageLite& from_msg);
-
-  public:
-  bool IsInitialized() const {
-    return true;
-  }
-  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
-  #if defined(PROTOBUF_CUSTOM_VTABLE)
-  private:
-  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
-  static ::uint8_t* _InternalSerialize(
-      const MessageLite& msg, ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream);
-
-  public:
-  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-    return _InternalSerialize(*this, target, stream);
-  }
-  #else   // PROTOBUF_CUSTOM_VTABLE
-  ::size_t ByteSizeLong() const final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  #endif  // PROTOBUF_CUSTOM_VTABLE
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::google::protobuf::Arena* arena);
-  static void SharedDtor(MessageLite& self);
-  void InternalSwap(Topic* other);
- private:
-  template <typename T>
-  friend ::absl::string_view(
-      ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "mom.Topic"; }
-
- protected:
-  explicit Topic(::google::protobuf::Arena* arena);
-  Topic(::google::protobuf::Arena* arena, const Topic& from);
-  Topic(::google::protobuf::Arena* arena, Topic&& from) noexcept
-      : Topic(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
-  static constexpr auto InternalNewImpl_();
-  static const ::google::protobuf::internal::ClassDataFull _class_data_;
-
- public:
-  ::google::protobuf::Metadata GetMetadata() const;
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-  enum : int {
-    kSubscribersFieldNumber = 4,
-    kPropertiesFieldNumber = 6,
-    kNameFieldNumber = 1,
-    kOwnerFieldNumber = 2,
-    kNodeAssignmentFieldNumber = 7,
-    kCreationTimestampFieldNumber = 3,
-    kMessageCountFieldNumber = 5,
-  };
-  // repeated string subscribers = 4;
-  int subscribers_size() const;
-  private:
-  int _internal_subscribers_size() const;
-
-  public:
-  void clear_subscribers() ;
-  const std::string& subscribers(int index) const;
-  std::string* mutable_subscribers(int index);
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_subscribers(int index, Arg_&& value, Args_... args);
-  std::string* add_subscribers();
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void add_subscribers(Arg_&& value, Args_... args);
-  const ::google::protobuf::RepeatedPtrField<std::string>& subscribers() const;
-  ::google::protobuf::RepeatedPtrField<std::string>* mutable_subscribers();
-
-  private:
-  const ::google::protobuf::RepeatedPtrField<std::string>& _internal_subscribers() const;
-  ::google::protobuf::RepeatedPtrField<std::string>* _internal_mutable_subscribers();
-
-  public:
-  // map<string, string> properties = 6;
-  int properties_size() const;
-  private:
-  int _internal_properties_size() const;
-
-  public:
-  void clear_properties() ;
-  const ::google::protobuf::Map<std::string, std::string>& properties() const;
-  ::google::protobuf::Map<std::string, std::string>* mutable_properties();
-
-  private:
-  const ::google::protobuf::Map<std::string, std::string>& _internal_properties() const;
-  ::google::protobuf::Map<std::string, std::string>* _internal_mutable_properties();
-
-  public:
-  // string name = 1;
-  void clear_name() ;
-  const std::string& name() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_name(Arg_&& arg, Args_... args);
-  std::string* mutable_name();
-  PROTOBUF_NODISCARD std::string* release_name();
-  void set_allocated_name(std::string* value);
-
-  private:
-  const std::string& _internal_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(
-      const std::string& value);
-  std::string* _internal_mutable_name();
-
-  public:
-  // string owner = 2;
-  void clear_owner() ;
-  const std::string& owner() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_owner(Arg_&& arg, Args_... args);
-  std::string* mutable_owner();
-  PROTOBUF_NODISCARD std::string* release_owner();
-  void set_allocated_owner(std::string* value);
-
-  private:
-  const std::string& _internal_owner() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner(
-      const std::string& value);
-  std::string* _internal_mutable_owner();
-
-  public:
-  // .mom.NodeAssignment node_assignment = 7;
-  bool has_node_assignment() const;
-  void clear_node_assignment() ;
-  const ::mom::NodeAssignment& node_assignment() const;
-  PROTOBUF_NODISCARD ::mom::NodeAssignment* release_node_assignment();
-  ::mom::NodeAssignment* mutable_node_assignment();
-  void set_allocated_node_assignment(::mom::NodeAssignment* value);
-  void unsafe_arena_set_allocated_node_assignment(::mom::NodeAssignment* value);
-  ::mom::NodeAssignment* unsafe_arena_release_node_assignment();
-
-  private:
-  const ::mom::NodeAssignment& _internal_node_assignment() const;
-  ::mom::NodeAssignment* _internal_mutable_node_assignment();
-
-  public:
-  // int64 creation_timestamp = 3;
-  void clear_creation_timestamp() ;
-  ::int64_t creation_timestamp() const;
-  void set_creation_timestamp(::int64_t value);
-
-  private:
-  ::int64_t _internal_creation_timestamp() const;
-  void _internal_set_creation_timestamp(::int64_t value);
-
-  public:
-  // int32 message_count = 5;
-  void clear_message_count() ;
-  ::int32_t message_count() const;
-  void set_message_count(::int32_t value);
-
-  private:
-  ::int32_t _internal_message_count() const;
-  void _internal_set_message_count(::int32_t value);
-
-  public:
-  // @@protoc_insertion_point(class_scope:mom.Topic)
- private:
-  class _Internal;
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      3, 7, 2,
-      48, 2>
-      _table_;
-
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena);
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena, const Impl_& from,
-                          const Topic& from_msg);
-    ::google::protobuf::internal::HasBits<1> _has_bits_;
-    ::google::protobuf::internal::CachedSize _cached_size_;
-    ::google::protobuf::RepeatedPtrField<std::string> subscribers_;
-    ::google::protobuf::internal::MapField<Topic_PropertiesEntry_DoNotUse, std::string, std::string,
-                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-                      ::google::protobuf::internal::WireFormatLite::TYPE_STRING>
-        properties_;
-    ::google::protobuf::internal::ArenaStringPtr name_;
-    ::google::protobuf::internal::ArenaStringPtr owner_;
-    ::mom::NodeAssignment* node_assignment_;
-    ::int64_t creation_timestamp_;
-    ::int32_t message_count_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_mom_2eproto;
-};
-// -------------------------------------------------------------------
-
 class topics_response final
     : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:mom.topics_response) */ {
@@ -4722,23 +4740,23 @@ class topics_response final
     kMessageFieldNumber = 2,
     kSuccessFieldNumber = 1,
   };
-  // repeated .mom.Topic topics = 3;
+  // repeated .mom.topic topics = 3;
   int topics_size() const;
   private:
   int _internal_topics_size() const;
 
   public:
   void clear_topics() ;
-  ::mom::Topic* mutable_topics(int index);
-  ::google::protobuf::RepeatedPtrField<::mom::Topic>* mutable_topics();
+  ::mom::topic* mutable_topics(int index);
+  ::google::protobuf::RepeatedPtrField<::mom::topic>* mutable_topics();
 
   private:
-  const ::google::protobuf::RepeatedPtrField<::mom::Topic>& _internal_topics() const;
-  ::google::protobuf::RepeatedPtrField<::mom::Topic>* _internal_mutable_topics();
+  const ::google::protobuf::RepeatedPtrField<::mom::topic>& _internal_topics() const;
+  ::google::protobuf::RepeatedPtrField<::mom::topic>* _internal_mutable_topics();
   public:
-  const ::mom::Topic& topics(int index) const;
-  ::mom::Topic* add_topics();
-  const ::google::protobuf::RepeatedPtrField<::mom::Topic>& topics() const;
+  const ::mom::topic& topics(int index) const;
+  ::mom::topic* add_topics();
+  const ::google::protobuf::RepeatedPtrField<::mom::topic>& topics() const;
   // string message = 2;
   void clear_message() ;
   const std::string& message() const;
@@ -4788,7 +4806,7 @@ class topics_response final
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const topics_response& from_msg);
-    ::google::protobuf::RepeatedPtrField< ::mom::Topic > topics_;
+    ::google::protobuf::RepeatedPtrField< ::mom::topic > topics_;
     ::google::protobuf::internal::ArenaStringPtr message_;
     bool success_;
     ::google::protobuf::internal::CachedSize _cached_size_;
@@ -5752,23 +5770,23 @@ class sync_response final
   const ::mom::queue& queues(int index) const;
   ::mom::queue* add_queues();
   const ::google::protobuf::RepeatedPtrField<::mom::queue>& queues() const;
-  // repeated .mom.Topic topics = 4;
+  // repeated .mom.topic topics = 4;
   int topics_size() const;
   private:
   int _internal_topics_size() const;
 
   public:
   void clear_topics() ;
-  ::mom::Topic* mutable_topics(int index);
-  ::google::protobuf::RepeatedPtrField<::mom::Topic>* mutable_topics();
+  ::mom::topic* mutable_topics(int index);
+  ::google::protobuf::RepeatedPtrField<::mom::topic>* mutable_topics();
 
   private:
-  const ::google::protobuf::RepeatedPtrField<::mom::Topic>& _internal_topics() const;
-  ::google::protobuf::RepeatedPtrField<::mom::Topic>* _internal_mutable_topics();
+  const ::google::protobuf::RepeatedPtrField<::mom::topic>& _internal_topics() const;
+  ::google::protobuf::RepeatedPtrField<::mom::topic>* _internal_mutable_topics();
   public:
-  const ::mom::Topic& topics(int index) const;
-  ::mom::Topic* add_topics();
-  const ::google::protobuf::RepeatedPtrField<::mom::Topic>& topics() const;
+  const ::mom::topic& topics(int index) const;
+  ::mom::topic* add_topics();
+  const ::google::protobuf::RepeatedPtrField<::mom::topic>& topics() const;
   // string message = 2;
   void clear_message() ;
   const std::string& message() const;
@@ -5846,7 +5864,7 @@ class sync_response final
     ::google::protobuf::internal::HasBits<1> _has_bits_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     ::google::protobuf::RepeatedPtrField< ::mom::queue > queues_;
-    ::google::protobuf::RepeatedPtrField< ::mom::Topic > topics_;
+    ::google::protobuf::RepeatedPtrField< ::mom::topic > topics_;
     ::google::protobuf::internal::ArenaStringPtr message_;
     ::mom::cluster_state* cluster_state_;
     ::int64_t sync_timestamp_;
@@ -7554,576 +7572,480 @@ inline ::google::protobuf::Map<std::string, std::string>* topic_config::mutable_
 
 // -------------------------------------------------------------------
 
-// Topic
+// topic
 
 // string name = 1;
-inline void Topic::clear_name() {
+inline void topic::clear_name() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.name_.ClearToEmpty();
 }
-inline const std::string& Topic::name() const
+inline const std::string& topic::name() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.Topic.name)
+  // @@protoc_insertion_point(field_get:mom.topic.name)
   return _internal_name();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void Topic::set_name(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void topic::set_name(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.name_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:mom.Topic.name)
+  // @@protoc_insertion_point(field_set:mom.topic.name)
 }
-inline std::string* Topic::mutable_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* topic::mutable_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_name();
-  // @@protoc_insertion_point(field_mutable:mom.Topic.name)
+  // @@protoc_insertion_point(field_mutable:mom.topic.name)
   return _s;
 }
-inline const std::string& Topic::_internal_name() const {
+inline const std::string& topic::_internal_name() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.name_.Get();
 }
-inline void Topic::_internal_set_name(const std::string& value) {
+inline void topic::_internal_set_name(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.name_.Set(value, GetArena());
 }
-inline std::string* Topic::_internal_mutable_name() {
+inline std::string* topic::_internal_mutable_name() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.name_.Mutable( GetArena());
 }
-inline std::string* Topic::release_name() {
+inline std::string* topic::release_name() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:mom.Topic.name)
+  // @@protoc_insertion_point(field_release:mom.topic.name)
   return _impl_.name_.Release();
 }
-inline void Topic::set_allocated_name(std::string* value) {
+inline void topic::set_allocated_name(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.name_.SetAllocated(value, GetArena());
   if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.name_.IsDefault()) {
     _impl_.name_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:mom.Topic.name)
+  // @@protoc_insertion_point(field_set_allocated:mom.topic.name)
 }
 
 // string owner = 2;
-inline void Topic::clear_owner() {
+inline void topic::clear_owner() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.owner_.ClearToEmpty();
 }
-inline const std::string& Topic::owner() const
+inline const std::string& topic::owner() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.Topic.owner)
+  // @@protoc_insertion_point(field_get:mom.topic.owner)
   return _internal_owner();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void Topic::set_owner(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void topic::set_owner(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.owner_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:mom.Topic.owner)
+  // @@protoc_insertion_point(field_set:mom.topic.owner)
 }
-inline std::string* Topic::mutable_owner() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* topic::mutable_owner() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_owner();
-  // @@protoc_insertion_point(field_mutable:mom.Topic.owner)
+  // @@protoc_insertion_point(field_mutable:mom.topic.owner)
   return _s;
 }
-inline const std::string& Topic::_internal_owner() const {
+inline const std::string& topic::_internal_owner() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.owner_.Get();
 }
-inline void Topic::_internal_set_owner(const std::string& value) {
+inline void topic::_internal_set_owner(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.owner_.Set(value, GetArena());
 }
-inline std::string* Topic::_internal_mutable_owner() {
+inline std::string* topic::_internal_mutable_owner() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.owner_.Mutable( GetArena());
 }
-inline std::string* Topic::release_owner() {
+inline std::string* topic::release_owner() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:mom.Topic.owner)
+  // @@protoc_insertion_point(field_release:mom.topic.owner)
   return _impl_.owner_.Release();
 }
-inline void Topic::set_allocated_owner(std::string* value) {
+inline void topic::set_allocated_owner(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.owner_.SetAllocated(value, GetArena());
   if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.owner_.IsDefault()) {
     _impl_.owner_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:mom.Topic.owner)
+  // @@protoc_insertion_point(field_set_allocated:mom.topic.owner)
 }
 
 // int64 creation_timestamp = 3;
-inline void Topic::clear_creation_timestamp() {
+inline void topic::clear_creation_timestamp() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.creation_timestamp_ = ::int64_t{0};
 }
-inline ::int64_t Topic::creation_timestamp() const {
-  // @@protoc_insertion_point(field_get:mom.Topic.creation_timestamp)
+inline ::int64_t topic::creation_timestamp() const {
+  // @@protoc_insertion_point(field_get:mom.topic.creation_timestamp)
   return _internal_creation_timestamp();
 }
-inline void Topic::set_creation_timestamp(::int64_t value) {
+inline void topic::set_creation_timestamp(::int64_t value) {
   _internal_set_creation_timestamp(value);
-  // @@protoc_insertion_point(field_set:mom.Topic.creation_timestamp)
+  // @@protoc_insertion_point(field_set:mom.topic.creation_timestamp)
 }
-inline ::int64_t Topic::_internal_creation_timestamp() const {
+inline ::int64_t topic::_internal_creation_timestamp() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.creation_timestamp_;
 }
-inline void Topic::_internal_set_creation_timestamp(::int64_t value) {
+inline void topic::_internal_set_creation_timestamp(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.creation_timestamp_ = value;
 }
 
 // repeated string subscribers = 4;
-inline int Topic::_internal_subscribers_size() const {
+inline int topic::_internal_subscribers_size() const {
   return _internal_subscribers().size();
 }
-inline int Topic::subscribers_size() const {
+inline int topic::subscribers_size() const {
   return _internal_subscribers_size();
 }
-inline void Topic::clear_subscribers() {
+inline void topic::clear_subscribers() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.subscribers_.Clear();
 }
-inline std::string* Topic::add_subscribers() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* topic::add_subscribers() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   std::string* _s = _internal_mutable_subscribers()->Add();
-  // @@protoc_insertion_point(field_add_mutable:mom.Topic.subscribers)
+  // @@protoc_insertion_point(field_add_mutable:mom.topic.subscribers)
   return _s;
 }
-inline const std::string& Topic::subscribers(int index) const
+inline const std::string& topic::subscribers(int index) const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.Topic.subscribers)
+  // @@protoc_insertion_point(field_get:mom.topic.subscribers)
   return _internal_subscribers().Get(index);
 }
-inline std::string* Topic::mutable_subscribers(int index)
+inline std::string* topic::mutable_subscribers(int index)
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable:mom.Topic.subscribers)
+  // @@protoc_insertion_point(field_mutable:mom.topic.subscribers)
   return _internal_mutable_subscribers()->Mutable(index);
 }
 template <typename Arg_, typename... Args_>
-inline void Topic::set_subscribers(int index, Arg_&& value, Args_... args) {
+inline void topic::set_subscribers(int index, Arg_&& value, Args_... args) {
   ::google::protobuf::internal::AssignToString(
       *_internal_mutable_subscribers()->Mutable(index),
       std::forward<Arg_>(value), args... );
-  // @@protoc_insertion_point(field_set:mom.Topic.subscribers)
+  // @@protoc_insertion_point(field_set:mom.topic.subscribers)
 }
 template <typename Arg_, typename... Args_>
-inline void Topic::add_subscribers(Arg_&& value, Args_... args) {
+inline void topic::add_subscribers(Arg_&& value, Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::google::protobuf::internal::AddToRepeatedPtrField(*_internal_mutable_subscribers(),
                                std::forward<Arg_>(value),
                                args... );
-  // @@protoc_insertion_point(field_add:mom.Topic.subscribers)
+  // @@protoc_insertion_point(field_add:mom.topic.subscribers)
 }
 inline const ::google::protobuf::RepeatedPtrField<std::string>&
-Topic::subscribers() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_list:mom.Topic.subscribers)
+topic::subscribers() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:mom.topic.subscribers)
   return _internal_subscribers();
 }
 inline ::google::protobuf::RepeatedPtrField<std::string>*
-Topic::mutable_subscribers() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_list:mom.Topic.subscribers)
+topic::mutable_subscribers() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:mom.topic.subscribers)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _internal_mutable_subscribers();
 }
 inline const ::google::protobuf::RepeatedPtrField<std::string>&
-Topic::_internal_subscribers() const {
+topic::_internal_subscribers() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.subscribers_;
 }
 inline ::google::protobuf::RepeatedPtrField<std::string>*
-Topic::_internal_mutable_subscribers() {
+topic::_internal_mutable_subscribers() {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return &_impl_.subscribers_;
 }
 
 // int32 message_count = 5;
-inline void Topic::clear_message_count() {
+inline void topic::clear_message_count() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.message_count_ = 0;
 }
-inline ::int32_t Topic::message_count() const {
-  // @@protoc_insertion_point(field_get:mom.Topic.message_count)
+inline ::int32_t topic::message_count() const {
+  // @@protoc_insertion_point(field_get:mom.topic.message_count)
   return _internal_message_count();
 }
-inline void Topic::set_message_count(::int32_t value) {
+inline void topic::set_message_count(::int32_t value) {
   _internal_set_message_count(value);
-  // @@protoc_insertion_point(field_set:mom.Topic.message_count)
+  // @@protoc_insertion_point(field_set:mom.topic.message_count)
 }
-inline ::int32_t Topic::_internal_message_count() const {
+inline ::int32_t topic::_internal_message_count() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.message_count_;
 }
-inline void Topic::_internal_set_message_count(::int32_t value) {
+inline void topic::_internal_set_message_count(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.message_count_ = value;
 }
 
 // map<string, string> properties = 6;
-inline int Topic::_internal_properties_size() const {
+inline int topic::_internal_properties_size() const {
   return _internal_properties().size();
 }
-inline int Topic::properties_size() const {
+inline int topic::properties_size() const {
   return _internal_properties_size();
 }
-inline void Topic::clear_properties() {
+inline void topic::clear_properties() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.properties_.Clear();
 }
-inline const ::google::protobuf::Map<std::string, std::string>& Topic::_internal_properties() const {
+inline const ::google::protobuf::Map<std::string, std::string>& topic::_internal_properties() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.properties_.GetMap();
 }
-inline const ::google::protobuf::Map<std::string, std::string>& Topic::properties() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_map:mom.Topic.properties)
+inline const ::google::protobuf::Map<std::string, std::string>& topic::properties() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_map:mom.topic.properties)
   return _internal_properties();
 }
-inline ::google::protobuf::Map<std::string, std::string>* Topic::_internal_mutable_properties() {
+inline ::google::protobuf::Map<std::string, std::string>* topic::_internal_mutable_properties() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.properties_.MutableMap();
 }
-inline ::google::protobuf::Map<std::string, std::string>* Topic::mutable_properties() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_map:mom.Topic.properties)
+inline ::google::protobuf::Map<std::string, std::string>* topic::mutable_properties() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_map:mom.topic.properties)
   return _internal_mutable_properties();
 }
 
-// .mom.NodeAssignment node_assignment = 7;
-inline bool Topic::has_node_assignment() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.node_assignment_ != nullptr);
-  return value;
-}
-inline void Topic::clear_node_assignment() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.node_assignment_ != nullptr) _impl_.node_assignment_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline const ::mom::NodeAssignment& Topic::_internal_node_assignment() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  const ::mom::NodeAssignment* p = _impl_.node_assignment_;
-  return p != nullptr ? *p : reinterpret_cast<const ::mom::NodeAssignment&>(::mom::_NodeAssignment_default_instance_);
-}
-inline const ::mom::NodeAssignment& Topic::node_assignment() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.Topic.node_assignment)
-  return _internal_node_assignment();
-}
-inline void Topic::unsafe_arena_set_allocated_node_assignment(::mom::NodeAssignment* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.node_assignment_);
-  }
-  _impl_.node_assignment_ = reinterpret_cast<::mom::NodeAssignment*>(value);
-  if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mom.Topic.node_assignment)
-}
-inline ::mom::NodeAssignment* Topic::release_node_assignment() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::mom::NodeAssignment* released = _impl_.node_assignment_;
-  _impl_.node_assignment_ = nullptr;
-  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
-    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
-    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    if (GetArena() == nullptr) {
-      delete old;
-    }
-  } else {
-    if (GetArena() != nullptr) {
-      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    }
-  }
-  return released;
-}
-inline ::mom::NodeAssignment* Topic::unsafe_arena_release_node_assignment() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:mom.Topic.node_assignment)
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::mom::NodeAssignment* temp = _impl_.node_assignment_;
-  _impl_.node_assignment_ = nullptr;
-  return temp;
-}
-inline ::mom::NodeAssignment* Topic::_internal_mutable_node_assignment() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.node_assignment_ == nullptr) {
-    auto* p = ::google::protobuf::Message::DefaultConstruct<::mom::NodeAssignment>(GetArena());
-    _impl_.node_assignment_ = reinterpret_cast<::mom::NodeAssignment*>(p);
-  }
-  return _impl_.node_assignment_;
-}
-inline ::mom::NodeAssignment* Topic::mutable_node_assignment() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  ::mom::NodeAssignment* _msg = _internal_mutable_node_assignment();
-  // @@protoc_insertion_point(field_mutable:mom.Topic.node_assignment)
-  return _msg;
-}
-inline void Topic::set_allocated_node_assignment(::mom::NodeAssignment* value) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (message_arena == nullptr) {
-    delete (_impl_.node_assignment_);
-  }
-
-  if (value != nullptr) {
-    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
-    if (message_arena != submessage_arena) {
-      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-
-  _impl_.node_assignment_ = reinterpret_cast<::mom::NodeAssignment*>(value);
-  // @@protoc_insertion_point(field_set_allocated:mom.Topic.node_assignment)
-}
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
 
-// TopicMessage
+// topic_message
 
 // string topic_name = 1;
-inline void TopicMessage::clear_topic_name() {
+inline void topic_message::clear_topic_name() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.topic_name_.ClearToEmpty();
 }
-inline const std::string& TopicMessage::topic_name() const
+inline const std::string& topic_message::topic_name() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.TopicMessage.topic_name)
+  // @@protoc_insertion_point(field_get:mom.topic_message.topic_name)
   return _internal_topic_name();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void TopicMessage::set_topic_name(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void topic_message::set_topic_name(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.topic_name_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:mom.TopicMessage.topic_name)
+  // @@protoc_insertion_point(field_set:mom.topic_message.topic_name)
 }
-inline std::string* TopicMessage::mutable_topic_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* topic_message::mutable_topic_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_topic_name();
-  // @@protoc_insertion_point(field_mutable:mom.TopicMessage.topic_name)
+  // @@protoc_insertion_point(field_mutable:mom.topic_message.topic_name)
   return _s;
 }
-inline const std::string& TopicMessage::_internal_topic_name() const {
+inline const std::string& topic_message::_internal_topic_name() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.topic_name_.Get();
 }
-inline void TopicMessage::_internal_set_topic_name(const std::string& value) {
+inline void topic_message::_internal_set_topic_name(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.topic_name_.Set(value, GetArena());
 }
-inline std::string* TopicMessage::_internal_mutable_topic_name() {
+inline std::string* topic_message::_internal_mutable_topic_name() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.topic_name_.Mutable( GetArena());
 }
-inline std::string* TopicMessage::release_topic_name() {
+inline std::string* topic_message::release_topic_name() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:mom.TopicMessage.topic_name)
+  // @@protoc_insertion_point(field_release:mom.topic_message.topic_name)
   return _impl_.topic_name_.Release();
 }
-inline void TopicMessage::set_allocated_topic_name(std::string* value) {
+inline void topic_message::set_allocated_topic_name(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.topic_name_.SetAllocated(value, GetArena());
   if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.topic_name_.IsDefault()) {
     _impl_.topic_name_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:mom.TopicMessage.topic_name)
+  // @@protoc_insertion_point(field_set_allocated:mom.topic_message.topic_name)
 }
 
 // string content = 2;
-inline void TopicMessage::clear_content() {
+inline void topic_message::clear_content() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.content_.ClearToEmpty();
 }
-inline const std::string& TopicMessage::content() const
+inline const std::string& topic_message::content() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.TopicMessage.content)
+  // @@protoc_insertion_point(field_get:mom.topic_message.content)
   return _internal_content();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void TopicMessage::set_content(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void topic_message::set_content(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.content_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:mom.TopicMessage.content)
+  // @@protoc_insertion_point(field_set:mom.topic_message.content)
 }
-inline std::string* TopicMessage::mutable_content() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* topic_message::mutable_content() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_content();
-  // @@protoc_insertion_point(field_mutable:mom.TopicMessage.content)
+  // @@protoc_insertion_point(field_mutable:mom.topic_message.content)
   return _s;
 }
-inline const std::string& TopicMessage::_internal_content() const {
+inline const std::string& topic_message::_internal_content() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.content_.Get();
 }
-inline void TopicMessage::_internal_set_content(const std::string& value) {
+inline void topic_message::_internal_set_content(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.content_.Set(value, GetArena());
 }
-inline std::string* TopicMessage::_internal_mutable_content() {
+inline std::string* topic_message::_internal_mutable_content() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.content_.Mutable( GetArena());
 }
-inline std::string* TopicMessage::release_content() {
+inline std::string* topic_message::release_content() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:mom.TopicMessage.content)
+  // @@protoc_insertion_point(field_release:mom.topic_message.content)
   return _impl_.content_.Release();
 }
-inline void TopicMessage::set_allocated_content(std::string* value) {
+inline void topic_message::set_allocated_content(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.content_.SetAllocated(value, GetArena());
   if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.content_.IsDefault()) {
     _impl_.content_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:mom.TopicMessage.content)
+  // @@protoc_insertion_point(field_set_allocated:mom.topic_message.content)
 }
 
 // string sender = 3;
-inline void TopicMessage::clear_sender() {
+inline void topic_message::clear_sender() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.sender_.ClearToEmpty();
 }
-inline const std::string& TopicMessage::sender() const
+inline const std::string& topic_message::sender() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.TopicMessage.sender)
+  // @@protoc_insertion_point(field_get:mom.topic_message.sender)
   return _internal_sender();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void TopicMessage::set_sender(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void topic_message::set_sender(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.sender_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:mom.TopicMessage.sender)
+  // @@protoc_insertion_point(field_set:mom.topic_message.sender)
 }
-inline std::string* TopicMessage::mutable_sender() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* topic_message::mutable_sender() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_sender();
-  // @@protoc_insertion_point(field_mutable:mom.TopicMessage.sender)
+  // @@protoc_insertion_point(field_mutable:mom.topic_message.sender)
   return _s;
 }
-inline const std::string& TopicMessage::_internal_sender() const {
+inline const std::string& topic_message::_internal_sender() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.sender_.Get();
 }
-inline void TopicMessage::_internal_set_sender(const std::string& value) {
+inline void topic_message::_internal_set_sender(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.sender_.Set(value, GetArena());
 }
-inline std::string* TopicMessage::_internal_mutable_sender() {
+inline std::string* topic_message::_internal_mutable_sender() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.sender_.Mutable( GetArena());
 }
-inline std::string* TopicMessage::release_sender() {
+inline std::string* topic_message::release_sender() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:mom.TopicMessage.sender)
+  // @@protoc_insertion_point(field_release:mom.topic_message.sender)
   return _impl_.sender_.Release();
 }
-inline void TopicMessage::set_allocated_sender(std::string* value) {
+inline void topic_message::set_allocated_sender(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.sender_.SetAllocated(value, GetArena());
   if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.sender_.IsDefault()) {
     _impl_.sender_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:mom.TopicMessage.sender)
+  // @@protoc_insertion_point(field_set_allocated:mom.topic_message.sender)
 }
 
 // map<string, string> headers = 4;
-inline int TopicMessage::_internal_headers_size() const {
+inline int topic_message::_internal_headers_size() const {
   return _internal_headers().size();
 }
-inline int TopicMessage::headers_size() const {
+inline int topic_message::headers_size() const {
   return _internal_headers_size();
 }
-inline void TopicMessage::clear_headers() {
+inline void topic_message::clear_headers() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.headers_.Clear();
 }
-inline const ::google::protobuf::Map<std::string, std::string>& TopicMessage::_internal_headers() const {
+inline const ::google::protobuf::Map<std::string, std::string>& topic_message::_internal_headers() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.headers_.GetMap();
 }
-inline const ::google::protobuf::Map<std::string, std::string>& TopicMessage::headers() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_map:mom.TopicMessage.headers)
+inline const ::google::protobuf::Map<std::string, std::string>& topic_message::headers() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_map:mom.topic_message.headers)
   return _internal_headers();
 }
-inline ::google::protobuf::Map<std::string, std::string>* TopicMessage::_internal_mutable_headers() {
+inline ::google::protobuf::Map<std::string, std::string>* topic_message::_internal_mutable_headers() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.headers_.MutableMap();
 }
-inline ::google::protobuf::Map<std::string, std::string>* TopicMessage::mutable_headers() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_map:mom.TopicMessage.headers)
+inline ::google::protobuf::Map<std::string, std::string>* topic_message::mutable_headers() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_map:mom.topic_message.headers)
   return _internal_mutable_headers();
 }
 
 // bool persistent = 5;
-inline void TopicMessage::clear_persistent() {
+inline void topic_message::clear_persistent() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.persistent_ = false;
 }
-inline bool TopicMessage::persistent() const {
-  // @@protoc_insertion_point(field_get:mom.TopicMessage.persistent)
+inline bool topic_message::persistent() const {
+  // @@protoc_insertion_point(field_get:mom.topic_message.persistent)
   return _internal_persistent();
 }
-inline void TopicMessage::set_persistent(bool value) {
+inline void topic_message::set_persistent(bool value) {
   _internal_set_persistent(value);
-  // @@protoc_insertion_point(field_set:mom.TopicMessage.persistent)
+  // @@protoc_insertion_point(field_set:mom.topic_message.persistent)
 }
-inline bool TopicMessage::_internal_persistent() const {
+inline bool topic_message::_internal_persistent() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.persistent_;
 }
-inline void TopicMessage::_internal_set_persistent(bool value) {
+inline void topic_message::_internal_set_persistent(bool value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.persistent_ = value;
 }
 
 // int32 priority = 6;
-inline void TopicMessage::clear_priority() {
+inline void topic_message::clear_priority() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.priority_ = 0;
 }
-inline ::int32_t TopicMessage::priority() const {
-  // @@protoc_insertion_point(field_get:mom.TopicMessage.priority)
+inline ::int32_t topic_message::priority() const {
+  // @@protoc_insertion_point(field_get:mom.topic_message.priority)
   return _internal_priority();
 }
-inline void TopicMessage::set_priority(::int32_t value) {
+inline void topic_message::set_priority(::int32_t value) {
   _internal_set_priority(value);
-  // @@protoc_insertion_point(field_set:mom.TopicMessage.priority)
+  // @@protoc_insertion_point(field_set:mom.topic_message.priority)
 }
-inline ::int32_t TopicMessage::_internal_priority() const {
+inline ::int32_t topic_message::_internal_priority() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.priority_;
 }
-inline void TopicMessage::_internal_set_priority(::int32_t value) {
+inline void topic_message::_internal_set_priority(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.priority_ = value;
 }
 
 // int64 expiration = 7;
-inline void TopicMessage::clear_expiration() {
+inline void topic_message::clear_expiration() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.expiration_ = ::int64_t{0};
 }
-inline ::int64_t TopicMessage::expiration() const {
-  // @@protoc_insertion_point(field_get:mom.TopicMessage.expiration)
+inline ::int64_t topic_message::expiration() const {
+  // @@protoc_insertion_point(field_get:mom.topic_message.expiration)
   return _internal_expiration();
 }
-inline void TopicMessage::set_expiration(::int64_t value) {
+inline void topic_message::set_expiration(::int64_t value) {
   _internal_set_expiration(value);
-  // @@protoc_insertion_point(field_set:mom.TopicMessage.expiration)
+  // @@protoc_insertion_point(field_set:mom.topic_message.expiration)
 }
-inline ::int64_t TopicMessage::_internal_expiration() const {
+inline ::int64_t topic_message::_internal_expiration() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.expiration_;
 }
-inline void TopicMessage::_internal_set_expiration(::int64_t value) {
+inline void topic_message::_internal_set_expiration(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.expiration_ = value;
 }
@@ -8180,55 +8102,151 @@ inline void topic_subscription::set_allocated_topic_name(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:mom.topic_subscription.topic_name)
 }
 
-// string subscriber_id = 2;
-inline void topic_subscription::clear_subscriber_id() {
+// string topic_owner = 2;
+inline void topic_subscription::clear_topic_owner() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.subscriber_id_.ClearToEmpty();
+  _impl_.topic_owner_.ClearToEmpty();
 }
-inline const std::string& topic_subscription::subscriber_id() const
+inline const std::string& topic_subscription::topic_owner() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mom.topic_subscription.subscriber_id)
-  return _internal_subscriber_id();
+  // @@protoc_insertion_point(field_get:mom.topic_subscription.topic_owner)
+  return _internal_topic_owner();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void topic_subscription::set_subscriber_id(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void topic_subscription::set_topic_owner(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.subscriber_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:mom.topic_subscription.subscriber_id)
+  _impl_.topic_owner_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:mom.topic_subscription.topic_owner)
 }
-inline std::string* topic_subscription::mutable_subscriber_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_subscriber_id();
-  // @@protoc_insertion_point(field_mutable:mom.topic_subscription.subscriber_id)
+inline std::string* topic_subscription::mutable_topic_owner() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_topic_owner();
+  // @@protoc_insertion_point(field_mutable:mom.topic_subscription.topic_owner)
   return _s;
 }
-inline const std::string& topic_subscription::_internal_subscriber_id() const {
+inline const std::string& topic_subscription::_internal_topic_owner() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.subscriber_id_.Get();
+  return _impl_.topic_owner_.Get();
 }
-inline void topic_subscription::_internal_set_subscriber_id(const std::string& value) {
+inline void topic_subscription::_internal_set_topic_owner(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.subscriber_id_.Set(value, GetArena());
+  _impl_.topic_owner_.Set(value, GetArena());
 }
-inline std::string* topic_subscription::_internal_mutable_subscriber_id() {
+inline std::string* topic_subscription::_internal_mutable_topic_owner() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.subscriber_id_.Mutable( GetArena());
+  return _impl_.topic_owner_.Mutable( GetArena());
 }
-inline std::string* topic_subscription::release_subscriber_id() {
+inline std::string* topic_subscription::release_topic_owner() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:mom.topic_subscription.subscriber_id)
-  return _impl_.subscriber_id_.Release();
+  // @@protoc_insertion_point(field_release:mom.topic_subscription.topic_owner)
+  return _impl_.topic_owner_.Release();
 }
-inline void topic_subscription::set_allocated_subscriber_id(std::string* value) {
+inline void topic_subscription::set_allocated_topic_owner(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.subscriber_id_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.subscriber_id_.IsDefault()) {
-    _impl_.subscriber_id_.Set("", GetArena());
+  _impl_.topic_owner_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.topic_owner_.IsDefault()) {
+    _impl_.topic_owner_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:mom.topic_subscription.subscriber_id)
+  // @@protoc_insertion_point(field_set_allocated:mom.topic_subscription.topic_owner)
 }
 
-// bool durable = 3;
+// string subscriber_queue_name = 3;
+inline void topic_subscription::clear_subscriber_queue_name() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_name_.ClearToEmpty();
+}
+inline const std::string& topic_subscription::subscriber_queue_name() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:mom.topic_subscription.subscriber_queue_name)
+  return _internal_subscriber_queue_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void topic_subscription::set_subscriber_queue_name(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_name_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:mom.topic_subscription.subscriber_queue_name)
+}
+inline std::string* topic_subscription::mutable_subscriber_queue_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_subscriber_queue_name();
+  // @@protoc_insertion_point(field_mutable:mom.topic_subscription.subscriber_queue_name)
+  return _s;
+}
+inline const std::string& topic_subscription::_internal_subscriber_queue_name() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.subscriber_queue_name_.Get();
+}
+inline void topic_subscription::_internal_set_subscriber_queue_name(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_name_.Set(value, GetArena());
+}
+inline std::string* topic_subscription::_internal_mutable_subscriber_queue_name() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.subscriber_queue_name_.Mutable( GetArena());
+}
+inline std::string* topic_subscription::release_subscriber_queue_name() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:mom.topic_subscription.subscriber_queue_name)
+  return _impl_.subscriber_queue_name_.Release();
+}
+inline void topic_subscription::set_allocated_subscriber_queue_name(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_name_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.subscriber_queue_name_.IsDefault()) {
+    _impl_.subscriber_queue_name_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:mom.topic_subscription.subscriber_queue_name)
+}
+
+// string subscriber_queue_owner = 4;
+inline void topic_subscription::clear_subscriber_queue_owner() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_owner_.ClearToEmpty();
+}
+inline const std::string& topic_subscription::subscriber_queue_owner() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:mom.topic_subscription.subscriber_queue_owner)
+  return _internal_subscriber_queue_owner();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void topic_subscription::set_subscriber_queue_owner(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_owner_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:mom.topic_subscription.subscriber_queue_owner)
+}
+inline std::string* topic_subscription::mutable_subscriber_queue_owner() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_subscriber_queue_owner();
+  // @@protoc_insertion_point(field_mutable:mom.topic_subscription.subscriber_queue_owner)
+  return _s;
+}
+inline const std::string& topic_subscription::_internal_subscriber_queue_owner() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.subscriber_queue_owner_.Get();
+}
+inline void topic_subscription::_internal_set_subscriber_queue_owner(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_owner_.Set(value, GetArena());
+}
+inline std::string* topic_subscription::_internal_mutable_subscriber_queue_owner() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.subscriber_queue_owner_.Mutable( GetArena());
+}
+inline std::string* topic_subscription::release_subscriber_queue_owner() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:mom.topic_subscription.subscriber_queue_owner)
+  return _impl_.subscriber_queue_owner_.Release();
+}
+inline void topic_subscription::set_allocated_subscriber_queue_owner(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.subscriber_queue_owner_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.subscriber_queue_owner_.IsDefault()) {
+    _impl_.subscriber_queue_owner_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:mom.topic_subscription.subscriber_queue_owner)
+}
+
+// bool durable = 5;
 inline void topic_subscription::clear_durable() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.durable_ = false;
@@ -8324,7 +8342,7 @@ inline void topics_response::set_allocated_message(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:mom.topics_response.message)
 }
 
-// repeated .mom.Topic topics = 3;
+// repeated .mom.topic topics = 3;
 inline int topics_response::_internal_topics_size() const {
   return _internal_topics().size();
 }
@@ -8335,39 +8353,39 @@ inline void topics_response::clear_topics() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.topics_.Clear();
 }
-inline ::mom::Topic* topics_response::mutable_topics(int index)
+inline ::mom::topic* topics_response::mutable_topics(int index)
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_mutable:mom.topics_response.topics)
   return _internal_mutable_topics()->Mutable(index);
 }
-inline ::google::protobuf::RepeatedPtrField<::mom::Topic>* topics_response::mutable_topics()
+inline ::google::protobuf::RepeatedPtrField<::mom::topic>* topics_response::mutable_topics()
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_mutable_list:mom.topics_response.topics)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _internal_mutable_topics();
 }
-inline const ::mom::Topic& topics_response::topics(int index) const
+inline const ::mom::topic& topics_response::topics(int index) const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:mom.topics_response.topics)
   return _internal_topics().Get(index);
 }
-inline ::mom::Topic* topics_response::add_topics() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline ::mom::topic* topics_response::add_topics() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::mom::Topic* _add = _internal_mutable_topics()->Add();
+  ::mom::topic* _add = _internal_mutable_topics()->Add();
   // @@protoc_insertion_point(field_add:mom.topics_response.topics)
   return _add;
 }
-inline const ::google::protobuf::RepeatedPtrField<::mom::Topic>& topics_response::topics() const
+inline const ::google::protobuf::RepeatedPtrField<::mom::topic>& topics_response::topics() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_list:mom.topics_response.topics)
   return _internal_topics();
 }
-inline const ::google::protobuf::RepeatedPtrField<::mom::Topic>&
+inline const ::google::protobuf::RepeatedPtrField<::mom::topic>&
 topics_response::_internal_topics() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.topics_;
 }
-inline ::google::protobuf::RepeatedPtrField<::mom::Topic>*
+inline ::google::protobuf::RepeatedPtrField<::mom::topic>*
 topics_response::_internal_mutable_topics() {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return &_impl_.topics_;
@@ -9274,7 +9292,7 @@ sync_response::_internal_mutable_queues() {
   return &_impl_.queues_;
 }
 
-// repeated .mom.Topic topics = 4;
+// repeated .mom.topic topics = 4;
 inline int sync_response::_internal_topics_size() const {
   return _internal_topics().size();
 }
@@ -9285,39 +9303,39 @@ inline void sync_response::clear_topics() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.topics_.Clear();
 }
-inline ::mom::Topic* sync_response::mutable_topics(int index)
+inline ::mom::topic* sync_response::mutable_topics(int index)
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_mutable:mom.sync_response.topics)
   return _internal_mutable_topics()->Mutable(index);
 }
-inline ::google::protobuf::RepeatedPtrField<::mom::Topic>* sync_response::mutable_topics()
+inline ::google::protobuf::RepeatedPtrField<::mom::topic>* sync_response::mutable_topics()
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_mutable_list:mom.sync_response.topics)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _internal_mutable_topics();
 }
-inline const ::mom::Topic& sync_response::topics(int index) const
+inline const ::mom::topic& sync_response::topics(int index) const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:mom.sync_response.topics)
   return _internal_topics().Get(index);
 }
-inline ::mom::Topic* sync_response::add_topics() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline ::mom::topic* sync_response::add_topics() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::mom::Topic* _add = _internal_mutable_topics()->Add();
+  ::mom::topic* _add = _internal_mutable_topics()->Add();
   // @@protoc_insertion_point(field_add:mom.sync_response.topics)
   return _add;
 }
-inline const ::google::protobuf::RepeatedPtrField<::mom::Topic>& sync_response::topics() const
+inline const ::google::protobuf::RepeatedPtrField<::mom::topic>& sync_response::topics() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_list:mom.sync_response.topics)
   return _internal_topics();
 }
-inline const ::google::protobuf::RepeatedPtrField<::mom::Topic>&
+inline const ::google::protobuf::RepeatedPtrField<::mom::topic>&
 sync_response::_internal_topics() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.topics_;
 }
-inline ::google::protobuf::RepeatedPtrField<::mom::Topic>*
+inline ::google::protobuf::RepeatedPtrField<::mom::topic>*
 sync_response::_internal_mutable_topics() {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return &_impl_.topics_;

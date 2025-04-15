@@ -113,12 +113,12 @@ class MOM_service final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>> PrepareAsynclist_topics(::grpc::ClientContext* context, const ::mom::NodeID& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>>(PrepareAsynclist_topicsRaw(context, request, cq));
     }
-    virtual ::grpc::Status get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::mom::Topic* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Topic>> Asyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Topic>>(Asyncget_topic_infoRaw(context, request, cq));
+    virtual ::grpc::Status get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::mom::topic* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topic>> Asyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topic>>(Asyncget_topic_infoRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Topic>> PrepareAsyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::Topic>>(PrepareAsyncget_topic_infoRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topic>> PrepareAsyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::topic>>(PrepareAsyncget_topic_infoRaw(context, request, cq));
     }
     virtual ::grpc::Status subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::mom::status* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>> Asyncsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) {
@@ -153,11 +153,11 @@ class MOM_service final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message>> PrepareAsyncreceive_queue_message(::grpc::ClientContext* context, const ::mom::queue_identifier& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message>>(PrepareAsyncreceive_queue_messageRaw(context, request, cq));
     }
-    virtual ::grpc::Status publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::mom::message_status* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> Asyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::mom::message_status* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> Asyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>>(Asyncpublish_topic_messageRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> PrepareAsyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>> PrepareAsyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>>(PrepareAsyncpublish_topic_messageRaw(context, request, cq));
     }
     virtual ::grpc::Status receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::mom::message* response) = 0;
@@ -243,8 +243,8 @@ class MOM_service final {
       virtual void delete_topic(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void list_topics(::grpc::ClientContext* context, const ::mom::NodeID* request, ::mom::topics_response* response, std::function<void(::grpc::Status)>) = 0;
       virtual void list_topics(::grpc::ClientContext* context, const ::mom::NodeID* request, ::mom::topics_response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::topic* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::topic* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
       virtual void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
@@ -258,8 +258,8 @@ class MOM_service final {
       virtual void send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_identifier* request, ::mom::message* response, std::function<void(::grpc::Status)>) = 0;
       virtual void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_identifier* request, ::mom::message* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::message* response, std::function<void(::grpc::Status)>) = 0;
       virtual void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::message* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void acknowledge_message(::grpc::ClientContext* context, const ::mom::message_identifier* request, ::mom::status* response, std::function<void(::grpc::Status)>) = 0;
@@ -300,8 +300,8 @@ class MOM_service final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>* Asynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::NodeID& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::topics_response>* PrepareAsynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::NodeID& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::Topic>* Asyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::Topic>* PrepareAsyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::topic>* Asyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::topic>* PrepareAsyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* PrepareAsyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) = 0;
@@ -310,8 +310,8 @@ class MOM_service final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* PrepareAsyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message>* Asyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_identifier& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message>* PrepareAsyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_identifier& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message_status>* PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message>* Asyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::message>* PrepareAsyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mom::status>* Asyncacknowledge_messageRaw(::grpc::ClientContext* context, const ::mom::message_identifier& request, ::grpc::CompletionQueue* cq) = 0;
@@ -391,12 +391,12 @@ class MOM_service final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topics_response>> PrepareAsynclist_topics(::grpc::ClientContext* context, const ::mom::NodeID& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topics_response>>(PrepareAsynclist_topicsRaw(context, request, cq));
     }
-    ::grpc::Status get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::mom::Topic* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Topic>> Asyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Topic>>(Asyncget_topic_infoRaw(context, request, cq));
+    ::grpc::Status get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::mom::topic* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topic>> Asyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topic>>(Asyncget_topic_infoRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Topic>> PrepareAsyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::Topic>>(PrepareAsyncget_topic_infoRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topic>> PrepareAsyncget_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::topic>>(PrepareAsyncget_topic_infoRaw(context, request, cq));
     }
     ::grpc::Status subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::mom::status* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::status>> Asyncsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) {
@@ -426,11 +426,11 @@ class MOM_service final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message>> PrepareAsyncreceive_queue_message(::grpc::ClientContext* context, const ::mom::queue_identifier& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message>>(PrepareAsyncreceive_queue_messageRaw(context, request, cq));
     }
-    ::grpc::Status publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::mom::message_status* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> Asyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::mom::message_status* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> Asyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>>(Asyncpublish_topic_messageRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> PrepareAsyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>> PrepareAsyncpublish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mom::message_status>>(PrepareAsyncpublish_topic_messageRaw(context, request, cq));
     }
     ::grpc::Status receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::mom::message* response) override;
@@ -496,8 +496,8 @@ class MOM_service final {
       void delete_topic(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
       void list_topics(::grpc::ClientContext* context, const ::mom::NodeID* request, ::mom::topics_response* response, std::function<void(::grpc::Status)>) override;
       void list_topics(::grpc::ClientContext* context, const ::mom::NodeID* request, ::mom::topics_response* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response, std::function<void(::grpc::Status)>) override;
-      void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::topic* response, std::function<void(::grpc::Status)>) override;
+      void get_topic_info(::grpc::ClientContext* context, const ::mom::topic_identifier* request, ::mom::topic* response, ::grpc::ClientUnaryReactor* reactor) override;
       void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
       void subscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::status* response, ::grpc::ClientUnaryReactor* reactor) override;
       void unsubscribe_topic(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
@@ -506,8 +506,8 @@ class MOM_service final {
       void send_queue_message(::grpc::ClientContext* context, const ::mom::queue_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) override;
       void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_identifier* request, ::mom::message* response, std::function<void(::grpc::Status)>) override;
       void receive_queue_message(::grpc::ClientContext* context, const ::mom::queue_identifier* request, ::mom::message* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) override;
-      void publish_topic_message(::grpc::ClientContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, std::function<void(::grpc::Status)>) override;
+      void publish_topic_message(::grpc::ClientContext* context, const ::mom::topic_message* request, ::mom::message_status* response, ::grpc::ClientUnaryReactor* reactor) override;
       void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::message* response, std::function<void(::grpc::Status)>) override;
       void receive_topic_message(::grpc::ClientContext* context, const ::mom::topic_subscription* request, ::mom::message* response, ::grpc::ClientUnaryReactor* reactor) override;
       void acknowledge_message(::grpc::ClientContext* context, const ::mom::message_identifier* request, ::mom::status* response, std::function<void(::grpc::Status)>) override;
@@ -549,8 +549,8 @@ class MOM_service final {
     ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncdelete_topicRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::topics_response>* Asynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::NodeID& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::topics_response>* PrepareAsynclist_topicsRaw(::grpc::ClientContext* context, const ::mom::NodeID& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::Topic>* Asyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::Topic>* PrepareAsyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::topic>* Asyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::topic>* PrepareAsyncget_topic_infoRaw(::grpc::ClientContext* context, const ::mom::topic_identifier& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::status>* PrepareAsyncsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncunsubscribe_topicRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) override;
@@ -559,8 +559,8 @@ class MOM_service final {
     ::grpc::ClientAsyncResponseReader< ::mom::message_status>* PrepareAsyncsend_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_message& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::message>* Asyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_identifier& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::message>* PrepareAsyncreceive_queue_messageRaw(::grpc::ClientContext* context, const ::mom::queue_identifier& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::TopicMessage& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* Asyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mom::message_status>* PrepareAsyncpublish_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_message& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::message>* Asyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::message>* PrepareAsyncreceive_topic_messageRaw(::grpc::ClientContext* context, const ::mom::topic_subscription& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mom::status>* Asyncacknowledge_messageRaw(::grpc::ClientContext* context, const ::mom::message_identifier& request, ::grpc::CompletionQueue* cq) override;
@@ -625,7 +625,7 @@ class MOM_service final {
     virtual ::grpc::Status create_topic(::grpc::ServerContext* context, const ::mom::topic_config* request, ::mom::status* response);
     virtual ::grpc::Status delete_topic(::grpc::ServerContext* context, const ::mom::topic_identifier* request, ::mom::status* response);
     virtual ::grpc::Status list_topics(::grpc::ServerContext* context, const ::mom::NodeID* request, ::mom::topics_response* response);
-    virtual ::grpc::Status get_topic_info(::grpc::ServerContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response);
+    virtual ::grpc::Status get_topic_info(::grpc::ServerContext* context, const ::mom::topic_identifier* request, ::mom::topic* response);
     virtual ::grpc::Status subscribe_topic(::grpc::ServerContext* context, const ::mom::topic_subscription* request, ::mom::status* response);
     virtual ::grpc::Status unsubscribe_topic(::grpc::ServerContext* context, const ::mom::topic_subscription* request, ::mom::status* response);
     // ---------------------------------------------------
@@ -635,7 +635,7 @@ class MOM_service final {
     // --------------------------------------------------
     virtual ::grpc::Status send_queue_message(::grpc::ServerContext* context, const ::mom::queue_message* request, ::mom::message_status* response);
     virtual ::grpc::Status receive_queue_message(::grpc::ServerContext* context, const ::mom::queue_identifier* request, ::mom::message* response);
-    virtual ::grpc::Status publish_topic_message(::grpc::ServerContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response);
+    virtual ::grpc::Status publish_topic_message(::grpc::ServerContext* context, const ::mom::topic_message* request, ::mom::message_status* response);
     virtual ::grpc::Status receive_topic_message(::grpc::ServerContext* context, const ::mom::topic_subscription* request, ::mom::message* response);
     virtual ::grpc::Status acknowledge_message(::grpc::ServerContext* context, const ::mom::message_identifier* request, ::mom::status* response);
     // ---------------------------------------------------
@@ -840,11 +840,11 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::Topic* /*response*/) override {
+    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::topic* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void Requestget_topic_info(::grpc::ServerContext* context, ::mom::topic_identifier* request, ::grpc::ServerAsyncResponseWriter< ::mom::Topic>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestget_topic_info(::grpc::ServerContext* context, ::mom::topic_identifier* request, ::grpc::ServerAsyncResponseWriter< ::mom::topic>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -940,11 +940,11 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::TopicMessage* /*request*/, ::mom::message_status* /*response*/) override {
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void Requestpublish_topic_message(::grpc::ServerContext* context, ::mom::TopicMessage* request, ::grpc::ServerAsyncResponseWriter< ::mom::message_status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestpublish_topic_message(::grpc::ServerContext* context, ::mom::topic_message* request, ::grpc::ServerAsyncResponseWriter< ::mom::message_status>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -1319,25 +1319,25 @@ class MOM_service final {
    public:
     WithCallbackMethod_get_topic_info() {
       ::grpc::Service::MarkMethodCallback(9,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_identifier, ::mom::Topic>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_identifier, ::mom::topic>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::topic_identifier* request, ::mom::Topic* response) { return this->get_topic_info(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::mom::topic_identifier* request, ::mom::topic* response) { return this->get_topic_info(context, request, response); }));}
     void SetMessageAllocatorFor_get_topic_info(
-        ::grpc::MessageAllocator< ::mom::topic_identifier, ::mom::Topic>* allocator) {
+        ::grpc::MessageAllocator< ::mom::topic_identifier, ::mom::topic>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_identifier, ::mom::Topic>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_identifier, ::mom::topic>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_get_topic_info() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::Topic* /*response*/) override {
+    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::topic* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* get_topic_info(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::Topic* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::topic* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_subscribe_topic : public BaseClass {
@@ -1454,25 +1454,25 @@ class MOM_service final {
    public:
     WithCallbackMethod_publish_topic_message() {
       ::grpc::Service::MarkMethodCallback(14,
-          new ::grpc::internal::CallbackUnaryHandler< ::mom::TopicMessage, ::mom::message_status>(
+          new ::grpc::internal::CallbackUnaryHandler< ::mom::topic_message, ::mom::message_status>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::mom::TopicMessage* request, ::mom::message_status* response) { return this->publish_topic_message(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::mom::topic_message* request, ::mom::message_status* response) { return this->publish_topic_message(context, request, response); }));}
     void SetMessageAllocatorFor_publish_topic_message(
-        ::grpc::MessageAllocator< ::mom::TopicMessage, ::mom::message_status>* allocator) {
+        ::grpc::MessageAllocator< ::mom::topic_message, ::mom::message_status>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::TopicMessage, ::mom::message_status>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mom::topic_message, ::mom::message_status>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_publish_topic_message() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::TopicMessage* /*request*/, ::mom::message_status* /*response*/) override {
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* publish_topic_message(
-      ::grpc::CallbackServerContext* /*context*/, const ::mom::TopicMessage* /*request*/, ::mom::message_status* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_receive_topic_message : public BaseClass {
@@ -1803,7 +1803,7 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::Topic* /*response*/) override {
+    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::topic* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1888,7 +1888,7 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::TopicMessage* /*request*/, ::mom::message_status* /*response*/) override {
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2187,7 +2187,7 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::Topic* /*response*/) override {
+    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::topic* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2287,7 +2287,7 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::TopicMessage* /*request*/, ::mom::message_status* /*response*/) override {
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2628,7 +2628,7 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::Topic* /*response*/) override {
+    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::topic* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2738,7 +2738,7 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::TopicMessage* /*request*/, ::mom::message_status* /*response*/) override {
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -3128,10 +3128,10 @@ class MOM_service final {
     WithStreamedUnaryMethod_get_topic_info() {
       ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::topic_identifier, ::mom::Topic>(
+          ::mom::topic_identifier, ::mom::topic>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::topic_identifier, ::mom::Topic>* streamer) {
+                     ::mom::topic_identifier, ::mom::topic>* streamer) {
                        return this->Streamedget_topic_info(context,
                          streamer);
                   }));
@@ -3140,12 +3140,12 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::Topic* /*response*/) override {
+    ::grpc::Status get_topic_info(::grpc::ServerContext* /*context*/, const ::mom::topic_identifier* /*request*/, ::mom::topic* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status Streamedget_topic_info(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_identifier,::mom::Topic>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedget_topic_info(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_identifier,::mom::topic>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_subscribe_topic : public BaseClass {
@@ -3263,10 +3263,10 @@ class MOM_service final {
     WithStreamedUnaryMethod_publish_topic_message() {
       ::grpc::Service::MarkMethodStreamed(14,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::mom::TopicMessage, ::mom::message_status>(
+          ::mom::topic_message, ::mom::message_status>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::mom::TopicMessage, ::mom::message_status>* streamer) {
+                     ::mom::topic_message, ::mom::message_status>* streamer) {
                        return this->Streamedpublish_topic_message(context,
                          streamer);
                   }));
@@ -3275,12 +3275,12 @@ class MOM_service final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::TopicMessage* /*request*/, ::mom::message_status* /*response*/) override {
+    ::grpc::Status publish_topic_message(::grpc::ServerContext* /*context*/, const ::mom::topic_message* /*request*/, ::mom::message_status* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status Streamedpublish_topic_message(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::TopicMessage,::mom::message_status>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedpublish_topic_message(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mom::topic_message,::mom::message_status>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_receive_topic_message : public BaseClass {
