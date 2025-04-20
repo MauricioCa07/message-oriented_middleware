@@ -42,6 +42,9 @@ vector<queue_obj> queue_list::get_queue_list(){return this->queue_list;}
 
 
 queue_obj* queue_list::get_specific_queue(string name_queue_to_get, string owner_queue_to_get){
+    if (this->queue_list.size()<=0){
+        return nullptr;
+    }
     for(queue_obj& queue_in_list:this->queue_list){ 
         if (queue_in_list.get_queue_name() == name_queue_to_get && queue_in_list.get_queue_owner() == owner_queue_to_get ){
             return &queue_in_list; 

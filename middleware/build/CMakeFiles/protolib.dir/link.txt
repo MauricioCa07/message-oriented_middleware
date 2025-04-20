@@ -1,2 +1,2 @@
-/usr/bin/ar qc libprotolib.a CMakeFiles/protolib.dir/mom.pb.cc.o CMakeFiles/protolib.dir/mom.grpc.pb.cc.o
+/usr/bin/ar qc libprotolib.a CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.o CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.o
 /usr/bin/ranlib libprotolib.a

@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/app/mom.grpc.pb.cc" "CMakeFiles/protolib.dir/mom.grpc.pb.cc.o" "gcc" "CMakeFiles/protolib.dir/mom.grpc.pb.cc.o.d"
-  "/app/mom.pb.cc" "CMakeFiles/protolib.dir/mom.pb.cc.o" "gcc" "CMakeFiles/protolib.dir/mom.pb.cc.o.d"
+  "/app/protos/api_rest/mom.grpc.pb.cc" "CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.o" "gcc" "CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.o.d"
+  "/app/protos/api_rest/mom.pb.cc" "CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.o" "gcc" "CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

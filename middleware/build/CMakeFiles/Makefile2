@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /app/build
 
 # The main recursive "all" target.
 all: CMakeFiles/protolib.dir/all
+all: CMakeFiles/momtomomproto.dir/all
 all: CMakeFiles/server.dir/all
 .PHONY : all
 
@@ -73,6 +74,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/protolib.dir/clean
+clean: CMakeFiles/momtomomproto.dir/clean
 clean: CMakeFiles/server.dir/clean
 .PHONY : clean
 
@@ -83,7 +85,7 @@ clean: CMakeFiles/server.dir/clean
 CMakeFiles/protolib.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/app/build/CMakeFiles --progress-num=1,2,3 "Built target protolib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/app/build/CMakeFiles --progress-num=4,5,6 "Built target protolib"
 .PHONY : CMakeFiles/protolib.dir/all
 
 # Build rule for subdir invocation for target.
@@ -103,18 +105,45 @@ CMakeFiles/protolib.dir/clean:
 .PHONY : CMakeFiles/protolib.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/momtomomproto.dir
+
+# All Build rule for target.
+CMakeFiles/momtomomproto.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/app/build/CMakeFiles --progress-num=1,2,3 "Built target momtomomproto"
+.PHONY : CMakeFiles/momtomomproto.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/momtomomproto.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/momtomomproto.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles 0
+.PHONY : CMakeFiles/momtomomproto.dir/rule
+
+# Convenience name for target.
+momtomomproto: CMakeFiles/momtomomproto.dir/rule
+.PHONY : momtomomproto
+
+# clean rule for target.
+CMakeFiles/momtomomproto.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/clean
+.PHONY : CMakeFiles/momtomomproto.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/server.dir
 
 # All Build rule for target.
 CMakeFiles/server.dir/all: CMakeFiles/protolib.dir/all
+CMakeFiles/server.dir/all: CMakeFiles/momtomomproto.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/app/build/CMakeFiles --progress-num=4,5,6,7,8,9 "Built target server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/app/build/CMakeFiles --progress-num=7,8,9,10,11,12,13,14,15,16,17 "Built target server"
 .PHONY : CMakeFiles/server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles 17
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles 0
 .PHONY : CMakeFiles/server.dir/rule

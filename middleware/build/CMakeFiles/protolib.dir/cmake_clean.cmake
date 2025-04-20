@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/protolib.dir/mom.grpc.pb.cc.o"
-  "CMakeFiles/protolib.dir/mom.grpc.pb.cc.o.d"
-  "CMakeFiles/protolib.dir/mom.pb.cc.o"
-  "CMakeFiles/protolib.dir/mom.pb.cc.o.d"
+  "CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.o"
+  "CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.o.d"
+  "CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.o"
+  "CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.o.d"
   "libprotolib.a"
   "libprotolib.pdb"
 )

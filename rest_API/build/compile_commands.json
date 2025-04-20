@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/c++  -I/app/build -std=gnu++17 -o CMakeFiles/protolib.dir/protos/rest_api/mom.pb.cc.o -c /app/protos/rest_api/mom.pb.cc",
+  "file": "/app/protos/rest_api/mom.pb.cc",
+  "output": "CMakeFiles/protolib.dir/protos/rest_api/mom.pb.cc.o"
+},
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/c++  -I/app/build -std=gnu++17 -o CMakeFiles/protolib.dir/protos/rest_api/mom.grpc.pb.cc.o -c /app/protos/rest_api/mom.grpc.pb.cc",
+  "file": "/app/protos/rest_api/mom.grpc.pb.cc",
+  "output": "CMakeFiles/protolib.dir/protos/rest_api/mom.grpc.pb.cc.o"
+},
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/rest_api.dir/src/rest_api.cc.o -c /app/src/rest_api.cc",
+  "file": "/app/src/rest_api.cc",
+  "output": "CMakeFiles/rest_api.dir/src/rest_api.cc.o"
+},
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/rest_api.dir/src/rest_impl/rest_impl.cc.o -c /app/src/rest_impl/rest_impl.cc",
+  "file": "/app/src/rest_impl/rest_impl.cc",
+  "output": "CMakeFiles/rest_api.dir/src/rest_impl/rest_impl.cc.o"
+},
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/app/build -std=gnu++17 -o CMakeFiles/rest_api.dir/src/node/node_impl.cc.o -c /app/src/node/node_impl.cc",
+  "file": "/app/src/node/node_impl.cc",
+  "output": "CMakeFiles/rest_api.dir/src/node/node_impl.cc.o"
+}
+]

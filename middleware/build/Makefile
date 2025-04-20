@@ -130,6 +130,19 @@ protolib/fast:
 .PHONY : protolib/fast
 
 #=============================================================================
+# Target rules for targets named momtomomproto
+
+# Build rule for target.
+momtomomproto: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 momtomomproto
+.PHONY : momtomomproto
+
+# fast build rule for target.
+momtomomproto/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/build
+.PHONY : momtomomproto/fast
+
+#=============================================================================
 # Target rules for targets named server
 
 # Build rule for target.
@@ -142,53 +155,221 @@ server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-mom.grpc.pb.o: mom.grpc.pb.cc.o
-.PHONY : mom.grpc.pb.o
+protos/api_rest/mom.grpc.pb.o: protos/api_rest/mom.grpc.pb.cc.o
+.PHONY : protos/api_rest/mom.grpc.pb.o
 
 # target to build an object file
-mom.grpc.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/mom.grpc.pb.cc.o
-.PHONY : mom.grpc.pb.cc.o
+protos/api_rest/mom.grpc.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.o
+.PHONY : protos/api_rest/mom.grpc.pb.cc.o
 
-mom.grpc.pb.i: mom.grpc.pb.cc.i
-.PHONY : mom.grpc.pb.i
+protos/api_rest/mom.grpc.pb.i: protos/api_rest/mom.grpc.pb.cc.i
+.PHONY : protos/api_rest/mom.grpc.pb.i
 
 # target to preprocess a source file
-mom.grpc.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/mom.grpc.pb.cc.i
-.PHONY : mom.grpc.pb.cc.i
+protos/api_rest/mom.grpc.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.i
+.PHONY : protos/api_rest/mom.grpc.pb.cc.i
 
-mom.grpc.pb.s: mom.grpc.pb.cc.s
-.PHONY : mom.grpc.pb.s
+protos/api_rest/mom.grpc.pb.s: protos/api_rest/mom.grpc.pb.cc.s
+.PHONY : protos/api_rest/mom.grpc.pb.s
 
 # target to generate assembly for a file
-mom.grpc.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/mom.grpc.pb.cc.s
-.PHONY : mom.grpc.pb.cc.s
+protos/api_rest/mom.grpc.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/protos/api_rest/mom.grpc.pb.cc.s
+.PHONY : protos/api_rest/mom.grpc.pb.cc.s
 
-mom.pb.o: mom.pb.cc.o
-.PHONY : mom.pb.o
+protos/api_rest/mom.pb.o: protos/api_rest/mom.pb.cc.o
+.PHONY : protos/api_rest/mom.pb.o
 
 # target to build an object file
-mom.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/mom.pb.cc.o
-.PHONY : mom.pb.cc.o
+protos/api_rest/mom.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.o
+.PHONY : protos/api_rest/mom.pb.cc.o
 
-mom.pb.i: mom.pb.cc.i
-.PHONY : mom.pb.i
+protos/api_rest/mom.pb.i: protos/api_rest/mom.pb.cc.i
+.PHONY : protos/api_rest/mom.pb.i
 
 # target to preprocess a source file
-mom.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/mom.pb.cc.i
-.PHONY : mom.pb.cc.i
+protos/api_rest/mom.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.i
+.PHONY : protos/api_rest/mom.pb.cc.i
 
-mom.pb.s: mom.pb.cc.s
-.PHONY : mom.pb.s
+protos/api_rest/mom.pb.s: protos/api_rest/mom.pb.cc.s
+.PHONY : protos/api_rest/mom.pb.s
 
 # target to generate assembly for a file
-mom.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/mom.pb.cc.s
-.PHONY : mom.pb.cc.s
+protos/api_rest/mom.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/protos/api_rest/mom.pb.cc.s
+.PHONY : protos/api_rest/mom.pb.cc.s
+
+protos/mom_to_mom/mom_to_mom.grpc.pb.o: protos/mom_to_mom/mom_to_mom.grpc.pb.cc.o
+.PHONY : protos/mom_to_mom/mom_to_mom.grpc.pb.o
+
+# target to build an object file
+protos/mom_to_mom/mom_to_mom.grpc.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.grpc.pb.cc.o
+.PHONY : protos/mom_to_mom/mom_to_mom.grpc.pb.cc.o
+
+protos/mom_to_mom/mom_to_mom.grpc.pb.i: protos/mom_to_mom/mom_to_mom.grpc.pb.cc.i
+.PHONY : protos/mom_to_mom/mom_to_mom.grpc.pb.i
+
+# target to preprocess a source file
+protos/mom_to_mom/mom_to_mom.grpc.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.grpc.pb.cc.i
+.PHONY : protos/mom_to_mom/mom_to_mom.grpc.pb.cc.i
+
+protos/mom_to_mom/mom_to_mom.grpc.pb.s: protos/mom_to_mom/mom_to_mom.grpc.pb.cc.s
+.PHONY : protos/mom_to_mom/mom_to_mom.grpc.pb.s
+
+# target to generate assembly for a file
+protos/mom_to_mom/mom_to_mom.grpc.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.grpc.pb.cc.s
+.PHONY : protos/mom_to_mom/mom_to_mom.grpc.pb.cc.s
+
+protos/mom_to_mom/mom_to_mom.pb.o: protos/mom_to_mom/mom_to_mom.pb.cc.o
+.PHONY : protos/mom_to_mom/mom_to_mom.pb.o
+
+# target to build an object file
+protos/mom_to_mom/mom_to_mom.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.pb.cc.o
+.PHONY : protos/mom_to_mom/mom_to_mom.pb.cc.o
+
+protos/mom_to_mom/mom_to_mom.pb.i: protos/mom_to_mom/mom_to_mom.pb.cc.i
+.PHONY : protos/mom_to_mom/mom_to_mom.pb.i
+
+# target to preprocess a source file
+protos/mom_to_mom/mom_to_mom.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.pb.cc.i
+.PHONY : protos/mom_to_mom/mom_to_mom.pb.cc.i
+
+protos/mom_to_mom/mom_to_mom.pb.s: protos/mom_to_mom/mom_to_mom.pb.cc.s
+.PHONY : protos/mom_to_mom/mom_to_mom.pb.s
+
+# target to generate assembly for a file
+protos/mom_to_mom/mom_to_mom.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/momtomomproto.dir/build.make CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.pb.cc.s
+.PHONY : protos/mom_to_mom/mom_to_mom.pb.cc.s
+
+src/message/message.o: src/message/message.cc.o
+.PHONY : src/message/message.o
+
+# target to build an object file
+src/message/message.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/message/message.cc.o
+.PHONY : src/message/message.cc.o
+
+src/message/message.i: src/message/message.cc.i
+.PHONY : src/message/message.i
+
+# target to preprocess a source file
+src/message/message.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/message/message.cc.i
+.PHONY : src/message/message.cc.i
+
+src/message/message.s: src/message/message.cc.s
+.PHONY : src/message/message.s
+
+# target to generate assembly for a file
+src/message/message.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/message/message.cc.s
+.PHONY : src/message/message.cc.s
+
+src/mom_impl/mom_impl.o: src/mom_impl/mom_impl.cc.o
+.PHONY : src/mom_impl/mom_impl.o
+
+# target to build an object file
+src/mom_impl/mom_impl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o
+.PHONY : src/mom_impl/mom_impl.cc.o
+
+src/mom_impl/mom_impl.i: src/mom_impl/mom_impl.cc.i
+.PHONY : src/mom_impl/mom_impl.i
+
+# target to preprocess a source file
+src/mom_impl/mom_impl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.i
+.PHONY : src/mom_impl/mom_impl.cc.i
+
+src/mom_impl/mom_impl.s: src/mom_impl/mom_impl.cc.s
+.PHONY : src/mom_impl/mom_impl.s
+
+# target to generate assembly for a file
+src/mom_impl/mom_impl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.s
+.PHONY : src/mom_impl/mom_impl.cc.s
+
+src/mom_to_mom/communication_mom_stub.o: src/mom_to_mom/communication_mom_stub.cc.o
+.PHONY : src/mom_to_mom/communication_mom_stub.o
+
+# target to build an object file
+src/mom_to_mom/communication_mom_stub.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o
+.PHONY : src/mom_to_mom/communication_mom_stub.cc.o
+
+src/mom_to_mom/communication_mom_stub.i: src/mom_to_mom/communication_mom_stub.cc.i
+.PHONY : src/mom_to_mom/communication_mom_stub.i
+
+# target to preprocess a source file
+src/mom_to_mom/communication_mom_stub.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.i
+.PHONY : src/mom_to_mom/communication_mom_stub.cc.i
+
+src/mom_to_mom/communication_mom_stub.s: src/mom_to_mom/communication_mom_stub.cc.s
+.PHONY : src/mom_to_mom/communication_mom_stub.s
+
+# target to generate assembly for a file
+src/mom_to_mom/communication_mom_stub.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.s
+.PHONY : src/mom_to_mom/communication_mom_stub.cc.s
+
+src/mom_to_mom/communication_mom_to_mom.o: src/mom_to_mom/communication_mom_to_mom.cc.o
+.PHONY : src/mom_to_mom/communication_mom_to_mom.o
+
+# target to build an object file
+src/mom_to_mom/communication_mom_to_mom.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o
+.PHONY : src/mom_to_mom/communication_mom_to_mom.cc.o
+
+src/mom_to_mom/communication_mom_to_mom.i: src/mom_to_mom/communication_mom_to_mom.cc.i
+.PHONY : src/mom_to_mom/communication_mom_to_mom.i
+
+# target to preprocess a source file
+src/mom_to_mom/communication_mom_to_mom.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.i
+.PHONY : src/mom_to_mom/communication_mom_to_mom.cc.i
+
+src/mom_to_mom/communication_mom_to_mom.s: src/mom_to_mom/communication_mom_to_mom.cc.s
+.PHONY : src/mom_to_mom/communication_mom_to_mom.s
+
+# target to generate assembly for a file
+src/mom_to_mom/communication_mom_to_mom.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.s
+.PHONY : src/mom_to_mom/communication_mom_to_mom.cc.s
+
+src/node/node_impl.o: src/node/node_impl.cc.o
+.PHONY : src/node/node_impl.o
+
+# target to build an object file
+src/node/node_impl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/node/node_impl.cc.o
+.PHONY : src/node/node_impl.cc.o
+
+src/node/node_impl.i: src/node/node_impl.cc.i
+.PHONY : src/node/node_impl.i
+
+# target to preprocess a source file
+src/node/node_impl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/node/node_impl.cc.i
+.PHONY : src/node/node_impl.cc.i
+
+src/node/node_impl.s: src/node/node_impl.cc.s
+.PHONY : src/node/node_impl.s
+
+# target to generate assembly for a file
+src/node/node_impl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/node/node_impl.cc.s
+.PHONY : src/node/node_impl.cc.s
 
 src/queue/queue_list.o: src/queue/queue_list.cc.o
 .PHONY : src/queue/queue_list.o
@@ -318,14 +499,36 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... momtomomproto"
 	@echo "... protolib"
 	@echo "... server"
-	@echo "... mom.grpc.pb.o"
-	@echo "... mom.grpc.pb.i"
-	@echo "... mom.grpc.pb.s"
-	@echo "... mom.pb.o"
-	@echo "... mom.pb.i"
-	@echo "... mom.pb.s"
+	@echo "... protos/api_rest/mom.grpc.pb.o"
+	@echo "... protos/api_rest/mom.grpc.pb.i"
+	@echo "... protos/api_rest/mom.grpc.pb.s"
+	@echo "... protos/api_rest/mom.pb.o"
+	@echo "... protos/api_rest/mom.pb.i"
+	@echo "... protos/api_rest/mom.pb.s"
+	@echo "... protos/mom_to_mom/mom_to_mom.grpc.pb.o"
+	@echo "... protos/mom_to_mom/mom_to_mom.grpc.pb.i"
+	@echo "... protos/mom_to_mom/mom_to_mom.grpc.pb.s"
+	@echo "... protos/mom_to_mom/mom_to_mom.pb.o"
+	@echo "... protos/mom_to_mom/mom_to_mom.pb.i"
+	@echo "... protos/mom_to_mom/mom_to_mom.pb.s"
+	@echo "... src/message/message.o"
+	@echo "... src/message/message.i"
+	@echo "... src/message/message.s"
+	@echo "... src/mom_impl/mom_impl.o"
+	@echo "... src/mom_impl/mom_impl.i"
+	@echo "... src/mom_impl/mom_impl.s"
+	@echo "... src/mom_to_mom/communication_mom_stub.o"
+	@echo "... src/mom_to_mom/communication_mom_stub.i"
+	@echo "... src/mom_to_mom/communication_mom_stub.s"
+	@echo "... src/mom_to_mom/communication_mom_to_mom.o"
+	@echo "... src/mom_to_mom/communication_mom_to_mom.i"
+	@echo "... src/mom_to_mom/communication_mom_to_mom.s"
+	@echo "... src/node/node_impl.o"
+	@echo "... src/node/node_impl.i"
+	@echo "... src/node/node_impl.s"
 	@echo "... src/queue/queue_list.o"
 	@echo "... src/queue/queue_list.i"
 	@echo "... src/queue/queue_list.s"

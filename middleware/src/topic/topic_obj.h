@@ -11,13 +11,13 @@ class topic_obj{
         string topic_name;
         string topic_owner;
         time_t creation_stamp;
-        vector<queue_obj>  subscribed_topics;
+        vector<queue_obj*> subscribed_queues;
         int message_count;
-        map<string, string> properties;
 
     public:
-    topic_obj(string topic_name,string topic_owner, map<string, string> properties);
+    topic_obj(string topic_name,string topic_owner);
     
+    topic_obj();
     /* ---------------------------------------------------
         -                                                -
         -                    GETTERS                     -
@@ -31,7 +31,8 @@ class topic_obj{
 
     time_t get_creation_stamp();
 
-    map<string,string> get_properties();
+    vector<queue_obj*>& get_suscribers();
+
     
     int get_message_count();
 
@@ -44,12 +45,15 @@ class topic_obj{
     */
     void set_topic_name(string new_name);
 
-    void set_properties(map<string,string> new_properties);
-
-
-
     void subscribe_to_queue(queue_obj& queue);
 
+    void  set_topic_owner(std::string topic_owner);
+
+    void  set_creation_stamp(time_t creation_stamp);
+
+    void increase_message_count();
+
+    void decrease_message_count();
 
     void unsubscribe_from_queue(queue_obj& queue);     
 };

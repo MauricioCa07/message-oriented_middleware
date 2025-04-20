@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmomtomomproto.a CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.pb.cc.o CMakeFiles/momtomomproto.dir/protos/mom_to_mom/mom_to_mom.grpc.pb.cc.o
+/usr/bin/ranlib libmomtomomproto.a

@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package mom_to_mom;
+
+service MOM_cluster_service {
+
+  rpc replicate_topic(topic) returns (status);
+  rpc replicate_queue(queue) returns (status);
+  rpc replicate_delete_queue(queue) returns (status);
+  rpc replicate_delete_topic(topic) returns (status);
+  rpc replicate_topic_subscription(topic_subscription) returns (status);
+  rpc replicate_topic_unsubscription(topic_subscription) returns (status);
+
+
+
+  rpc replicate_queue_message(structure_message) returns (status);
+  rpc replicate_topic_message(structure_message) returns (status);
+
+
+  rpc replicate_receive_queue_message(queue_identifier) returns (structure_message);
+  rpc replicate_receive_topic_message(topic_subscription) returns (structure_message);
+}
+
+
+message message {
+  string content = 1;
+  string sender = 2;
+  int64 timestamp = 3;
+  bool persistent = 4;
+}
+
+
+message queue {
+  string queue_name = 1;
+  string queue_owner = 2;
+  int64 creation_stamp = 3;
+  repeated message messages = 4;
+}
+
+
+message topic {
+  string topic_name = 1;
+  string topic_owner = 2;
+  int64 creation_stamp = 3;
+  repeated queue subscribed_queues = 4;
+  int32 message_count = 5;
+}
+
+
+message status {
+  bool success = 1;
+  string message = 2;
+}
+
+
+message topic_subscription {
+  string topic_name = 1;
+  string topic_owner = 2;
+  string subscriber_queue_name = 3;
+  string subscriber_queue_owner = 4;
+  bool durable = 5;
+}
+
+
+message structure_message {
+  string structure_name = 1;
+  string content = 2;
+  string sender = 3;
+  int64 timestamp = 4;
+  bool persistent = 5;
+}
+
+
+message queue_identifier {
+  string name = 1;
+  string owner = 2;
+}

@@ -480,8 +480,9 @@ CMakeFiles/server.dir/src/server.cc.o: /app/src/server.cc \
  /usr/local/include/grpcpp/passive_listener.h \
  /usr/local/include/grpcpp/security/authorization_policy_provider.h \
  /usr/local/include/grpcpp/server_posix.h \
- /usr/local/include/grpcpp/version_info.h /app/mom.grpc.pb.h \
- /app/mom.pb.h /usr/local/include/google/protobuf/runtime_version.h \
+ /usr/local/include/grpcpp/version_info.h /app/src/mom_impl/mom_impl.h \
+ /app/src/mom_impl/../../protos/api_rest/mom.pb.h \
+ /usr/local/include/google/protobuf/runtime_version.h \
  /usr/local/include/google/protobuf/io/coded_stream.h \
  /usr/local/include/google/protobuf/endian.h \
  /usr/local/include/google/protobuf/port_def.inc \
@@ -573,6 +574,8 @@ CMakeFiles/server.dir/src/server.cc.o: /app/src/server.cc \
  /usr/local/include/google/protobuf/map_field_inl.h \
  /usr/local/include/google/protobuf/map_field.h \
  /usr/local/include/google/protobuf/map_field_lite.h \
+ /app/src/mom_impl/../../protos/api_rest/mom.grpc.pb.h \
+ /app/src/mom_impl/../../protos/api_rest/mom.pb.h \
  /usr/local/include/grpcpp/generic/async_generic_service.h \
  /usr/local/include/grpcpp/generic/callback_generic_service.h \
  /usr/local/include/grpcpp/impl/server_callback_handlers.h \
@@ -597,7 +600,17 @@ CMakeFiles/server.dir/src/server.cc.o: /app/src/server.cc \
  /usr/local/include/grpcpp/impl/generic_serialize.h \
  /usr/local/include/grpcpp/support/proto_buffer_reader.h \
  /usr/local/include/grpcpp/support/proto_buffer_writer.h \
- /usr/local/include/grpcpp/support/stub_options.h /app/mom.pb.h \
- /app/src/topic/topic_list.h /app/src/topic/topic_obj.h \
- /app/src/topic/../queue/queue_obj.h /usr/include/c++/13/queue \
- /usr/include/c++/13/bits/stl_queue.h /app/src/queue/queue_list.h
+ /usr/local/include/grpcpp/support/stub_options.h \
+ /app/src/mom_impl/../../protos/mom_to_mom/mom_to_mom.pb.h \
+ /app/src/mom_impl/../topic/topic_list.h \
+ /app/src/mom_impl/../topic/topic_obj.h \
+ /app/src/mom_impl/../topic/../queue/queue_obj.h \
+ /usr/include/c++/13/queue /usr/include/c++/13/bits/stl_queue.h \
+ /app/src/mom_impl/../topic/../queue/../message/message.h \
+ /app/src/mom_impl/../queue/queue_list.h \
+ /app/src/mom_impl/../node/node_impl.h \
+ /app/src/mom_impl/../node/../mom_to_mom/communication_mom_stub.h \
+ /app/src/mom_impl/../node/../mom_to_mom/../../protos/mom_to_mom/mom_to_mom.grpc.pb.h \
+ /app/src/mom_impl/../node/../mom_to_mom/../../protos/mom_to_mom/mom_to_mom.pb.h \
+ /app/src/mom_impl/../mom_to_mom/communication_mom_to_mom.h \
+ /app/src/mom_impl/../mom_to_mom/../../protos/mom_to_mom/mom_to_mom.grpc.pb.h

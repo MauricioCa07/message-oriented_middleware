@@ -32,7 +32,6 @@ vector<topic_obj> topic_list::get_topic_list(){return this->topic_list;}
 
 
 topic_obj* topic_list::get_specific_topic(string name_topic_to_get, string owner_topic_to_get){
-
     for(topic_obj& topic_in_list:topic_list){ 
         if (topic_in_list.get_topic_name() == name_topic_to_get && topic_in_list.get_topic_owner() == owner_topic_to_get ){
             return &topic_in_list; 

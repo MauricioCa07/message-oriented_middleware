@@ -4,7 +4,7 @@
 #include <queue>
 #include <ctime>
 #include <map>
-
+#include "../message/message.h"
 
 using namespace std;
 
@@ -13,12 +13,12 @@ private:
     string queue_name;
     string queue_owner;
     time_t creation_stamp;
-    std::queue<string> message_queue;
-    std::map<std::string, std::string> properties;
+    std::queue<message> message_queue;
 
 public:
-    queue_obj(string name, string owner,map<string, string> properties);
+    queue_obj(string name, string owner);
 
+    queue_obj();
     /* ---------------------------------------------------
         -                                                -
         -                    GETTERS                     -
@@ -26,15 +26,13 @@ public:
         --------------------------------------------------
     */
 
-    string get_queue_name();
+    string get_queue_name() const;
 
-    string get_queue_owner();
+    string get_queue_owner() const;
 
-    time_t get_creation_stamp();
-
-    map<string,string> get_properties();
+    time_t get_creation_stamp() const;
     
-    int get_message_count();
+    int get_message_count() const;
 
     
     /* ---------------------------------------------------
@@ -45,14 +43,13 @@ public:
     */
     void set_queue_name(string new_name);
 
-    void set_properties(map<string,string> new_properties);
-
+    void set_queue_owner(string new_owner);
     
+    void set_creation_stamp(time_t creation_stamp);
 
+    void add_message(message message);
 
-    void add_message(string message);
-
-    void delete_message();
+    message* dequeue_message();
 
     bool operator== (queue_obj& queue_to_compare);   
 };

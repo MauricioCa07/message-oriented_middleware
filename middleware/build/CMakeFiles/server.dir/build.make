@@ -139,13 +139,88 @@ CMakeFiles/server.dir/src/topic/topic_list.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/topic/topic_list.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/topic/topic_list.cc -o CMakeFiles/server.dir/src/topic/topic_list.cc.s
 
+CMakeFiles/server.dir/src/node/node_impl.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/node/node_impl.cc.o: /app/src/node/node_impl.cc
+CMakeFiles/server.dir/src/node/node_impl.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/server.dir/src/node/node_impl.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/node/node_impl.cc.o -MF CMakeFiles/server.dir/src/node/node_impl.cc.o.d -o CMakeFiles/server.dir/src/node/node_impl.cc.o -c /app/src/node/node_impl.cc
+
+CMakeFiles/server.dir/src/node/node_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/node/node_impl.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/node/node_impl.cc > CMakeFiles/server.dir/src/node/node_impl.cc.i
+
+CMakeFiles/server.dir/src/node/node_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/node/node_impl.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/node/node_impl.cc -o CMakeFiles/server.dir/src/node/node_impl.cc.s
+
+CMakeFiles/server.dir/src/message/message.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/message/message.cc.o: /app/src/message/message.cc
+CMakeFiles/server.dir/src/message/message.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/server.dir/src/message/message.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/message/message.cc.o -MF CMakeFiles/server.dir/src/message/message.cc.o.d -o CMakeFiles/server.dir/src/message/message.cc.o -c /app/src/message/message.cc
+
+CMakeFiles/server.dir/src/message/message.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/message/message.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/message/message.cc > CMakeFiles/server.dir/src/message/message.cc.i
+
+CMakeFiles/server.dir/src/message/message.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/message/message.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/message/message.cc -o CMakeFiles/server.dir/src/message/message.cc.s
+
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o: /app/src/mom_to_mom/communication_mom_to_mom.cc
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o -MF CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o.d -o CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o -c /app/src/mom_to_mom/communication_mom_to_mom.cc
+
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/mom_to_mom/communication_mom_to_mom.cc > CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.i
+
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/mom_to_mom/communication_mom_to_mom.cc -o CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.s
+
+CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o: /app/src/mom_impl/mom_impl.cc
+CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o -MF CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o.d -o CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o -c /app/src/mom_impl/mom_impl.cc
+
+CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/mom_impl/mom_impl.cc > CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.i
+
+CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/mom_impl/mom_impl.cc -o CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.s
+
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o: /app/src/mom_to_mom/communication_mom_stub.cc
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o -MF CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o.d -o CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o -c /app/src/mom_to_mom/communication_mom_stub.cc
+
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /app/src/mom_to_mom/communication_mom_stub.cc > CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.i
+
+CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /app/src/mom_to_mom/communication_mom_stub.cc -o CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.s
+
 # Object files for target server
 server_OBJECTS = \
 "CMakeFiles/server.dir/src/server.cc.o" \
 "CMakeFiles/server.dir/src/queue/queue_obj.cc.o" \
 "CMakeFiles/server.dir/src/queue/queue_list.cc.o" \
 "CMakeFiles/server.dir/src/topic/topic_obj.cc.o" \
-"CMakeFiles/server.dir/src/topic/topic_list.cc.o"
+"CMakeFiles/server.dir/src/topic/topic_list.cc.o" \
+"CMakeFiles/server.dir/src/node/node_impl.cc.o" \
+"CMakeFiles/server.dir/src/message/message.cc.o" \
+"CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o" \
+"CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o" \
+"CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o"
 
 # External object files for target server
 server_EXTERNAL_OBJECTS =
@@ -155,8 +230,14 @@ server: CMakeFiles/server.dir/src/queue/queue_obj.cc.o
 server: CMakeFiles/server.dir/src/queue/queue_list.cc.o
 server: CMakeFiles/server.dir/src/topic/topic_obj.cc.o
 server: CMakeFiles/server.dir/src/topic/topic_list.cc.o
+server: CMakeFiles/server.dir/src/node/node_impl.cc.o
+server: CMakeFiles/server.dir/src/message/message.cc.o
+server: CMakeFiles/server.dir/src/mom_to_mom/communication_mom_to_mom.cc.o
+server: CMakeFiles/server.dir/src/mom_impl/mom_impl.cc.o
+server: CMakeFiles/server.dir/src/mom_to_mom/communication_mom_stub.cc.o
 server: CMakeFiles/server.dir/build.make
 server: libprotolib.a
+server: libmomtomomproto.a
 server: /usr/local/lib/libprotobuf.a
 server: /usr/local/lib/libgrpc++.a
 server: /usr/local/lib/libgrpc.a
@@ -255,7 +336,7 @@ server: /usr/local/lib/libabsl_raw_logging_internal.a
 server: /usr/local/lib/libabsl_log_severity.a
 server: /usr/local/lib/libprotobuf.a
 server: CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/app/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -1,0 +1,228 @@
+syntax = "proto3";
+
+package mom;
+
+service MOM_service {
+  /* ---------------------------------------------------
+      -                                                -
+      -              METHODS FOR SYNC MOMS             -
+      -                                                -
+      --------------------------------------------------
+  */
+  rpc sync_topics(NodeID) returns (sync_response) {}
+  rpc sync_queues(NodeID) returns (sync_response) {}
+
+  /* ---------------------------------------------------
+      -                                                -
+      -              QUEUE'S METHODS                   -
+      -                                                -
+      --------------------------------------------------
+  */
+  rpc create_queue(queue_config) returns (status) {}
+  rpc delete_queue(queue_identifier) returns (status) {}
+  rpc list_queues(NodeID) returns (queues_response) {}
+  rpc get_queue_info(queue_identifier) returns (queue) {}
+
+  /* ---------------------------------------------------
+      -                                                -
+      -              TOPIC'S METHODS                   -
+      -                                                -
+      --------------------------------------------------
+  */
+  rpc create_topic(topic_config) returns (status) {}
+  rpc delete_topic(topic_identifier) returns (status) {}
+  rpc list_topics(NodeID) returns (topics_response) {}
+  rpc get_topic_info(topic_identifier) returns (topic) {}
+  rpc subscribe_topic(topic_subscription) returns (status) {}
+  rpc unsubscribe_topic(topic_subscription) returns (status) {}
+
+  /* ---------------------------------------------------
+      -                                                -
+      -                     MESSAGES                   -
+      -                                                -
+      --------------------------------------------------
+  */
+  rpc send_queue_message(structure_message) returns (message_status) {}
+  rpc receive_queue_message(queue_identifier) returns (structure_message) {}
+  rpc publish_topic_message(structure_message) returns (message_status) {}
+  rpc receive_topic_message(topic_subscription) returns (structure_message) {}
+  rpc acknowledge_message(message_identifier) returns (status) {}
+
+  /* ---------------------------------------------------
+      -                                                -
+      -                     CLUSTER                    -
+      -                                                -
+      --------------------------------------------------
+  */
+  rpc join_cluster(node_info) returns (status) {}
+  rpc leave_cluster(NodeID) returns (status) {}
+  rpc heartbeat(NodeID) returns (status) {}
+  rpc get_node_state(node_status) returns (node_status) {}
+  rpc set_cluster(node_info) returns (status) {}
+}
+
+
+message node_status{
+  bool active = 1;
+}
+
+
+message status {
+  bool success = 1;
+  string message = 2;         
+}
+
+
+
+/* ---------------------------------------------------
+    -                                                -
+    -                     MESSAGES                   -
+    -                                                -
+    --------------------------------------------------
+*/
+
+  message structure_message {
+    string structure_name = 1;
+    string content = 2;
+    string sender = 3;
+    int64 timestamp = 4;
+    bool persistent = 5;          
+  }
+
+
+  message message_identifier {
+    string message_id = 1;
+    string destination_name = 2;  
+    bool is_topic = 3;           
+  }
+
+  message message_status {
+    bool success = 1;
+    string message = 2; 
+  }
+  
+
+/* ---------------------------------------------------
+    -                                                -
+    -              QUEUE'S MESSAGES                  -
+    -                                                -
+    --------------------------------------------------
+*/
+  message queue_identifier {
+    string name = 1;
+    string owner = 2;  
+  }
+
+  message queue_config {
+    string name = 1;
+    string owner = 2;
+  }
+
+  message queue {
+    string name = 1;
+    string owner = 2;
+    int64 creation_timestamp = 3;
+    int32 message_count = 4;             
+    NodeAssignment node_assignment = 5;  
+  }
+
+
+
+  message queues_response {
+    bool success = 1;
+    string message = 2;
+    repeated queue queues = 3;
+  }
+
+
+
+/* ---------------------------------------------------
+    -                                                -
+    -              TOPIC'S MESSAGES                  -
+    -                                                -
+    --------------------------------------------------
+*/
+  message topic_identifier {
+    string name = 1;
+    string owner = 2; 
+  }
+
+  message topic_config {
+    string name = 1;
+    string owner = 2;
+  }
+
+  message topic {
+    string name = 1;
+    string owner = 2;
+    int64 creation_timestamp = 3;
+    repeated queue subscribers = 4;     
+    int32 message_count = 5;             
+  }
+
+
+  message topic_subscription {
+    string topic_name = 1;
+    string topic_owner = 2;
+    string subscriber_queue_name = 3;
+    string subscriber_queue_owner = 4;
+    bool durable = 5;           
+  }
+
+  message topics_response {
+    bool success = 1;
+    string message = 2;
+    repeated topic topics = 3;
+  }
+
+
+
+
+
+/* ---------------------------------------------------
+    -                                                -
+    -              CLUSTER MANAGEMENT                 -
+    -                                                -
+    --------------------------------------------------
+*/
+
+
+  message NodeID {
+    string node_id = 1;
+  }
+
+
+  message node_info {
+    int32 node_id = 1;
+    string ip = 2;
+    int32 port = 3; 
+    bool leader = 4;           
+  }
+
+  message NodeAssignment {
+    string primary_node = 1;              
+    repeated string replica_nodes = 2;    
+    int32 partition_count = 3;            
+  }
+
+  message cluster_state {
+    string leader_id = 1;
+    repeated node_info nodes = 2;
+    map<string, NodeAssignment> topic_assignments = 3;
+    map<string, NodeAssignment> queue_assignments = 4;
+    int64 state_timestamp = 5;        
+  }
+
+  message cluster_info {
+    bool success = 1;
+    string message = 2;
+  }
+
+  message sync_response {
+    bool success = 1;
+    string message = 2;
+    repeated queue queues = 3;
+    repeated topic topics = 4;
+    cluster_state cluster_state = 5;
+    int64 sync_timestamp = 6;
+  }
