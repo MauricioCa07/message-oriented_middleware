@@ -70,3 +70,31 @@ The architecture consists of the following components:
 - Topics: Enable publish-subscribe pattern messaging
 - Clients: Producer and Consumer applications
 
+## REST API Endpoints
+
+### Queue Operations
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/queues` | GET | List all queues |
+| `/queues/<name>?owner=<owner>` | POST | Create a new queue |
+| `/queues/<name>?owner=<owner>` | DELETE | Delete a queue |
+| `/queues/<name>/message?owner=<owner>&content=<content>` | POST | Send a message to a queue |
+| `/queues/<name>/message?owner=<owner>` | GET | Receive a message from a queue |
+
+### Topic Operations
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/topics` | GET | List all topics |
+| `/topics/<name>?owner=<owner>` | POST | Create a new topic |
+| `/topics/<name>?owner=<owner>` | DELETE | Delete a topic |
+| `/topics/<name>/message?owner=<owner>&content=<content>` | POST | Publish a message to a topic |
+| `/topics/<name>/message?owner=<owner>` | GET | Receive a message from a topic |
+
+### Subscription Operations
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/subscribe_queue?topic_name=<topic_name>&topic_owner=<topic_owner>&queue_name=<queue_name>&queue_owner=<queue_owner>` | POST | Subscribe a queue to a topic |
+| `/subscribe_queue?topic_name=<topic_name>&topic_owner=<topic_owner>&queue_name=<queue_name>&queue_owner=<queue_owner>` | DELETE | Unsubscribe a queue from a topic |
