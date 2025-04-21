@@ -43,6 +43,11 @@ After this your endpoints should be running
 
 - **gRPC DOCS** - https://grpc.io/docs/languages/cpp/basics/
 
+### Members
+- Edwar Mauricio Carrillo Carvajal
+- Valeria Corrales Hoyos
+- Valentina Giraldo Noreña
+
 ## Project Description
 This project involves the design and implementation of a Message-Oriented Middleware (MOM) that enables asynchronous communication between multiple client applications through queues and topics. The system is designed with a cluster approach, allowing for multiple MOM nodes that ensure high availability and fault tolerance.
 The middleware abstracts the complexity of communication between applications, allowing clients to focus on their business logic rather than worrying about the details of communication in distributed systems.
