@@ -58,3 +58,15 @@ The middleware abstracts the complexity of communication between applications, a
 - REST API: Client-facing API for easy integration.
 - gRPC Communication: Efficient node-to-node communication using gRPC.
 - Topic Subscription: Clients can subscribe queues to topics to receive messages.
+
+### System Architecture
+![image](https://github.com/user-attachments/assets/078d952c-f828-4355-aab3-cb13251c88ef)
+
+The architecture consists of the following components:
+
+- REST API Gateway: Provides HTTP endpoints for client applications
+- MOM Nodes: Leader and Follower nodes forming the cluster
+- Queues: Store messages for point-to-point communication
+- Topics: Enable publish-subscribe pattern messaging
+- Clients: Producer and Consumer applications
+
