@@ -59,6 +59,15 @@ The middleware abstracts the complexity of communication between applications, a
 - gRPC Communication: Efficient node-to-node communication using gRPC.
 - Topic Subscription: Clients can subscribe queues to topics to receive messages.
 
+### Technologies Used
+
+- C++: Core implementation language
+- gRPC: For efficient node-to-node communication
+- Protocol Buffers: For data serialization
+- Crow: Lightweight C++ web framework for REST API
+- CMake: Build system
+- AWS: Deployment environment
+
 ### System Architecture
 ![image](https://github.com/user-attachments/assets/078d952c-f828-4355-aab3-cb13251c88ef)
 
