@@ -79,6 +79,15 @@ The architecture consists of the following components:
 - Topics: Enable publish-subscribe pattern messaging
 - Clients: Producer and Consumer applications
 
+### Cluster Management
+![image](https://github.com/user-attachments/assets/be9c7f4e-6570-4696-bcd6-979dd3b3d8bc)
+
+This diagram illustrates:
+
+- Cluster initialization phase
+- Normal operations phase
+- Fault tolerance mechanisms
+
 ## REST API Endpoints
 
 ### Queue Operations
